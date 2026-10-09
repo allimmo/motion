@@ -1,10 +1,46 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1920, height=1080" />
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>SearchPlace.ai — Instagram Reel</title>
+    <script src="assets/vendor/gsap.min.js"></script>
     <style>
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        font-weight: 500;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        font-weight: 600;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+        font-weight: 700;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2");
+        font-weight: 800;
+      }
+      @font-face {
+        font-family: "Josefin Sans";
+        src: url("assets/fonts/josefin-sans-latin-700-normal.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      :root {
+        --ink: #04131b;
+        --deep: #0a2533;
+        --teal: #1b3e50;
+        --cyan: #12b4cd;
+        --cyan-hi: #6fe3f3;
+        --white: #f4fbfd;
+        --muted: #8fb3c2;
+      }
       * {
         margin: 0;
         padding: 0;
@@ -12,25 +48,568 @@
       }
       html,
       body {
-        margin: 0;
-        width: 1920px;
-        height: 1080px;
+        width: 1080px;
+        height: 1920px;
         overflow: hidden;
-        background: #0a0a0a;
+        background: var(--ink);
       }
       #root {
+        position: relative;
         width: 100%;
         height: 100%;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+        color: var(--white);
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+
+      /* ---------- Background world ---------- */
+      #bg {
+        background: radial-gradient(120% 80% at 50% 45%, #0b2a3a 0%, #061a24 45%, var(--ink) 100%);
+        overflow: hidden;
+      }
+      .grid {
+        position: absolute;
+        left: 0;
+        top: -200px;
+        width: 1080px;
+        height: 2400px;
+        background-image: radial-gradient(rgba(111, 227, 243, 0.16) 1.6px, transparent 1.8px);
+        background-size: 44px 44px;
+        -webkit-mask-image: radial-gradient(70% 45% at 50% 50%, #000 0%, transparent 100%);
+        mask-image: radial-gradient(70% 45% at 50% 50%, #000 0%, transparent 100%);
+      }
+      .glow {
+        position: absolute;
+        left: 90px;
+        top: 560px;
+        width: 900px;
+        height: 900px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(18, 180, 205, 0.42) 0%, rgba(18, 180, 205, 0) 65%);
+      }
+      .vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(90% 60% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+      }
+
+      /* ---------- Scene 1: filter chaos ---------- */
+      .chip-pos {
+        position: absolute;
+        width: 0;
+        height: 0;
+      }
+      .chip {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        white-space: nowrap;
+        padding: 22px 34px;
+        margin: -40px 0 0 -160px;
+        width: 320px;
+        justify-content: center;
+        font-size: 33px;
+        font-weight: 600;
+        color: #d6ecf3;
+        background: rgba(20, 60, 78, 0.72);
+        border: 2px solid rgba(111, 227, 243, 0.28);
+        border-radius: 999px;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      }
+      .chip .box {
+        display: block;
+        width: 28px;
+        height: 28px;
+        border: 3px solid var(--muted);
+        border-radius: 7px;
+        flex: none;
+      }
+      .chip .chev {
+        display: block;
+        width: 14px;
+        height: 14px;
+        border-right: 4px solid var(--muted);
+        border-bottom: 4px solid var(--muted);
+        transform: rotate(45deg);
+        margin-top: -8px;
+        flex: none;
+      }
+      #h1 {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 800px;
+        text-align: center;
+        font-weight: 800;
+        font-size: 132px;
+        line-height: 1.04;
+        letter-spacing: -0.045em;
+      }
+      #h1 .line {
+        display: block;
+      }
+      #h1 .slot {
+        position: relative;
+        display: block;
+        height: 138px;
+        color: var(--cyan-hi);
+      }
+      #h1 .tok {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        display: block;
+        opacity: 0;
+      }
+
+      /* ---------- Search bar / logo shell ---------- */
+      .bar-cam {
+        position: absolute;
+        left: 70px;
+        top: 882px;
+        width: 940px;
+        height: 236px;
+      }
+      .bar-intro {
+        position: absolute;
+        inset: 0;
+      }
+      .bar-bloom {
+        position: absolute;
+        left: -80px;
+        right: -80px;
+        top: -120px;
+        bottom: -120px;
+        border-radius: 50%;
+        background: radial-gradient(closest-side, rgba(18, 180, 205, 0.55), rgba(18, 180, 205, 0));
+      }
+      .bar-fit {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1650px;
+        height: 415px;
+        transform: scale(0.569697);
+        transform-origin: 0 0;
+      }
+      .shell {
+        position: absolute;
+        inset: 0;
+        border-radius: 208px;
+        overflow: hidden;
+        background: linear-gradient(180deg, #2c566b 0%, #1d4255 38%, #143444 72%, #0f2a38 100%);
+        box-shadow:
+          inset 0 3px 0 rgba(255, 255, 255, 0.22),
+          inset 0 -14px 40px rgba(0, 0, 0, 0.4),
+          0 50px 90px rgba(0, 0, 0, 0.55);
+      }
+      .gloss {
+        position: absolute;
+        left: 315px;
+        width: 1040px;
+        top: 12px;
+        height: 5px;
+        border-radius: 5px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85) 20%, rgba(255, 255, 255, 0.85) 80%, transparent);
+      }
+      .ring {
+        position: absolute;
+        inset: 38px;
+        border: 16px solid var(--cyan);
+        border-radius: 999px;
+        box-shadow:
+          0 0 30px rgba(18, 180, 205, 0.35),
+          inset 0 0 24px rgba(0, 0, 0, 0.35);
+      }
+      .band {
+        position: absolute;
+        left: 695px;
+        top: 132px;
+        width: 550px;
+        height: 133px;
+        background: linear-gradient(180deg, #ffffff 0%, #edf5f7 70%, #d9e7eb 100%);
+        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        padding-left: 20px;
+        transform-origin: 0 50%;
       }
-      #title {
-        color: #f4f4f5;
-        font-size: 72px;
+      .pill {
+        position: absolute;
+        top: 85px;
+        height: 225px;
+        border-radius: 112.5px;
+        background: linear-gradient(180deg, #2cc7de 0%, var(--cyan) 55%, #0c9db4 100%);
+        box-shadow:
+          inset 0 5px 8px rgba(255, 255, 255, 0.28),
+          inset 0 -8px 14px rgba(0, 0, 0, 0.22),
+          0 20px 36px rgba(0, 0, 0, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .pill-search {
+        left: 90px;
+        width: 625px;
+      }
+      .btn {
+        right: 120px;
+        width: 225px;
+        overflow: hidden;
+      }
+      .ripple {
+        position: absolute;
+        right: 120px;
+        top: 85px;
+        width: 225px;
+        height: 225px;
+        border-radius: 50%;
+        border: 10px solid var(--cyan-hi);
+      }
+      .lg {
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 700;
+        display: flex;
+        line-height: 1;
+        text-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+      }
+      .lg span {
+        display: block;
+      }
+      .lg-search {
+        font-size: 112px;
+        letter-spacing: 0.06em;
+        color: #fff;
+        padding-top: 18px;
+        margin-right: -0.06em;
+      }
+      .lg-place {
+        font-size: 114px;
+        letter-spacing: 0.03em;
+        color: var(--cyan);
+        padding-top: 20px;
+        text-shadow: 0 3px 4px rgba(0, 0, 0, 0.18);
+      }
+      .lg-ai {
+        position: absolute;
+        inset: 0;
+        align-items: center;
+        justify-content: center;
+        gap: 34px;
+        font-size: 168px;
+        color: #fff;
+        padding-top: 12px;
+      }
+      .btn-icon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 110px;
+        height: 110px;
+        margin: -55px 0 0 -55px;
+      }
+      .query {
+        position: absolute;
+        left: 128px;
+        right: 395px;
+        top: 118px;
+        font-size: 74px;
+        font-weight: 500;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        color: var(--white);
+      }
+      .placeholder {
+        position: absolute;
+        left: 0;
+        top: 0;
+        white-space: nowrap;
+        color: rgba(190, 225, 236, 0.42);
+      }
+      .ch {
+        display: none;
+      }
+      .w {
+        white-space: nowrap;
+      }
+      .kw {
+        position: relative;
+        isolation: isolate;
+      }
+      .kw .hl {
+        position: absolute;
+        left: -12px;
+        right: -12px;
+        top: 4px;
+        bottom: 0;
+        z-index: -1;
+        border-radius: 18px;
+        background: rgba(18, 180, 205, 0.32);
+        transform-origin: 0 50%;
+      }
+      .caret {
+        display: inline-block;
+        width: 7px;
+        height: 82px;
+        margin-left: 6px;
+        vertical-align: -14px;
+        border-radius: 4px;
+        background: var(--cyan-hi);
+      }
+      .sweep {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 300px;
+        background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.28) 50%, transparent 100%);
+      }
+
+      /* ---------- Scene 2/3 text ---------- */
+      .headline {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        text-align: center;
+        font-weight: 800;
+        font-size: 88px;
+        line-height: 1.08;
+        letter-spacing: -0.04em;
+      }
+      .headline .ln {
+        display: block;
+      }
+      .headline .wd {
+        display: inline-block;
+      }
+      .headline .wd + .wd {
+        margin-left: 0.24em;
+      }
+      .accent {
+        color: var(--cyan-hi);
+      }
+      #h2a,
+      #h2b {
+        top: 610px;
+      }
+      #tags {
+        position: absolute;
+        left: 80px;
+        right: 80px;
+        top: 1180px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 22px 20px;
+      }
+      .tag {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 18px 30px;
+        font-size: 34px;
         font-weight: 600;
+        border-radius: 999px;
+        background: rgba(18, 180, 205, 0.14);
+        border: 2px solid rgba(111, 227, 243, 0.55);
+      }
+      .tag .dot {
+        display: block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--cyan-hi);
+        box-shadow: 0 0 12px var(--cyan-hi);
+      }
+
+      /* ---------- Scene 4: results ---------- */
+      #h4 {
+        top: 470px;
+        font-size: 66px;
+      }
+      .cards {
+        position: absolute;
+        left: 100px;
+        width: 880px;
+        top: 590px;
+      }
+      .card {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 34px;
+        height: 236px;
+        padding: 18px;
+        margin-bottom: 26px;
+        border-radius: 38px;
+        background: linear-gradient(180deg, rgba(36, 82, 102, 0.72), rgba(16, 46, 60, 0.78));
+        border: 2px solid rgba(111, 227, 243, 0.22);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+      }
+      .img {
+        position: relative;
+        flex: none;
+        width: 200px;
+        height: 200px;
+        border-radius: 26px;
+        overflow: hidden;
+      }
+      .sun {
+        position: absolute;
+        right: 26px;
+        top: 22px;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: #ffe9a8;
+        box-shadow: 0 0 30px rgba(255, 233, 168, 0.8);
+      }
+      .facade {
+        position: absolute;
+        left: 34px;
+        bottom: 0;
+        width: 132px;
+        height: 150px;
+        background: #eaf4f7;
+        border-radius: 6px 6px 0 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px 12px;
+        padding: 20px 16px 0;
+        align-content: start;
+      }
+      .facade::before {
+        content: "";
+        position: absolute;
+        left: -6px;
+        right: -6px;
+        top: -8px;
+        height: 10px;
+        border-radius: 3px;
+        background: #cfe2e8;
+      }
+      .win {
+        display: block;
+        height: 26px;
+        border-radius: 4px 4px 2px 2px;
+        background: #164a5e;
+      }
+      .win.lit {
+        background: #7fe6f6;
+      }
+      .meta {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 0;
+      }
+      .meta > * {
+        display: block;
+      }
+      .price {
+        font-size: 56px;
+        font-weight: 800;
         letter-spacing: -0.03em;
+      }
+      .price small {
+        font-size: 28px;
+        font-weight: 500;
+        color: var(--muted);
+        letter-spacing: 0;
+        margin-left: 6px;
+      }
+      .specs {
+        font-size: 31px;
+        font-weight: 500;
+        color: #d3e7ee;
+      }
+      .loc {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 29px;
+        font-weight: 600;
+        color: var(--cyan-hi);
+      }
+      .loc svg {
+        flex: none;
+      }
+      .badge {
+        position: absolute;
+        right: 26px;
+        top: 24px;
+        padding: 8px 18px;
+        border-radius: 999px;
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--ink);
+        background: var(--cyan-hi);
+      }
+      #sub4 {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 1400px;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      /* ---------- Scene 5: close ---------- */
+      #kicker {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 664px;
+        text-align: center;
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 700;
+        font-size: 36px;
+        letter-spacing: 0.32em;
+        color: var(--cyan-hi);
+        padding-left: 0.32em;
+      }
+      #h5 {
+        top: 1068px;
+        font-size: 84px;
+      }
+      .url-wrap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 1318px;
+        display: flex;
+        justify-content: center;
+      }
+      .url {
+        display: block;
+        padding: 20px 46px 22px;
+        border-radius: 999px;
+        border: 3px solid var(--cyan);
+        background: rgba(18, 180, 205, 0.12);
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      #cta {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 1438px;
+        text-align: center;
+        font-size: 32px;
+        font-weight: 500;
+        color: var(--muted);
       }
     </style>
   </head>
@@ -39,17 +618,336 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="10"
-      data-width="1920"
-      data-height="1080"
+      data-duration="20"
+      data-width="1080"
+      data-height="1920"
     >
-      <h1 id="title" class="clip" data-start="0" data-duration="10" data-track-index="0">Title</h1>
+      <!-- Background world: one continuous ground for the whole film -->
+      <div id="bg" class="layer clip" data-start="0" data-duration="20" data-track-index="0">
+        <div id="grid" class="grid" data-layout-allow-overflow></div>
+        <div id="glow" class="glow"></div>
+        <div class="vignette"></div>
+      </div>
+
+      <!-- 01 Hook: filter chaos -->
+      <div id="s1" class="layer clip" data-start="0" data-duration="3.4" data-track-index="1">
+        <div id="chips"></div>
+        <div id="h1">
+          <span id="h1line" class="line">Zu viele</span>
+          <span class="slot">
+            <span class="tok" id="tok0">Portale.</span>
+            <span class="tok" id="tok1">Tabs.</span>
+            <span class="tok" id="tok2">Filter.</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- 02/03 Text around the bar -->
+      <div id="s2" class="layer clip" data-start="3.2" data-duration="7.2" data-track-index="2">
+        <div id="h2a" class="headline">
+          <span class="ln"><span class="wd">Sag</span><span class="wd accent">einfach,</span></span>
+          <span class="ln"><span class="wd">was</span><span class="wd">du</span><span class="wd">suchst.</span></span>
+        </div>
+        <div id="h2b" class="headline">
+          <span class="ln"><span class="wd">SearchPlace</span></span>
+          <span class="ln"><span class="wd accent">versteht</span><span class="wd">dich.</span></span>
+        </div>
+        <div id="tags">
+          <div class="tag"><span class="dot"></span>Hell</div>
+          <div class="tag"><span class="dot"></span>3 Zimmer</div>
+          <div class="tag"><span class="dot"></span>Nähe Schönbrunn</div>
+          <div class="tag"><span class="dot"></span>bis 1.200 €</div>
+        </div>
+      </div>
+
+      <!-- 04 Results -->
+      <div id="s4" class="layer clip" data-start="9.8" data-duration="4.8" data-track-index="4">
+        <div id="h4" class="headline">
+          <span class="ln"><span class="wd">Alle</span><span class="wd">Portale.</span><span class="wd accent">Eine</span><span class="wd accent">Suche.</span></span>
+        </div>
+        <div id="cards" class="cards" data-layout-allow-overflow></div>
+        <div id="sub4">Ergebnisse in <span class="accent">Sekunden.</span></div>
+      </div>
+
+      <!-- 05 Close -->
+      <div id="s5" class="layer clip" data-start="15.8" data-duration="4.2" data-track-index="5">
+        <div id="kicker">KI-IMMOBILIENSUCHE</div>
+        <div id="h5" class="headline">
+          <span class="ln"><span class="wd">Finde</span><span class="wd">dein</span><span class="wd">Zuhause.</span></span>
+          <span class="ln"><span class="wd accent">Einfach</span><span class="wd accent">gesagt.</span></span>
+        </div>
+        <div class="url-wrap"><span id="url" class="url">searchplace.ai</span></div>
+        <div id="cta">Jetzt kostenlos suchen →</div>
+      </div>
+
+      <!-- The search bar — it is the logo shell, and stays until the end -->
+      <div id="barLayer" class="layer clip" data-start="2.9" data-duration="17.1" data-track-index="3">
+        <div id="barCam" class="bar-cam">
+          <div id="barBloom" class="bar-bloom"></div>
+          <div id="barIntro" class="bar-intro">
+            <div class="bar-fit">
+              <div class="shell">
+                <div id="gloss" class="gloss"></div>
+                <div class="ring"></div>
+                <div id="lgBand" class="band">
+                  <div class="lg lg-place" id="lgPlace"><span>P</span><span>L</span><span>A</span><span>C</span><span>E</span></div>
+                </div>
+                <div id="lgSearch" class="pill pill-search">
+                  <div class="lg lg-search" id="lgSearchTxt"><span>S</span><span>E</span><span>A</span><span>R</span><span>C</span><span>H</span></div>
+                </div>
+                <div id="query" class="query">
+                  <span id="placeholder" class="placeholder">Beschreibe dein Zuhause …</span>
+                  <span id="queryText"></span>
+                </div>
+                <div id="ripple" class="ripple"></div>
+                <div id="btn" class="pill btn">
+                  <svg id="btnIcon" class="btn-icon" viewBox="0 0 110 110" fill="none">
+                    <circle cx="46" cy="46" r="30" stroke="#fff" stroke-width="12" />
+                    <path d="M68 68 L94 94" stroke="#fff" stroke-width="13" stroke-linecap="round" />
+                  </svg>
+                  <div class="lg lg-ai" id="lgAI"><span>A</span><span>I</span></div>
+                </div>
+                <div id="sweep" class="sweep" data-layout-allow-overflow></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
     <script>
+      // ---------- Static DOM built from data (deterministic) ----------
+      const CHIPS = [
+        // label, kind (box|chev), x, y, rotation, far?
+        ["Zimmer", "chev", 250, 430, -6, 0],
+        ["Preis von – bis", "chev", 770, 370, 5, 1],
+        ["Bezirk", "chev", 850, 650, -4, 0],
+        ["m² ab", "chev", 200, 690, 7, 1],
+        ["Balkon", "box", 290, 1290, 4, 0],
+        ["Altbau", "box", 820, 1320, -7, 0],
+        ["Sortieren", "chev", 560, 1520, 3, 1],
+        ["Lift", "box", 170, 1050, -3, 1],
+        ["Provisionsfrei", "box", 600, 250, -5, 1],
+        ["Fläche", "chev", 930, 1020, 6, 1],
+        ["Haustiere", "box", 230, 1560, -6, 1],
+        ["Baujahr", "chev", 880, 1580, 4, 0],
+        ["Neubau", "box", 470, 560, 2, 0],
+        ["Etage", "chev", 600, 1180, -3, 1],
+      ];
+      const chipsEl = document.getElementById("chips");
+      CHIPS.forEach(([label, kind, x, y], i) => {
+        const pos = document.createElement("div");
+        pos.className = "chip-pos";
+        pos.style.left = x + "px";
+        pos.style.top = y + "px";
+        const chip = document.createElement("div");
+        chip.className = "chip";
+        chip.id = "chip" + i;
+        const mark = document.createElement("span");
+        mark.className = kind;
+        const txt = document.createElement("span");
+        txt.textContent = label;
+        if (kind === "box") chip.append(mark, txt);
+        else chip.append(txt, mark);
+        pos.appendChild(chip);
+        chipsEl.appendChild(pos);
+      });
+
+      // Query text: every character (spaces included) is its own span so typing reflows naturally.
+      const SEGMENTS = [
+        ["Helle", 1],
+        [" ", 0],
+        ["3-Zimmer-Wohnung", 2],
+        [" ", 0],
+        ["nahe", 0],
+        [" ", 0],
+        ["Schönbrunn", 3],
+        [",", 0],
+        [" ", 0],
+        ["unter 1.200 €", 4],
+      ];
+      const qt = document.getElementById("queryText");
+      const chars = [];
+      const keywords = [];
+      SEGMENTS.forEach(([text, k]) => {
+        const w = document.createElement("span");
+        w.className = text === " " ? "" : "w" + (k ? " kw" : "");
+        if (k) {
+          const hl = document.createElement("span");
+          hl.className = "hl";
+          w.appendChild(hl);
+          keywords.push(w);
+        }
+        for (const c of text) {
+          const s = document.createElement("span");
+          s.className = "ch";
+          s.textContent = c;
+          w.appendChild(s);
+          chars.push(s);
+        }
+        qt.appendChild(w);
+      });
+      const caret = document.createElement("span");
+      caret.className = "caret";
+      caret.id = "caret";
+      qt.appendChild(caret);
+
+      // Result cards — stylised illustrations, not real listings.
+      const CARDS = [
+        ["1.150 €", "3 Zimmer · 78 m² · Altbau", "1130 Wien · Hietzing", "linear-gradient(180deg,#0f4b62 0%,#1fb3cc 100%)", [0, 4, 7], true],
+        ["1.090 €", "3 Zimmer · 71 m² · Balkon", "1120 Wien · Meidling", "linear-gradient(180deg,#123a4e 0%,#2a7f99 100%)", [2, 3, 10], false],
+        ["1.190 €", "3 Zimmer · 84 m² · Südseitig", "1140 Wien · Penzing", "linear-gradient(180deg,#0d3346 0%,#1993ab 100%)", [1, 5, 9], false],
+      ];
+      const pin =
+        '<svg width="26" height="32" viewBox="0 0 26 32"><path d="M13 1C6.4 1 1 6.2 1 12.7 1 21.4 13 31 13 31s12-9.6 12-18.3C25 6.2 19.6 1 13 1z" fill="#6fe3f3"/><circle cx="13" cy="12.5" r="4.6" fill="#04131b"/></svg>';
+      const cardsEl = document.getElementById("cards");
+      CARDS.forEach(([price, specs, loc, sky, lit, isNew], i) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.id = "card" + i;
+        let wins = "";
+        for (let n = 0; n < 12; n++) wins += '<span class="win' + (lit.includes(n) ? " lit" : "") + '"></span>';
+        card.innerHTML =
+          '<div class="img" style="background:' + sky + '">' +
+          (i === 0 ? '<div class="sun"></div>' : "") +
+          '<div class="facade">' + wins + "</div></div>" +
+          '<div class="meta">' +
+          '<span class="price">' + price + "<small>/ Monat</small></span>" +
+          '<span class="specs">' + specs + "</span>" +
+          '<span class="loc">' + pin + loc + "</span></div>" +
+          (isNew ? '<span class="badge">NEU</span>' : "");
+        cardsEl.appendChild(card);
+      });
+
+      // ---------- Timeline ----------
       const tl = gsap.timeline({ paused: true });
-      // Example: tl.fromTo("#title", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6 }, 0);
+      const P3 = "power3.out";
+
+      // Background: one slow continuous drift + a glow that travels with the story
+      tl.fromTo("#grid", { y: 0 }, { y: -220, duration: 20, ease: "none" }, 0);
+      tl.fromTo("#glow", { x: -180, y: -380, scale: 0.8, opacity: 0.55 }, { x: 0, y: -40, scale: 1, opacity: 0.8, duration: 3.2, ease: "power2.inOut" }, 0);
+      tl.to("#glow", { y: -560, scale: 0.9, duration: 1, ease: "power3.inOut" }, 9.9);
+      tl.to("#glow", { y: -120, scale: 1.15, opacity: 1, duration: 1, ease: "power3.inOut" }, 13.8);
+
+      // 01 — Hook
+      tl.fromTo("#h1line", { y: 70, opacity: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: P3 }, 0.12);
+      [0.36, 1.0, 1.62].forEach((t, i) => {
+        if (i > 0) tl.set("#tok" + (i - 1), { opacity: 0 }, t);
+        tl.set("#tok" + i, { opacity: 1 }, t);
+        tl.fromTo("#tok" + i, { scale: 1.12, y: 18 }, { scale: 1, y: 0, duration: 0.45, ease: "expo.out" }, t);
+      });
+      const chipTimes = [0.3, 0.52, 0.74, 0.94, 1.12, 1.28, 1.42, 1.55, 1.66, 1.76, 1.85, 1.93, 2.0, 2.07];
+      CHIPS.forEach(([, , x, y, rot, far], i) => {
+        const el = "#chip" + i;
+        tl.fromTo(
+          el,
+          { opacity: 0, scale: 0.6, y: 50, rotation: 0, filter: far ? "blur(4px)" : "blur(0px)" },
+          { opacity: far ? 0.5 : 1, scale: far ? 0.82 : 1, y: 0, rotation: rot, duration: 0.55, ease: P3 },
+          chipTimes[i]
+        );
+        tl.to(el, { x: 540 - x, y: 1000 - y, scale: 0.08, rotation: 0, opacity: 0, duration: 0.42, ease: "power3.in" }, 2.6 + i * 0.012);
+      });
+      tl.to("#h1", { y: -110, opacity: 0, filter: "blur(14px)", duration: 0.38, ease: "power3.in" }, 2.66);
+
+      // 02 — The bar is born from the suck point
+      tl.fromTo("#barIntro", { scaleX: 0.04, scaleY: 0.7, opacity: 0 }, { scaleX: 1, scaleY: 1, opacity: 1, duration: 0.85, ease: "expo.out" }, 3.0);
+      tl.fromTo("#barBloom", { opacity: 0, scale: 0.4 }, { opacity: 0.9, scale: 1.05, duration: 0.5, ease: P3 }, 3.0);
+      tl.to("#barBloom", { opacity: 0.35, scale: 1, duration: 1.2, ease: "power2.out" }, 3.5);
+      tl.fromTo("#placeholder", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.5, ease: P3 }, 3.55);
+      tl.fromTo("#h2a .wd", { y: 60, opacity: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: P3, stagger: 0.09 }, 3.45);
+      tl.set("#h2b .wd", { opacity: 0 }, 0);
+      tl.set("#tags .tag", { opacity: 0 }, 0);
+
+      // Caret: blink while idle, solid while typing
+      tl.set("#caret", { opacity: 0 }, 0);
+      for (let t = 3.8; t < 5.0; t += 0.5) {
+        tl.set("#caret", { opacity: 1 }, t);
+        tl.set("#caret", { opacity: 0 }, t + 0.25);
+      }
+      // 03 — Type-on, deterministic human rhythm
+      const TYPE_START = 5.0;
+      const TYPE_END = 7.95;
+      const raw = [];
+      let acc = 0;
+      chars.forEach((c, i) => {
+        raw.push(acc);
+        const ch = c.textContent;
+        acc += 0.05 + 0.03 * (((i * 7) % 5) / 4) + (ch === " " || ch === " " ? 0.05 : 0) + (ch === "," ? 0.12 : 0);
+      });
+      const k = (TYPE_END - TYPE_START) / raw[raw.length - 1];
+      tl.set("#placeholder", { opacity: 0 }, TYPE_START);
+      tl.set("#caret", { opacity: 1 }, TYPE_START);
+      chars.forEach((c, i) => tl.set(c, { display: "inline" }, TYPE_START + raw[i] * k));
+      tl.set("#caret", { opacity: 0 }, 8.15);
+
+      // Press + ripple + scan sweep
+      tl.to("#btn", { scale: 0.88, duration: 0.1, ease: "power2.in" }, 8.12);
+      tl.to("#btn", { scale: 1, duration: 0.5, ease: "power3.out" }, 8.22);
+      tl.fromTo("#ripple", { scale: 1, opacity: 0 }, { scale: 1, opacity: 0.9, duration: 0.01 }, 8.2);
+      tl.to("#ripple", { scale: 1.7, opacity: 0, duration: 0.7, ease: P3 }, 8.21);
+      tl.fromTo("#sweep", { x: -420 }, { x: 1800, duration: 0.8, ease: "power2.inOut" }, 8.25);
+
+      // Headline swap (waterfall cut) + keyword highlights + parsed tags
+      tl.to("#h2a .wd", { y: -50, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power3.in", stagger: 0.035 }, 8.5);
+      tl.fromTo("#h2b .wd", { y: 60, opacity: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: P3, stagger: 0.08 }, 8.72);
+      keywords.forEach((kw, i) => {
+        const t = 8.7 + i * 0.26;
+        tl.fromTo(kw.querySelector(".hl"), { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "expo.out" }, t);
+        tl.to(kw, { color: "#bff4fb", duration: 0.3, ease: "power2.out" }, t);
+        tl.fromTo(
+          "#tags .tag:nth-child(" + (i + 1) + ")",
+          { opacity: 0, y: 40, scale: 0.9 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: P3 },
+          t + 0.08
+        );
+      });
+
+      // 04 — Results: camera lifts the bar, cards rise
+      tl.to("#h2b .wd", { y: -50, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power3.in", stagger: 0.03 }, 9.85);
+      tl.to("#tags .tag", { y: -30, opacity: 0, duration: 0.3, ease: "power3.in", stagger: 0.03 }, 9.85);
+      tl.to("#barCam", { y: -670, scale: 0.82, duration: 0.85, ease: "power3.inOut" }, 9.95);
+      tl.to("#barBloom", { opacity: 0.2, duration: 0.6 }, 9.95);
+      tl.fromTo("#h4 .wd", { y: 60, opacity: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: P3, stagger: 0.08 }, 10.4);
+      [0, 1, 2].forEach((i) => {
+        const t = 10.7 + i * 0.2;
+        tl.fromTo("#card" + i, { y: 180, opacity: 0, filter: "blur(12px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.75, ease: P3 }, t);
+        tl.fromTo("#card" + i + " .meta > *", { x: 30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: P3, stagger: 0.07 }, t + 0.2);
+      });
+      tl.fromTo("#card0 .badge", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.45, ease: P3 }, 11.5);
+      tl.fromTo("#sub4", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: P3 }, 12.25);
+
+      // Exit 04: cards drop out at speed, bar returns to centre stage
+      [2, 1, 0].forEach((i, n) => {
+        tl.to("#card" + i, { y: 1250, duration: 0.55, ease: "power3.in" }, 13.55 + n * 0.06);
+      });
+      tl.to(["#h4", "#sub4"], { y: -40, opacity: 0, duration: 0.35, ease: "power3.in" }, 13.55);
+      tl.to("#barCam", { y: -120, scale: 1, duration: 0.85, ease: "power3.inOut" }, 13.8);
+      tl.to("#barBloom", { opacity: 0.55, duration: 0.8 }, 13.9);
+
+      // 05 — The bar becomes the logo
+      tl.to("#queryText", { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.4, ease: "power3.in" }, 14.2);
+      tl.to("#btnIcon", { scale: 0.5, opacity: 0, duration: 0.3, ease: "power3.in" }, 14.45);
+      tl.to("#btn", { width: 310, duration: 0.65, ease: "power3.inOut" }, 14.7);
+      tl.fromTo("#lgSearch", { x: -760, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: "expo.out" }, 14.85);
+      tl.fromTo("#lgBand", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "expo.out" }, 15.15);
+      tl.fromTo("#lgSearchTxt span", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: P3, stagger: 0.045 }, 15.1);
+      tl.fromTo("#lgAI span", { y: 90, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: P3, stagger: 0.08 }, 15.25);
+      tl.fromTo("#lgPlace span", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: P3, stagger: 0.045 }, 15.4);
+      tl.fromTo("#gloss", { opacity: 0, scaleX: 0.3 }, { opacity: 1, scaleX: 1, duration: 0.8, ease: P3 }, 15.6);
+      tl.fromTo("#sweep", { x: -420 }, { x: 1800, duration: 0.95, ease: "power2.inOut", immediateRender: false }, 16.0);
+
+      tl.fromTo("#kicker", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: P3 }, 16.1);
+      tl.fromTo("#h5 .wd", { y: 60, opacity: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: P3, stagger: 0.08 }, 16.45);
+      tl.fromTo("#url", { y: 30, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: P3 }, 17.3);
+      tl.fromTo("#cta", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: P3 }, 17.7);
+
+      // Initial hidden states for elements that only appear late
+      tl.set(["#lgSearch", "#ripple"], { opacity: 0 }, 0);
+      tl.set("#lgBand", { scaleX: 0 }, 0);
+      tl.set(["#lgSearchTxt span", "#lgAI span", "#lgPlace span", "#gloss"], { opacity: 0 }, 0);
+      tl.set("#sweep", { x: -420 }, 0);
+
       window.__timelines["main"] = tl;
-      tl.seek(0);
     </script>
   </body>
 </html>
