@@ -1,0 +1,702 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+          font-weight: 500;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2");
+          font-weight: 800;
+        }
+        @font-face {
+          font-family: "Josefin Sans";
+          src: url("assets/fonts/josefin-sans-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        #s-root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #f4fbfd;
+        }
+        #s-kicker {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 262px;
+          text-align: center;
+          padding-left: 0.3em;
+          font-family: "Josefin Sans", sans-serif;
+          font-weight: 700;
+          font-size: 30px;
+          letter-spacing: 0.3em;
+          color: #6fe3f3;
+        }
+        #s-prog {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 318px;
+          display: flex;
+          justify-content: center;
+          gap: 16px;
+        }
+        .s-seg {
+          display: block;
+          width: 200px;
+          height: 8px;
+          border-radius: 4px;
+          background: rgba(111, 227, 243, 0.18);
+          overflow: hidden;
+        }
+        .s-segfill {
+          display: block;
+          width: 100%;
+          height: 100%;
+          background: #12b4cd;
+          transform-origin: 0 50%;
+        }
+        .s-title {
+          position: absolute;
+          left: 60px;
+          right: 60px;
+          top: 384px;
+          text-align: center;
+          font-weight: 800;
+          font-size: 86px;
+          line-height: 1.08;
+          letter-spacing: -0.04em;
+        }
+        .s-title .s-ln {
+          display: block;
+        }
+        .s-title .s-wd {
+          display: inline-block;
+        }
+        .s-title .s-wd + .s-wd {
+          margin-left: 0.24em;
+        }
+        .s-accent {
+          color: #6fe3f3;
+        }
+        .s-sub {
+          position: absolute;
+          left: 60px;
+          right: 60px;
+          text-align: center;
+          font-size: 38px;
+          font-weight: 600;
+          color: #93b5c3;
+        }
+
+        /* ----- toggle (step 1) ----- */
+        #s-toggle {
+          position: absolute;
+          left: 250px;
+          top: 1062px;
+          width: 580px;
+          height: 96px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.06);
+          border: 2px solid rgba(111, 227, 243, 0.3);
+        }
+        #s-slider {
+          position: absolute;
+          left: 8px;
+          top: 8px;
+          width: 278px;
+          height: 76px;
+          border-radius: 999px;
+          background: #12b4cd;
+        }
+        .s-opt {
+          position: absolute;
+          top: 8px;
+          width: 278px;
+          height: 76px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 14px;
+          font-size: 34px;
+          font-weight: 700;
+        }
+        #s-optType {
+          left: 8px;
+          color: #04131b;
+        }
+        #s-optVoice {
+          left: 294px;
+          color: #d6ecf3;
+        }
+        .s-opt svg {
+          display: block;
+          flex: none;
+        }
+
+        /* ----- criteria tags (step 2) ----- */
+        #s-tags {
+          position: absolute;
+          left: 70px;
+          right: 70px;
+          top: 1062px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 22px 18px;
+        }
+        .s-tag {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          padding: 18px 30px;
+          border-radius: 999px;
+          font-size: 36px;
+          font-weight: 600;
+          background: rgba(18, 180, 205, 0.14);
+          border: 2px solid rgba(111, 227, 243, 0.55);
+        }
+        .s-dot {
+          display: block;
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background: #6fe3f3;
+        }
+
+        /* ----- market stream + results (step 3) ----- */
+        .s-mini {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 96px;
+          height: 70px;
+          margin: -35px 0 0 -48px;
+          border-radius: 14px;
+          background: linear-gradient(180deg, #1d4a5e, #2a8aa3);
+          border: 2px solid rgba(111, 227, 243, 0.35);
+          overflow: hidden;
+        }
+        .s-mini::after {
+          content: "";
+          position: absolute;
+          left: 22px;
+          right: 22px;
+          bottom: 0;
+          height: 42px;
+          border-radius: 3px 3px 0 0;
+          background: repeating-linear-gradient(90deg, #eaf4f7 0 6px, #164a5e 6px 14px, #eaf4f7 14px 20px);
+        }
+        #s-cards {
+          position: absolute;
+          left: 90px;
+          width: 900px;
+          top: 868px;
+          display: grid;
+          gap: 18px;
+        }
+        .s-card {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          height: 168px;
+          padding: 0 24px;
+          border-radius: 32px;
+          background: linear-gradient(180deg, rgba(36, 82, 102, 0.78), rgba(16, 46, 60, 0.82));
+          border: 2px solid rgba(111, 227, 243, 0.22);
+          box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+        }
+        .s-rank {
+          display: block;
+          flex: none;
+          width: 72px;
+          height: 72px;
+          border-radius: 50%;
+          background: rgba(111, 227, 243, 0.14);
+          border: 3px solid #12b4cd;
+          color: #6fe3f3;
+          font-family: "Josefin Sans", sans-serif;
+          font-weight: 700;
+          font-size: 40px;
+          line-height: 78px;
+          text-align: center;
+        }
+        .s-thumb {
+          position: relative;
+          flex: none;
+          width: 124px;
+          height: 124px;
+          border-radius: 22px;
+          overflow: hidden;
+          background: linear-gradient(180deg, #0f4b62, #1fb3cc);
+        }
+        .s-thumb::after {
+          content: "";
+          position: absolute;
+          left: 26px;
+          right: 26px;
+          bottom: 0;
+          height: 84px;
+          border-radius: 4px 4px 0 0;
+          background: repeating-linear-gradient(90deg, #eaf4f7 0 8px, #164a5e 8px 20px, #eaf4f7 20px 28px);
+        }
+        .s-meta {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          min-width: 0;
+        }
+        .s-meta > span {
+          display: block;
+          white-space: nowrap;
+        }
+        .s-price {
+          font-size: 46px;
+          font-weight: 800;
+          letter-spacing: -0.03em;
+        }
+        .s-spec {
+          font-size: 27px;
+          font-weight: 500;
+          color: #d3e7ee;
+        }
+        .s-loc {
+          font-size: 25px;
+          font-weight: 600;
+          color: #6fe3f3;
+        }
+        .s-badge {
+          position: absolute;
+          right: 24px;
+          top: 22px;
+          padding: 7px 16px;
+          border-radius: 999px;
+          background: #6fe3f3;
+          color: #04131b;
+          font-size: 22px;
+          font-weight: 800;
+        }
+
+        /* ----- the search bar (logo shell), logo units 1650 × 415 ----- */
+        #s-barCam {
+          position: absolute;
+          left: 70px;
+          top: 762px;
+          width: 940px;
+          height: 236px;
+          transform-origin: 0 0;
+        }
+        .s-fit {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1650px;
+          height: 415px;
+          transform: scale(0.569697);
+          transform-origin: 0 0;
+        }
+        .s-shell {
+          position: absolute;
+          inset: 0;
+          border-radius: 208px;
+          overflow: hidden;
+          background: linear-gradient(180deg, #2c566b 0%, #1d4255 38%, #143444 72%, #0f2a38 100%);
+          box-shadow:
+            inset 0 3px 0 rgba(255, 255, 255, 0.22),
+            inset 0 -14px 40px rgba(0, 0, 0, 0.4),
+            0 40px 80px rgba(0, 0, 0, 0.5);
+        }
+        .s-ring {
+          position: absolute;
+          inset: 38px;
+          border: 16px solid #12b4cd;
+          border-radius: 999px;
+          box-shadow:
+            0 0 30px rgba(18, 180, 205, 0.35),
+            inset 0 0 24px rgba(0, 0, 0, 0.35);
+        }
+        .s-query {
+          position: absolute;
+          left: 128px;
+          right: 395px;
+          top: 123px;
+          font-size: 70px;
+          font-weight: 500;
+          line-height: 1.2;
+          letter-spacing: -0.01em;
+        }
+        #s-placeholder {
+          position: absolute;
+          left: 0;
+          top: 42px;
+          white-space: nowrap;
+          color: rgba(190, 225, 236, 0.55);
+        }
+        #s-typed {
+          position: absolute;
+          left: 0;
+          top: 42px;
+          white-space: nowrap;
+        }
+        .s-ch {
+          display: none;
+        }
+        .s-caret {
+          display: inline-block;
+          width: 7px;
+          height: 78px;
+          margin-left: 6px;
+          vertical-align: -12px;
+          border-radius: 4px;
+          background: #6fe3f3;
+        }
+        .s-word {
+          position: relative;
+          display: inline-block;
+          isolation: isolate;
+        }
+        .s-word .s-hl {
+          position: absolute;
+          left: -12px;
+          right: -12px;
+          top: 4px;
+          bottom: 0;
+          z-index: -1;
+          border-radius: 18px;
+          background: rgba(18, 180, 205, 0.34);
+          transform-origin: 0 50%;
+        }
+        .s-nb {
+          white-space: nowrap;
+        }
+        .s-mic {
+          position: absolute;
+          right: 120px;
+          top: 85px;
+          width: 225px;
+          height: 225px;
+          border-radius: 50%;
+          background: linear-gradient(180deg, #2cc7de 0%, #12b4cd 55%, #0c9db4 100%);
+          box-shadow:
+            inset 0 5px 8px rgba(255, 255, 255, 0.28),
+            inset 0 -8px 14px rgba(0, 0, 0, 0.22),
+            0 20px 36px rgba(0, 0, 0, 0.45);
+        }
+        .s-micsvg {
+          position: absolute;
+          left: 57px;
+          top: 57px;
+          width: 110px;
+          height: 110px;
+        }
+        .s-pulse {
+          position: absolute;
+          right: 120px;
+          top: 85px;
+          width: 225px;
+          height: 225px;
+          border-radius: 50%;
+          border: 10px solid #6fe3f3;
+          opacity: 0;
+        }
+        #s-sweep {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 300px;
+          background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.26) 50%, transparent 100%);
+        }
+      </style>
+
+      <div id="s-root" data-composition-id="steps" data-width="1080" data-height="1920">
+        <div id="s-kicker">SO FUNKTIONIERT’S</div>
+        <div id="s-prog">
+          <span class="s-seg"><span id="s-seg0" class="s-segfill"></span></span>
+          <span class="s-seg"><span id="s-seg1" class="s-segfill"></span></span>
+          <span class="s-seg"><span id="s-seg2" class="s-segfill"></span></span>
+        </div>
+
+        <div id="s-t1" class="s-title">
+          <span class="s-ln"><span class="s-wd">Tippen</span><span class="s-wd">oder</span></span>
+          <span class="s-ln"><span class="s-wd s-accent">sprechen.</span></span>
+        </div>
+        <div id="s-t2" class="s-title">
+          <span class="s-ln"><span class="s-wd">Die</span><span class="s-wd">KI</span></span>
+          <span class="s-ln"><span class="s-wd s-accent">versteht</span><span class="s-wd">dich.</span></span>
+        </div>
+        <div id="s-t3" class="s-title">
+          <span class="s-ln"><span class="s-wd">Durchsucht</span><span class="s-wd">den</span></span>
+          <span class="s-ln"><span class="s-wd s-accent">ganzen</span><span class="s-wd s-accent">Markt.</span></span>
+        </div>
+
+        <!-- Step 1 -->
+        <div id="s-toggle">
+          <div id="s-slider"></div>
+          <div id="s-optType" class="s-opt">
+            <svg width="44" height="30" viewBox="0 0 44 30" fill="none">
+              <rect x="2" y="2" width="40" height="26" rx="5" stroke="currentColor" stroke-width="3.5" />
+              <path d="M9 10h3M17 10h3M25 10h3M33 10h2M9 17h3M17 17h3M25 17h3M33 17h2M13 23h18" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+            </svg>
+            Tippen
+          </div>
+          <div id="s-optVoice" class="s-opt">
+            <svg width="26" height="36" viewBox="0 0 26 36" fill="none">
+              <rect x="7" y="1" width="12" height="21" rx="6" fill="currentColor" />
+              <path d="M2 16a11 11 0 0 0 22 0" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" />
+              <path d="M13 28v6" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" />
+            </svg>
+            Sprechen
+          </div>
+        </div>
+        <div id="s-sub1" class="s-sub" style="top: 1196px">Ganz normal, so wie du sprichst.</div>
+
+        <!-- Step 2 -->
+        <div id="s-tags">
+          <div class="s-tag" id="s-tagRuhig"><span class="s-dot"></span>Ruhig</div>
+          <div class="s-tag"><span class="s-dot"></span>2 Zimmer</div>
+          <div class="s-tag"><span class="s-dot"></span>Balkon</div>
+          <div class="s-tag"><span class="s-dot"></span>1070 Neubau</div>
+          <div class="s-tag"><span class="s-dot"></span>max. 1.100 €</div>
+        </div>
+        <div id="s-sub2" class="s-sub" style="top: 1300px">Auch weiche Wünsche wie <span class="s-accent">„ruhig“</span>.</div>
+
+        <!-- Step 3 -->
+        <div id="s-stream" data-layout-allow-overflow></div>
+        <div id="s-sub3" class="s-sub" style="top: 870px">Alle Portale. Gleichzeitig.</div>
+        <div id="s-cards" data-layout-allow-overflow></div>
+
+        <div id="s-barCam">
+          <div class="s-fit">
+            <div class="s-shell">
+              <div class="s-ring"></div>
+              <div class="s-query">
+                <span id="s-placeholder">Tippen oder sprechen …</span>
+                <span id="s-typed"></span>
+                <span id="s-spoken"></span>
+              </div>
+              <div id="s-pulse0" class="s-pulse"></div>
+              <div id="s-pulse1" class="s-pulse"></div>
+              <div id="s-mic" class="s-mic">
+                <svg class="s-micsvg" viewBox="0 0 110 110" fill="none">
+                  <rect x="38" y="8" width="34" height="58" rx="17" fill="#ffffff" />
+                  <path d="M22 50 a33 33 0 0 0 66 0" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                  <path d="M55 84 V100" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                </svg>
+              </div>
+              <div id="s-sweep" data-layout-allow-overflow></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const root = document.getElementById("s-root");
+          const q = (s) => root.querySelector(s);
+          const qa = (s) => Array.from(root.querySelectorAll(s));
+
+          // Typed input (step 1)
+          const TYPED = "2 Zimmer mit Balkon, ruhig";
+          const typedEl = q("#s-typed");
+          const typedChars = [];
+          for (const c of TYPED) {
+            const s = document.createElement("span");
+            s.className = "s-ch";
+            s.textContent = c;
+            typedEl.appendChild(s);
+            typedChars.push(s);
+          }
+          const caret = document.createElement("span");
+          caret.className = "s-caret";
+          caret.id = "s-caret";
+          typedEl.appendChild(caret);
+
+          // Spoken input (steps 1-3): [text, keyword?, trailing]
+          const SPOKEN = [
+            ["Ruhige", 1, " "],
+            ["2-Zimmer-Wohnung", 1, " "],
+            ["mit", 0, " "],
+            ["Balkon", 1, " "],
+            ["in", 0, " "],
+            ["Neubau", 1, ", "],
+            ["bis 1.100 €", 1, ""],
+          ];
+          const spokenEl = q("#s-spoken");
+          const words = [];
+          const kws = [];
+          SPOKEN.forEach(([t, k, trail]) => {
+            const w = document.createElement("span");
+            w.className = "s-word";
+            if (k) {
+              const hl = document.createElement("span");
+              hl.className = "s-hl";
+              w.appendChild(hl);
+              kws.push(w);
+            }
+            w.appendChild(document.createTextNode(t));
+            if (trail === ", ") {
+              const nb = document.createElement("span");
+              nb.className = "s-nb";
+              nb.appendChild(w);
+              words.push(w);
+              const comma = document.createElement("span");
+              comma.className = "s-word";
+              comma.textContent = ",";
+              nb.appendChild(comma);
+              words.push(comma);
+              spokenEl.appendChild(nb);
+              spokenEl.appendChild(document.createTextNode(" "));
+            } else {
+              spokenEl.appendChild(w);
+              if (trail) spokenEl.appendChild(document.createTextNode(trail));
+            }
+            if (trail !== ", ") words.push(w);
+          });
+
+          // Market stream tiles — deterministic start points around the lower frame
+          const stream = q("#s-stream");
+          const STARTS = [];
+          for (let i = 0; i < 24; i++) {
+            // a loose 6 × 4 cloud of listings below the bar, jittered by index
+            const col = i % 6;
+            const rowN = Math.floor(i / 6);
+            STARTS.push([130 + col * 164 + ((rowN % 2) * 60 - 30), 950 + rowN * 128 + ((col * 37) % 40) - 20]);
+          }
+          STARTS.forEach((p, i) => {
+            const m = document.createElement("div");
+            m.className = "s-mini";
+            m.id = "s-mini" + i;
+            m.style.left = p[0] + "px";
+            m.style.top = p[1] + "px";
+            stream.appendChild(m);
+          });
+
+          // Ranked results
+          const CARDS = [
+            ["1.050 €", "2 Zimmer · 58 m² · Balkon · ruhig", true],
+            ["990 €", "2 Zimmer · 52 m² · Balkon · Hofseite", false],
+            ["1.090 €", "2 Zimmer · 61 m² · Balkon · Altbau", false],
+          ];
+          const cardsEl = q("#s-cards");
+          CARDS.forEach(([price, spec, top], i) => {
+            const c = document.createElement("div");
+            c.className = "s-card";
+            c.id = "s-card" + i;
+            c.innerHTML =
+              '<span class="s-rank">' + (i + 1) + '</span><span class="s-thumb"></span><div class="s-meta"><span class="s-price">' + price +
+              '</span><span class="s-spec">' + spec + '</span><span class="s-loc">1070 Wien · Neubau</span></div>' +
+              (top ? '<span class="s-badge">Top-Treffer</span>' : "");
+            cardsEl.appendChild(c);
+          });
+
+          const tl = gsap.timeline({ paused: true });
+          const P3 = "power3.out";
+          const wordsIn = (sel, t) =>
+            tl.fromTo(sel, { y: 60, opacity: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: P3, stagger: 0.08 }, t);
+          const wordsOut = (sel, t) =>
+            tl.to(sel, { y: -50, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power3.in", stagger: 0.03 }, t);
+
+          // Initial states
+          gsap.set(["#s-t2 .s-wd", "#s-t3 .s-wd"], { opacity: 0 });
+          gsap.set(".s-segfill", { scaleX: 0 });
+          gsap.set(words, { opacity: 0 });
+          gsap.set(".s-hl", { scaleX: 0 });
+          gsap.set("#s-caret", { opacity: 0 });
+          gsap.set(["#s-tags .s-tag", "#s-sub2", "#s-sub3", ".s-mini"], { opacity: 0 });
+          gsap.set("#s-sweep", { x: -420 });
+
+          // ---------- Header ----------
+          tl.fromTo("#s-kicker", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: P3 }, 0.1);
+          tl.fromTo("#s-prog", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 0.2);
+
+          // ---------- Step 1: type or talk ----------
+          tl.to("#s-seg0", { scaleX: 1, duration: 4.1, ease: "none" }, 0.2);
+          wordsIn("#s-t1 .s-wd", 0.15);
+          tl.fromTo("#s-toggle", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.55, ease: P3 }, 0.5);
+          tl.fromTo("#s-sub1", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.55, ease: P3 }, 0.8);
+          tl.set("#s-placeholder", { opacity: 0 }, 0.95);
+          tl.set("#s-caret", { opacity: 1 }, 0.95);
+          typedChars.forEach((c, i) => tl.set(c, { display: "inline" }, 1.0 + i * 0.042 + (i > 13 ? 0.06 : 0)));
+          tl.set("#s-caret", { opacity: 0 }, 2.3);
+          // switch to voice
+          tl.to("#s-slider", { x: 286, duration: 0.45, ease: "power3.inOut" }, 2.3);
+          tl.to("#s-optType", { color: "#d6ecf3", duration: 0.3 }, 2.35);
+          tl.to("#s-optVoice", { color: "#04131b", duration: 0.3 }, 2.4);
+          tl.to("#s-typed", { opacity: 0, y: -20, duration: 0.25, ease: "power3.in" }, 2.35);
+          tl.to("#s-mic", { scale: 0.88, duration: 0.1, ease: "power2.in" }, 2.45);
+          tl.to("#s-mic", { scale: 1, duration: 0.45, ease: P3 }, 2.57);
+          for (let k = 0; k < 4; k++) {
+            tl.fromTo(k % 2 ? "#s-pulse1" : "#s-pulse0", { scale: 1, opacity: 0.85 }, { scale: 1.55, opacity: 0, duration: 0.8, ease: P3 }, 2.6 + k * 0.42);
+          }
+          words.forEach((w, i) => {
+            tl.fromTo(w, { opacity: 0, y: 14, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: P3 }, 2.7 + i * 0.21);
+          });
+
+          // ---------- Step 2: AI understands ----------
+          tl.to("#s-seg1", { scaleX: 1, duration: 4.0, ease: "none" }, 4.3);
+          wordsOut("#s-t1 .s-wd", 4.3);
+          wordsIn("#s-t2 .s-wd", 4.5);
+          tl.to(["#s-toggle", "#s-sub1"], { opacity: 0, y: -24, duration: 0.3, ease: "power3.in" }, 4.3);
+          tl.fromTo("#s-sweep", { x: -420 }, { x: 1800, duration: 0.75, ease: "power2.inOut", immediateRender: false }, 4.45);
+          kws.forEach((kw, i) => {
+            const t = 4.8 + i * 0.3;
+            tl.fromTo(kw.querySelector(".s-hl"), { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "expo.out" }, t);
+            tl.to(kw, { color: "#c6f6fc", duration: 0.3 }, t);
+            tl.fromTo("#s-tags .s-tag:nth-child(" + (i + 1) + ")", { opacity: 0, y: 40, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: P3 }, t + 0.08);
+          });
+          tl.fromTo("#s-sub2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.55, ease: P3 }, 6.6);
+          tl.fromTo("#s-tagRuhig", { borderColor: "rgba(111,227,243,0.55)", backgroundColor: "rgba(18,180,205,0.14)" }, { borderColor: "#6fe3f3", backgroundColor: "rgba(18,180,205,0.42)", duration: 0.5, ease: P3 }, 6.65);
+
+          // ---------- Step 3: the whole market, ranked ----------
+          tl.to("#s-seg2", { scaleX: 1, duration: 4.0, ease: "none" }, 8.3);
+          wordsOut("#s-t2 .s-wd", 8.3);
+          wordsIn("#s-t3 .s-wd", 8.5);
+          tl.to(["#s-tags .s-tag", "#s-sub2"], { opacity: 0, y: -24, duration: 0.3, ease: "power3.in", stagger: 0.02 }, 8.3);
+          tl.to("#s-barCam", { x: 47, y: -150, scale: 0.9, duration: 0.7, ease: "power3.inOut" }, 8.35);
+          tl.fromTo("#s-sub3", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: P3 }, 8.7);
+          STARTS.forEach((p, i) => {
+            const order = (i * 7) % 24; // scattered appearance order
+            tl.fromTo("#s-mini" + i, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 8.7 + order * 0.018);
+            tl.to("#s-mini" + i, { x: 540 - p[0], y: 718 - p[1], scale: 0.15, opacity: 0, duration: 0.55, ease: "power2.in" }, 9.4 + order * 0.012);
+          });
+          tl.to("#s-sub3", { opacity: 0, y: -16, duration: 0.3, ease: "power3.in" }, 9.95);
+          [0, 1, 2].forEach((i) => {
+            const t = 10.1 + i * 0.18;
+            tl.fromTo("#s-card" + i, { y: 160, opacity: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.7, ease: P3 }, t);
+          });
+          tl.fromTo("#s-card0 .s-badge", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: P3 }, 10.85);
+          tl.fromTo("#s-card0", { borderColor: "rgba(111,227,243,0.22)" }, { borderColor: "rgba(111,227,243,0.85)", duration: 0.6, ease: P3 }, 11.0);
+
+          // ---------- Exit: back to the seam ----------
+          [2, 1, 0].forEach((i, n) => tl.to("#s-card" + i, { y: 1250, duration: 0.5, ease: "power3.in" }, 12.25 + n * 0.05));
+          tl.to(["#s-kicker", "#s-prog", "#s-t3"], { opacity: 0, y: -30, duration: 0.35, ease: "power3.in" }, 12.3);
+          tl.to("#s-barCam", { x: 0, y: 0, scale: 1, duration: 0.6, ease: "power3.inOut" }, 12.35);
+          tl.to("#s-spoken", { opacity: 0, y: -24, filter: "blur(10px)", duration: 0.25, ease: "power3.in" }, 12.5);
+          tl.to("#s-placeholder", { opacity: 1, duration: 0.2 }, 12.78);
+
+          window.__timelines["steps"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

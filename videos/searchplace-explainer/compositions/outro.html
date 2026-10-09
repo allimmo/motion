@@ -1,0 +1,311 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+          font-weight: 500;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2");
+          font-weight: 800;
+        }
+        @font-face {
+          font-family: "Josefin Sans";
+          src: url("assets/fonts/josefin-sans-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        #o-root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #f4fbfd;
+        }
+        #o-kicker {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 664px;
+          text-align: center;
+          padding-left: 0.32em;
+          font-family: "Josefin Sans", sans-serif;
+          font-weight: 700;
+          font-size: 36px;
+          letter-spacing: 0.32em;
+          color: #6fe3f3;
+        }
+        #o-head {
+          position: absolute;
+          left: 60px;
+          right: 60px;
+          top: 1068px;
+          text-align: center;
+          font-weight: 800;
+          font-size: 84px;
+          line-height: 1.08;
+          letter-spacing: -0.04em;
+        }
+        #o-head .o-ln {
+          display: block;
+        }
+        #o-head .o-wd {
+          display: inline-block;
+        }
+        #o-head .o-wd + .o-wd {
+          margin-left: 0.24em;
+        }
+        .o-accent {
+          color: #6fe3f3;
+        }
+        #o-urlWrap {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1318px;
+          display: flex;
+          justify-content: center;
+        }
+        #o-url {
+          display: block;
+          padding: 20px 46px 22px;
+          border-radius: 999px;
+          border: 3px solid #12b4cd;
+          background: rgba(18, 180, 205, 0.12);
+          font-size: 48px;
+          font-weight: 700;
+        }
+        #o-cta {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1438px;
+          text-align: center;
+          font-size: 32px;
+          font-weight: 500;
+          color: #93b5c3;
+        }
+
+        /* ----- logo shell, logo units 1650 × 415 ----- */
+        #o-barCam {
+          position: absolute;
+          left: 70px;
+          top: 762px;
+          width: 940px;
+          height: 236px;
+        }
+        .o-fit {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1650px;
+          height: 415px;
+          transform: scale(0.569697);
+          transform-origin: 0 0;
+        }
+        .o-shell {
+          position: absolute;
+          inset: 0;
+          border-radius: 208px;
+          overflow: hidden;
+          background: linear-gradient(180deg, #2c566b 0%, #1d4255 38%, #143444 72%, #0f2a38 100%);
+          box-shadow:
+            inset 0 3px 0 rgba(255, 255, 255, 0.22),
+            inset 0 -14px 40px rgba(0, 0, 0, 0.4),
+            0 40px 80px rgba(0, 0, 0, 0.5);
+        }
+        #o-gloss {
+          position: absolute;
+          left: 315px;
+          width: 1040px;
+          top: 12px;
+          height: 5px;
+          border-radius: 5px;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85) 20%, rgba(255, 255, 255, 0.85) 80%, transparent);
+        }
+        .o-ring {
+          position: absolute;
+          inset: 38px;
+          border: 16px solid #12b4cd;
+          border-radius: 999px;
+          box-shadow:
+            0 0 30px rgba(18, 180, 205, 0.35),
+            inset 0 0 24px rgba(0, 0, 0, 0.35);
+        }
+        #o-placeholder {
+          position: absolute;
+          left: 128px;
+          top: 165px;
+          font-size: 70px;
+          font-weight: 500;
+          line-height: 1.2;
+          letter-spacing: -0.01em;
+          white-space: nowrap;
+          color: rgba(190, 225, 236, 0.55);
+        }
+        #o-band {
+          position: absolute;
+          left: 695px;
+          top: 132px;
+          width: 550px;
+          height: 133px;
+          background: linear-gradient(180deg, #ffffff 0%, #edf5f7 70%, #d9e7eb 100%);
+          box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding-left: 20px;
+          transform-origin: 0 50%;
+        }
+        .o-pill {
+          position: absolute;
+          top: 85px;
+          height: 225px;
+          border-radius: 112.5px;
+          background: linear-gradient(180deg, #2cc7de 0%, #12b4cd 55%, #0c9db4 100%);
+          box-shadow:
+            inset 0 5px 8px rgba(255, 255, 255, 0.28),
+            inset 0 -8px 14px rgba(0, 0, 0, 0.22),
+            0 20px 36px rgba(0, 0, 0, 0.45);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        #o-search {
+          left: 90px;
+          width: 625px;
+        }
+        #o-mic {
+          right: 120px;
+          width: 225px;
+          overflow: hidden;
+        }
+        .o-micsvg {
+          position: absolute;
+          left: 57px;
+          top: 57px;
+          width: 110px;
+          height: 110px;
+        }
+        .o-lg {
+          font-family: "Josefin Sans", sans-serif;
+          font-weight: 700;
+          display: flex;
+          line-height: 1;
+          text-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+        }
+        .o-lg span {
+          display: block;
+        }
+        #o-searchTxt {
+          font-size: 112px;
+          letter-spacing: 0.06em;
+          margin-right: -0.06em;
+          color: #ffffff;
+          padding-top: 18px;
+        }
+        #o-placeTxt {
+          font-size: 114px;
+          letter-spacing: 0.03em;
+          color: #12b4cd;
+          padding-top: 20px;
+          text-shadow: 0 3px 4px rgba(0, 0, 0, 0.18);
+        }
+        #o-aiTxt {
+          position: absolute;
+          inset: 0;
+          align-items: center;
+          justify-content: center;
+          gap: 34px;
+          font-size: 168px;
+          color: #ffffff;
+          padding-top: 12px;
+        }
+        #o-sweep {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 300px;
+          background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.28) 50%, transparent 100%);
+        }
+      </style>
+
+      <div id="o-root" data-composition-id="outro" data-width="1080" data-height="1920">
+        <div id="o-kicker">KI-IMMOBILIENSUCHE</div>
+        <div id="o-barCam">
+          <div class="o-fit">
+            <div class="o-shell">
+              <div id="o-gloss"></div>
+              <div class="o-ring"></div>
+              <div id="o-placeholder">Tippen oder sprechen …</div>
+              <div id="o-band">
+                <div id="o-placeTxt" class="o-lg"><span>P</span><span>L</span><span>A</span><span>C</span><span>E</span></div>
+              </div>
+              <div id="o-search" class="o-pill">
+                <div id="o-searchTxt" class="o-lg"><span>S</span><span>E</span><span>A</span><span>R</span><span>C</span><span>H</span></div>
+              </div>
+              <div id="o-mic" class="o-pill">
+                <svg id="o-micIcon" class="o-micsvg" viewBox="0 0 110 110" fill="none">
+                  <rect x="38" y="8" width="34" height="58" rx="17" fill="#ffffff" />
+                  <path d="M22 50 a33 33 0 0 0 66 0" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                  <path d="M55 84 V100" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                </svg>
+                <div id="o-aiTxt" class="o-lg"><span>A</span><span>I</span></div>
+              </div>
+              <div id="o-sweep" data-layout-allow-overflow></div>
+            </div>
+          </div>
+        </div>
+        <div id="o-head">
+          <span class="o-ln"><span class="o-wd">Einfach</span><span class="o-wd">sagen,</span></span>
+          <span class="o-ln"><span class="o-wd o-accent">was</span><span class="o-wd o-accent">du</span><span class="o-wd o-accent">suchst.</span></span>
+        </div>
+        <div id="o-urlWrap"><span id="o-url">searchplace.ai</span></div>
+        <div id="o-cta">Jetzt kostenlos suchen →</div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const P3 = "power3.out";
+
+          gsap.set(["#o-search", "#o-gloss"], { opacity: 0 });
+          gsap.set("#o-band", { scaleX: 0 });
+          gsap.set(["#o-searchTxt span", "#o-aiTxt span", "#o-placeTxt span"], { opacity: 0 });
+          gsap.set("#o-sweep", { x: -420 });
+
+          // The bar becomes the logo
+          tl.to("#o-placeholder", { opacity: 0, x: -30, duration: 0.25, ease: "power3.in" }, 0.05);
+          tl.to("#o-micIcon", { scale: 0.5, opacity: 0, duration: 0.25, ease: "power3.in" }, 0.1);
+          tl.to("#o-mic", { width: 310, duration: 0.55, ease: "power3.inOut" }, 0.25);
+          tl.fromTo("#o-search", { x: -760, opacity: 0 }, { x: 0, opacity: 1, duration: 0.75, ease: "expo.out" }, 0.35);
+          tl.fromTo("#o-band", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "expo.out" }, 0.6);
+          tl.fromTo("#o-searchTxt span", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: P3, stagger: 0.045 }, 0.55);
+          tl.fromTo("#o-aiTxt span", { y: 90, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: P3, stagger: 0.08 }, 0.7);
+          tl.fromTo("#o-placeTxt span", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: P3, stagger: 0.045 }, 0.85);
+          tl.fromTo("#o-gloss", { opacity: 0, scaleX: 0.3 }, { opacity: 1, scaleX: 1, duration: 0.8, ease: P3 }, 1.0);
+          tl.fromTo("#o-sweep", { x: -420 }, { x: 1800, duration: 0.95, ease: "power2.inOut", immediateRender: false }, 1.3);
+
+          // Message + call to action
+          tl.fromTo("#o-kicker", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: P3 }, 1.2);
+          tl.fromTo("#o-head .o-wd", { y: 60, opacity: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: P3, stagger: 0.08 }, 1.4);
+          tl.fromTo("#o-url", { y: 30, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: P3 }, 2.2);
+          tl.fromTo("#o-cta", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: P3 }, 2.55);
+
+          window.__timelines["outro"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

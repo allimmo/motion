@@ -1,0 +1,788 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+          font-weight: 500;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2");
+          font-weight: 800;
+        }
+        @font-face {
+          font-family: "Josefin Sans";
+          src: url("assets/fonts/josefin-sans-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        #r-root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #f4fbfd;
+        }
+
+        /* ----- shared panel chrome ----- */
+        .r-panel {
+          position: absolute;
+          left: 60px;
+          width: 960px;
+          height: 590px;
+          border-radius: 36px;
+        }
+        .r-head {
+          position: absolute;
+          left: 28px;
+          right: 28px;
+          top: 20px;
+          height: 52px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .r-chip {
+          display: block;
+          padding: 10px 20px 8px;
+          border-radius: 999px;
+          font-family: "Josefin Sans", sans-serif;
+          font-weight: 700;
+          font-size: 24px;
+          letter-spacing: 0.16em;
+        }
+        .r-status {
+          position: relative;
+          width: 520px;
+          height: 40px;
+          font-size: 30px;
+          font-weight: 600;
+        }
+        .r-tok {
+          position: absolute;
+          right: 0;
+          top: 0;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          white-space: nowrap;
+          opacity: 0;
+        }
+
+        /* ----- Panel A: the old way ----- */
+        #r-panelA {
+          top: 240px;
+          background: #19232a;
+          border: 2px solid #2b3a42;
+        }
+        #r-panelA .r-chip {
+          background: #2b3a42;
+          color: #a5b5bc;
+        }
+        #r-panelA .r-status {
+          color: #c9d3d8;
+          width: 470px;
+          margin-right: 64px;
+        }
+        .r-clock {
+          position: absolute;
+          right: 28px;
+          top: 22px;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          border: 4px solid #8fa1a9;
+        }
+        .r-hand {
+          position: absolute;
+          left: 18px;
+          width: 4px;
+          border-radius: 2px;
+          background: #c9d3d8;
+          transform-origin: 50% 100%;
+        }
+        #r-handM {
+          top: 4px;
+          height: 16px;
+        }
+        #r-handH {
+          top: 9px;
+          height: 11px;
+          background: #8fa1a9;
+        }
+        .r-tabs {
+          position: absolute;
+          left: 28px;
+          top: 92px;
+          display: flex;
+          gap: 12px;
+        }
+        #r-tabInd {
+          position: absolute;
+          left: 28px;
+          top: 92px;
+          width: 200px;
+          height: 52px;
+          border-radius: 999px;
+          background: #3a4b54;
+        }
+        .r-tab {
+          display: block;
+          width: 200px;
+          height: 52px;
+          line-height: 50px;
+          text-align: center;
+          border-radius: 999px;
+          border: 2px solid #2b3a42;
+          font-size: 26px;
+          font-weight: 600;
+          color: #c3cdd2;
+        }
+        .r-form {
+          position: absolute;
+          left: 28px;
+          right: 28px;
+          top: 166px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+        .r-field {
+          position: relative;
+          height: 70px;
+          border-radius: 16px;
+          background: #222e35;
+          border: 2px solid #2f3f48;
+          font-size: 29px;
+          font-weight: 500;
+        }
+        .r-field span {
+          position: absolute;
+          left: 22px;
+          top: 0;
+          line-height: 66px;
+          display: block;
+        }
+        .r-ph {
+          color: #7d8d95;
+        }
+        .r-val {
+          color: #e6edf0;
+          opacity: 0;
+        }
+        .r-chev {
+          position: absolute;
+          right: 26px;
+          top: 22px;
+          width: 14px;
+          height: 14px;
+          border-right: 4px solid #7d8d95;
+          border-bottom: 4px solid #7d8d95;
+          transform: rotate(45deg);
+        }
+        .r-checks {
+          position: absolute;
+          left: 28px;
+          top: 344px;
+          display: flex;
+          gap: 40px;
+          font-size: 29px;
+          font-weight: 500;
+          color: #c3cdd2;
+        }
+        .r-check {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+        }
+        .r-box {
+          position: relative;
+          display: block;
+          width: 30px;
+          height: 30px;
+          border-radius: 8px;
+          border: 3px solid #7d8d95;
+        }
+        .r-tick {
+          position: absolute;
+          inset: 3px;
+          border-radius: 4px;
+          background: #c3cdd2;
+          opacity: 0;
+        }
+        #r-searchBtn {
+          position: absolute;
+          right: 28px;
+          top: 412px;
+          width: 220px;
+          height: 70px;
+          border-radius: 999px;
+          background: #3a4b54;
+          color: #e6edf0;
+          font-size: 29px;
+          font-weight: 700;
+          line-height: 70px;
+          text-align: center;
+        }
+        .r-result {
+          position: absolute;
+          left: 28px;
+          top: 412px;
+          line-height: 70px;
+          font-size: 30px;
+          font-weight: 700;
+          white-space: nowrap;
+          opacity: 0;
+        }
+        #r-resBusy {
+          color: #a5b5bc;
+          font-weight: 500;
+        }
+        #r-res0,
+        #r-res3 {
+          color: #ef9c8d;
+        }
+        #r-toast {
+          position: absolute;
+          left: 28px;
+          right: 28px;
+          top: 500px;
+          height: 64px;
+          border-radius: 18px;
+          background: #2a2326;
+          border: 2px solid #ef9c8d;
+          color: #f6d3cc;
+          font-size: 30px;
+          font-weight: 700;
+          line-height: 60px;
+          text-align: center;
+        }
+        #r-cursor {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 44px;
+          height: 52px;
+        }
+        #r-ripple {
+          position: absolute;
+          left: -30px;
+          top: -30px;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          border: 4px solid #ffffff;
+        }
+
+        /* ----- VS ----- */
+        #r-vs {
+          position: absolute;
+          left: 498px;
+          top: 813px;
+          width: 84px;
+          height: 84px;
+          border-radius: 50%;
+          background: #04131b;
+          border: 3px solid #12b4cd;
+          color: #6fe3f3;
+          font-family: "Josefin Sans", sans-serif;
+          font-weight: 700;
+          font-size: 30px;
+          line-height: 86px;
+          text-align: center;
+        }
+
+        /* ----- Panel B: SearchPlace ----- */
+        #r-panelB {
+          top: 880px;
+          background: linear-gradient(180deg, rgba(18, 58, 76, 0.92), rgba(9, 32, 44, 0.94));
+          border: 2px solid rgba(111, 227, 243, 0.38);
+          box-shadow: 0 0 70px rgba(18, 180, 205, 0.16);
+        }
+        #r-headB {
+          position: absolute;
+          left: 88px;
+          right: 88px;
+          top: 898px;
+          height: 52px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        #r-headB .r-chip {
+          background: #12b4cd;
+          color: #04131b;
+        }
+        #r-headB .r-status {
+          color: #6fe3f3;
+          width: 470px;
+        }
+        .r-wave {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          height: 36px;
+        }
+        .r-wave i {
+          display: block;
+          width: 6px;
+          height: 36px;
+          border-radius: 3px;
+          background: #6fe3f3;
+        }
+        .r-done {
+          display: block;
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          background: #6fe3f3;
+          position: relative;
+        }
+        .r-done::after {
+          content: "";
+          position: absolute;
+          left: 12px;
+          top: 6px;
+          width: 8px;
+          height: 15px;
+          border-right: 4px solid #04131b;
+          border-bottom: 4px solid #04131b;
+          transform: rotate(45deg);
+        }
+        #r-progress {
+          position: absolute;
+          left: 100px;
+          top: 1194px;
+          width: 880px;
+          height: 6px;
+          border-radius: 3px;
+          background: rgba(111, 227, 243, 0.15);
+          overflow: hidden;
+        }
+        #r-progressFill {
+          width: 100%;
+          height: 100%;
+          background: #12b4cd;
+          transform-origin: 0 50%;
+        }
+        #r-rows {
+          position: absolute;
+          left: 100px;
+          width: 880px;
+          top: 1214px;
+          display: grid;
+          gap: 10px;
+        }
+        .r-row {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          height: 72px;
+          padding: 0 18px 0 10px;
+          border-radius: 18px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 2px solid rgba(111, 227, 243, 0.18);
+        }
+        .r-thumb {
+          position: relative;
+          flex: none;
+          width: 52px;
+          height: 52px;
+          border-radius: 12px;
+          overflow: hidden;
+          background: linear-gradient(180deg, #0f4b62, #1fb3cc);
+        }
+        .r-thumb::after {
+          content: "";
+          position: absolute;
+          left: 12px;
+          right: 12px;
+          bottom: 0;
+          height: 34px;
+          border-radius: 3px 3px 0 0;
+          background: repeating-linear-gradient(90deg, #eaf4f7 0 4px, #164a5e 4px 10px, #eaf4f7 10px 14px);
+        }
+        .r-price {
+          display: block;
+          width: 150px;
+          font-size: 30px;
+          font-weight: 800;
+          letter-spacing: -0.02em;
+        }
+        .r-spec {
+          display: block;
+          font-size: 23px;
+          font-weight: 500;
+          color: #c8dde5;
+          white-space: nowrap;
+        }
+        .r-badge {
+          position: absolute;
+          right: 16px;
+          top: 19px;
+          padding: 5px 14px;
+          border-radius: 999px;
+          background: #6fe3f3;
+          color: #04131b;
+          font-size: 20px;
+          font-weight: 800;
+        }
+
+        /* ----- the search bar (logo shell), drawn in logo units 1650 × 415 ----- */
+        #r-barCam {
+          position: absolute;
+          left: 100px;
+          top: 962px;
+          width: 940px;
+          height: 236px;
+          transform-origin: 0 0;
+        }
+        .r-fit {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1650px;
+          height: 415px;
+          transform: scale(0.569697);
+          transform-origin: 0 0;
+        }
+        .r-shell {
+          position: absolute;
+          inset: 0;
+          border-radius: 208px;
+          overflow: hidden;
+          background: linear-gradient(180deg, #2c566b 0%, #1d4255 38%, #143444 72%, #0f2a38 100%);
+          box-shadow:
+            inset 0 3px 0 rgba(255, 255, 255, 0.22),
+            inset 0 -14px 40px rgba(0, 0, 0, 0.4),
+            0 40px 80px rgba(0, 0, 0, 0.5);
+        }
+        .r-ring {
+          position: absolute;
+          inset: 38px;
+          border: 16px solid #12b4cd;
+          border-radius: 999px;
+          box-shadow:
+            0 0 30px rgba(18, 180, 205, 0.35),
+            inset 0 0 24px rgba(0, 0, 0, 0.35);
+        }
+        .r-query {
+          position: absolute;
+          left: 128px;
+          right: 395px;
+          top: 123px;
+          font-size: 70px;
+          font-weight: 500;
+          line-height: 1.2;
+          letter-spacing: -0.01em;
+        }
+        #r-placeholder {
+          position: absolute;
+          left: 0;
+          top: 42px;
+          white-space: nowrap;
+          color: rgba(190, 225, 236, 0.55);
+        }
+        .r-word {
+          display: inline-block;
+          opacity: 0;
+        }
+        .r-nb {
+          white-space: nowrap;
+        }
+        .r-mic {
+          position: absolute;
+          right: 120px;
+          top: 85px;
+          width: 225px;
+          height: 225px;
+          border-radius: 50%;
+          background: linear-gradient(180deg, #2cc7de 0%, #12b4cd 55%, #0c9db4 100%);
+          box-shadow:
+            inset 0 5px 8px rgba(255, 255, 255, 0.28),
+            inset 0 -8px 14px rgba(0, 0, 0, 0.22),
+            0 20px 36px rgba(0, 0, 0, 0.45);
+        }
+        .r-micsvg {
+          position: absolute;
+          left: 57px;
+          top: 57px;
+          width: 110px;
+          height: 110px;
+        }
+        .r-pulse {
+          position: absolute;
+          right: 120px;
+          top: 85px;
+          width: 225px;
+          height: 225px;
+          border-radius: 50%;
+          border: 10px solid #6fe3f3;
+          opacity: 0;
+        }
+      </style>
+
+      <div id="r-root" data-composition-id="race" data-width="1080" data-height="1920">
+        <!-- Panel A — the old way -->
+        <div id="r-panelA" class="r-panel">
+          <div class="r-head">
+            <span class="r-chip">BISHER</span>
+            <span class="r-status">
+              <span id="r-ta0" class="r-tok">Filter setzen.</span>
+              <span id="r-ta1" class="r-tok">Portal wechseln.</span>
+              <span id="r-ta2" class="r-tok">Von vorn.</span>
+            </span>
+          </div>
+          <div class="r-clock"><span id="r-handH" class="r-hand"></span><span id="r-handM" class="r-hand"></span></div>
+          <div id="r-tabInd"></div>
+          <div class="r-tabs">
+            <span class="r-tab">Portal A</span><span class="r-tab">Portal B</span><span class="r-tab">Portal C</span>
+          </div>
+          <div class="r-form">
+            <div class="r-field"><span class="r-ph">Bezirk wählen</span><span class="r-val">1070 Neubau</span><i class="r-chev"></i></div>
+            <div class="r-field"><span class="r-ph">Zimmer</span><span class="r-val">2 Zimmer</span><i class="r-chev"></i></div>
+            <div class="r-field"><span class="r-ph">Preis von</span><span class="r-val">–</span></div>
+            <div class="r-field"><span class="r-ph">Preis bis</span><span class="r-val">1.100 €</span></div>
+          </div>
+          <div class="r-checks">
+            <span class="r-check"><span class="r-box"><span class="r-tick"></span></span>Balkon</span>
+            <span class="r-check"><span class="r-box"><span class="r-tick"></span></span>Lift</span>
+            <span class="r-check"><span class="r-box"><span class="r-tick"></span></span>Altbau</span>
+          </div>
+          <div id="r-searchBtn">Suchen</div>
+          <div id="r-resBusy" class="r-result">Suche läuft …</div>
+          <div id="r-res0" class="r-result">0 Treffer</div>
+          <div id="r-res3" class="r-result">3 Treffer · 2 schon gesehen</div>
+          <div id="r-toast">Filter „ruhig“? Gibt’s nicht.</div>
+          <div id="r-cursor">
+            <div id="r-ripple"></div>
+            <svg width="44" height="52" viewBox="0 0 44 52">
+              <path d="M3 2 L3 42 L13 33 L20 49 L28 45 L21 30 L35 30 Z" fill="#ffffff" stroke="#0b1418" stroke-width="3" stroke-linejoin="round" />
+            </svg>
+          </div>
+        </div>
+
+        <div id="r-vs">VS</div>
+
+        <!-- Panel B — SearchPlace -->
+        <div id="r-panelB" class="r-panel"></div>
+        <div id="r-headB">
+          <span class="r-chip">MIT SEARCHPLACE</span>
+          <span class="r-status">
+            <span id="r-tb0" class="r-tok">Einfach sagen.</span>
+            <span id="r-tb1" class="r-tok"><span class="r-wave" id="r-wave"></span>Hört zu</span>
+            <span id="r-tb2" class="r-tok">Durchsucht alle Portale …</span>
+            <span id="r-tb3" class="r-tok"><span class="r-done"></span>Fertig.</span>
+          </span>
+        </div>
+        <div id="r-progress"><div id="r-progressFill"></div></div>
+        <div id="r-rows"></div>
+
+        <div id="r-barCam">
+          <div class="r-fit">
+            <div class="r-shell">
+              <div class="r-ring"></div>
+              <div class="r-query">
+                <span id="r-placeholder">Tippen oder sprechen …</span>
+                <span id="r-text"></span>
+              </div>
+              <div id="r-pulse0" class="r-pulse"></div>
+              <div id="r-pulse1" class="r-pulse"></div>
+              <div id="r-mic" class="r-mic">
+                <svg class="r-micsvg" viewBox="0 0 110 110" fill="none">
+                  <rect x="38" y="8" width="34" height="58" rx="17" fill="#ffffff" />
+                  <path d="M22 50 a33 33 0 0 0 66 0" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                  <path d="M55 84 V100" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const root = document.getElementById("r-root");
+          const q = (s) => root.querySelector(s);
+          const qa = (s) => Array.from(root.querySelectorAll(s));
+
+          // Spoken query, word by word ("bis 1.100 €" stays together)
+          const WORDS = ["Ruhige", "2-Zimmer-Wohnung", "mit", "Balkon", "in", "Neubau,", "bis 1.100 €"];
+          const textEl = q("#r-text");
+          WORDS.forEach((w, i) => {
+            const s = document.createElement("span");
+            s.className = "r-word";
+            s.textContent = w;
+            textEl.appendChild(s);
+            if (i < WORDS.length - 1) textEl.appendChild(document.createTextNode(" "));
+          });
+
+          // Mini waveform in the "Hört zu" status
+          const wave = q("#r-wave");
+          for (let i = 0; i < 12; i++) wave.appendChild(document.createElement("i"));
+
+          // Result rows (illustrative listings)
+          const ROWS = [
+            ["1.050 €", "2 Zi · 58 m² · Balkon · ruhig", true],
+            ["990 €", "2 Zi · 52 m² · Balkon · Hofseite", false],
+            ["1.090 €", "2 Zi · 61 m² · Balkon · Altbau", false],
+          ];
+          const rowsEl = q("#r-rows");
+          ROWS.forEach(([price, spec, top], i) => {
+            const r = document.createElement("div");
+            r.className = "r-row";
+            r.id = "r-row" + i;
+            r.innerHTML =
+              '<span class="r-thumb"></span><span class="r-price">' + price + '</span><span class="r-spec">' + spec + "</span>" +
+              (top ? '<span class="r-badge">Top-Treffer</span>' : "");
+            rowsEl.appendChild(r);
+          });
+
+          const tl = gsap.timeline({ paused: true });
+          const P3 = "power3.out";
+          const fields = qa(".r-field");
+          const ticks = qa(".r-tick");
+
+          // ---------- Intro ----------
+          tl.fromTo("#r-panelA", { y: -70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, ease: P3 }, 0.1);
+          tl.fromTo(["#r-panelB", "#r-barCam", "#r-headB"], { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, ease: P3 }, 0.2);
+          tl.fromTo("#r-vs", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: P3 }, 0.7);
+          gsap.set("#r-barCam", { scale: 0.93617 });
+
+          // Status token cycles
+          const tokSeq = (ids, times) => {
+            ids.forEach((id, n) => {
+              tl.set(id, { opacity: 1 }, times[n]);
+              if (n > 0) tl.set(ids[n - 1], { opacity: 0 }, times[n]);
+            });
+          };
+          tokSeq(["#r-ta0", "#r-ta1", "#r-ta2", "#r-ta1", "#r-ta2"], [1.0, 4.9, 5.6, 8.8, 9.3]);
+          tokSeq(["#r-tb0", "#r-tb1", "#r-tb2", "#r-tb3"], [1.0, 2.45, 5.6, 7.35]);
+
+          // ---------- Panel A: cursor fights the filters ----------
+          tl.fromTo("#r-handM", { rotation: 0 }, { rotation: 360 * 14, duration: 11.5, ease: "none" }, 1.0);
+          tl.fromTo("#r-handH", { rotation: 30 }, { rotation: 30 + 360 * 1.2, duration: 11.5, ease: "none" }, 1.0);
+          gsap.set(["#r-resBusy", "#r-res0", "#r-res3"], { opacity: 0 });
+          gsap.set("#r-toast", { opacity: 0 });
+          gsap.set("#r-ripple", { opacity: 0 });
+
+          const P = {
+            bezirk: [250, 201],
+            zimmer: [710, 201],
+            bis: [710, 287],
+            balkon: [44, 360],
+            suchen: [822, 447],
+            tabB: [340, 118],
+            tabC: [552, 118],
+          };
+          tl.fromTo("#r-cursor", { x: 600, y: 540, opacity: 0 }, { x: 600, y: 540, opacity: 1, duration: 0.3 }, 0.95);
+          const move = (to, t, d) => tl.to("#r-cursor", { x: to[0], y: to[1], duration: d || 0.38, ease: "power2.inOut" }, t);
+          const click = (t) => {
+            tl.to("#r-cursor svg", { scale: 0.84, duration: 0.08, ease: "power2.in", transformOrigin: "10% 5%" }, t);
+            tl.to("#r-cursor svg", { scale: 1, duration: 0.25, ease: P3 }, t + 0.08);
+            tl.fromTo("#r-ripple", { scale: 0.3, opacity: 0.9 }, { scale: 1.4, opacity: 0, duration: 0.45, ease: P3 }, t);
+          };
+          const fill = (i, t) => {
+            tl.set(fields[i].querySelector(".r-ph"), { opacity: 0 }, t);
+            tl.set(fields[i].querySelector(".r-val"), { opacity: 1 }, t);
+            tl.fromTo(fields[i], { borderColor: "#6c8a96" }, { borderColor: "#2f3f48", duration: 0.5 }, t);
+          };
+          const resetForm = (t) => {
+            fields.forEach((f) => {
+              tl.set(f.querySelector(".r-ph"), { opacity: 1 }, t);
+              tl.set(f.querySelector(".r-val"), { opacity: 0 }, t);
+            });
+            tl.set(ticks[0], { opacity: 0 }, t);
+            tl.set(["#r-resBusy", "#r-res0", "#r-res3"], { opacity: 0 }, t);
+            tl.fromTo(".r-form, .r-checks", { opacity: 0.25 }, { opacity: 1, duration: 0.35 }, t);
+          };
+          const round = (t0, speed, result) => {
+            const s = speed;
+            move(P.bezirk, t0, 0.42 * s); click(t0 + 0.42 * s); fill(0, t0 + 0.45 * s);
+            move(P.zimmer, t0 + 0.62 * s, 0.36 * s); click(t0 + 0.98 * s); fill(1, t0 + 1.0 * s);
+            move(P.bis, t0 + 1.18 * s, 0.32 * s); click(t0 + 1.5 * s); fill(3, t0 + 1.52 * s);
+            move(P.balkon, t0 + 1.7 * s, 0.36 * s); click(t0 + 2.06 * s); tl.set(ticks[0], { opacity: 1 }, t0 + 2.08 * s);
+            move(P.suchen, t0 + 2.26 * s, 0.4 * s); click(t0 + 2.66 * s);
+            tl.set("#r-resBusy", { opacity: 1 }, t0 + 2.7 * s);
+            tl.set("#r-resBusy", { opacity: 0 }, t0 + 3.25 * s);
+            tl.set(result, { opacity: 1 }, t0 + 3.25 * s);
+            tl.fromTo(result, { x: -16 }, { x: 0, duration: 0.3, ease: P3 }, t0 + 3.25 * s);
+          };
+          round(1.25, 1, "#r-res0");
+          move(P.tabB, 4.85, 0.4); click(5.25);
+          tl.to("#r-tabInd", { x: 212, duration: 0.3, ease: "power3.inOut" }, 5.27);
+          resetForm(5.3);
+          round(5.55, 0.82, "#r-res3");
+          move(P.tabC, 8.75, 0.38); click(9.13);
+          tl.to("#r-tabInd", { x: 424, duration: 0.3, ease: "power3.inOut" }, 9.15);
+          resetForm(9.18);
+          move([430, 360], 9.4, 0.4);
+          move([640, 360], 9.85, 0.4);
+          tl.fromTo("#r-toast", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: P3 }, 10.15);
+          move([520, 450], 10.4, 0.6);
+
+          // ---------- Panel B: say it once ----------
+          tl.fromTo("#r-placeholder", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.6);
+          // tap the mic
+          tl.to("#r-mic", { scale: 0.88, duration: 0.1, ease: "power2.in" }, 2.3);
+          tl.to("#r-mic", { scale: 1, duration: 0.45, ease: P3 }, 2.42);
+          tl.to("#r-placeholder", { opacity: 0, duration: 0.2 }, 2.45);
+          for (let k = 0; k < 6; k++) {
+            const t = 2.45 + k * 0.5;
+            const id = k % 2 ? "#r-pulse1" : "#r-pulse0";
+            tl.fromTo(id, { scale: 1, opacity: 0.85 }, { scale: 1.55, opacity: 0, duration: 0.8, ease: P3 }, t);
+          }
+          // waveform: deterministic sine envelope, 12 bars
+          const bars = qa("#r-wave i");
+          bars.forEach((b, i) => {
+            gsap.set(b, { scaleY: 0.2 });
+            for (let k = 0; k < 26; k++) {
+              const t = 2.5 + k * 0.12;
+              const h = 0.25 + 0.75 * Math.abs(Math.sin(i * 0.9 + k * 1.37) * Math.cos(k * 0.41 + i * 0.3));
+              tl.to(b, { scaleY: h, duration: 0.12, ease: "sine.inOut" }, t);
+            }
+          });
+          // live transcription
+          qa(".r-word").forEach((w, i) => {
+            tl.fromTo(w, { opacity: 0, y: 14, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.32, ease: P3 }, 2.7 + i * 0.38);
+          });
+          // search the whole market
+          tl.fromTo("#r-progress", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 5.6);
+          tl.fromTo("#r-progressFill", { scaleX: 0 }, { scaleX: 1, duration: 1.4, ease: "power2.inOut" }, 5.7);
+          tl.to("#r-progress", { opacity: 0, duration: 0.3 }, 7.15);
+          [0, 1, 2].forEach((i) => {
+            tl.fromTo("#r-row" + i, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: P3 }, 7.25 + i * 0.16);
+          });
+          tl.fromTo("#r-row0", { borderColor: "rgba(111,227,243,0.18)" }, { borderColor: "rgba(111,227,243,0.85)", duration: 0.6, ease: P3 }, 8.4);
+
+          // ---------- Exit: old way drops, bar flies to centre stage ----------
+          tl.to("#r-panelA", { opacity: 0.35, duration: 0.5, ease: "power2.out" }, 12.0);
+          tl.to("#r-panelA", { y: -720, opacity: 0, duration: 0.8, ease: "power3.in" }, 12.55);
+          tl.to("#r-vs", { scale: 0.5, opacity: 0, duration: 0.35, ease: "power3.in" }, 12.4);
+          tl.to("#r-rows .r-row", { y: 50, opacity: 0, duration: 0.35, ease: "power3.in", stagger: 0.05 }, 12.85);
+          tl.to(["#r-headB", "#r-panelB"], { opacity: 0, duration: 0.45, ease: "power2.in" }, 12.95);
+          tl.to("#r-barCam", { x: -30, y: -200, scale: 1, duration: 0.85, ease: "power3.inOut" }, 13.0);
+          tl.to("#r-text", { opacity: 0, y: -24, filter: "blur(10px)", duration: 0.3, ease: "power3.in" }, 13.4);
+          tl.to("#r-placeholder", { opacity: 1, duration: 0.25 }, 13.72);
+
+          window.__timelines["race"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

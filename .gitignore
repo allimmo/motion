@@ -6,3 +6,4 @@ renders/
 .DS_Store
 snapshots/
 !exports/*.mp4
+!videos/*/exports/*.mp4
