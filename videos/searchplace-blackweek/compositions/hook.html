@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2");
+          font-weight: 800;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-900-normal.woff2") format("woff2");
+          font-weight: 900;
+        }
+        @font-face {
+          font-family: "Josefin Sans";
+          src: url("assets/fonts/josefin-sans-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        #h-root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #ffffff;
+        }
+        .h-band {
+          position: absolute;
+          left: -120px;
+          width: 1320px;
+          height: 84px;
+          overflow: hidden;
+        }
+        #h-bandTop {
+          top: 150px;
+          background: #12b4cd;
+          transform: rotate(-5deg);
+        }
+        #h-bandBot {
+          top: 1590px;
+          background: #020507;
+          border-top: 3px solid #12b4cd;
+          border-bottom: 3px solid #12b4cd;
+          transform: rotate(4deg);
+        }
+        .h-track {
+          position: absolute;
+          left: 0;
+          top: 0;
+          white-space: nowrap;
+          font-weight: 900;
+          font-size: 42px;
+          line-height: 84px;
+          letter-spacing: 0.02em;
+        }
+        #h-bandTop .h-track {
+          color: #020507;
+        }
+        #h-bandBot .h-track {
+          color: #6fe3f3;
+          line-height: 78px;
+        }
+        .h-big {
+          position: absolute;
+          left: 0;
+          right: 0;
+          display: flex;
+          justify-content: center;
+          font-weight: 900;
+          line-height: 1;
+          letter-spacing: -0.045em;
+        }
+        .h-big span {
+          display: block;
+        }
+        #h-black {
+          top: 400px;
+          font-size: 252px;
+        }
+        #h-week {
+          top: 640px;
+          font-size: 252px;
+          color: #12b4cd;
+        }
+        #h-dateWrap {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 925px;
+          display: flex;
+          justify-content: center;
+        }
+        #h-date {
+          display: block;
+          padding: 18px 40px 14px;
+          border-radius: 999px;
+          border: 3px solid #12b4cd;
+          background: rgba(18, 180, 205, 0.12);
+          color: #6fe3f3;
+          font-family: "Josefin Sans", sans-serif;
+          font-weight: 700;
+          font-size: 44px;
+          letter-spacing: 0.14em;
+        }
+        .h-offer {
+          position: absolute;
+          left: 0;
+          right: 0;
+          text-align: center;
+          font-weight: 900;
+          letter-spacing: -0.04em;
+          line-height: 1;
+        }
+        #h-offer1 {
+          top: 1080px;
+          font-size: 128px;
+        }
+        #h-offer2 {
+          top: 1215px;
+          font-size: 168px;
+          color: #12b4cd;
+        }
+      </style>
+
+      <div id="h-root" data-composition-id="hook" data-width="1080" data-height="1920">
+        <div id="h-bandTop" class="h-band" data-layout-allow-overflow><div id="h-trackTop" class="h-track" data-layout-allow-overflow></div></div>
+        <div id="h-bandBot" class="h-band" data-layout-allow-overflow><div id="h-trackBot" class="h-track" data-layout-allow-overflow></div></div>
+
+        <div id="h-black" class="h-big"><span>B</span><span>L</span><span>A</span><span>C</span><span>K</span></div>
+        <div id="h-week" class="h-big"><span>W</span><span>E</span><span>E</span><span>K</span></div>
+        <div id="h-dateWrap"><span id="h-date">23.–29. NOVEMBER</span></div>
+        <div id="h-offer1" class="h-offer">1 Monat</div>
+        <div id="h-offer2" class="h-offer">gratis.</div>
+      </div>
+
+      <script>
+        (function () {
+          const UNIT = "BLACK WEEK  •  1 MONAT GRATIS  •  CODE BLACK  •  23.–29.11.  •  ";
+          document.getElementById("h-trackTop").textContent = UNIT.repeat(5);
+          document.getElementById("h-trackBot").textContent = UNIT.repeat(5);
+
+          const tl = gsap.timeline({ paused: true });
+          const P3 = "power3.out";
+
+          // Sale tapes roll the whole time
+          tl.fromTo("#h-bandTop", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.05);
+          tl.fromTo("#h-bandBot", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.15);
+          tl.fromTo("#h-trackTop", { x: 0 }, { x: -1100, duration: 3.6, ease: "none" }, 0);
+          tl.fromTo("#h-trackBot", { x: -1100 }, { x: 0, duration: 3.6, ease: "none" }, 0);
+
+          // BLACK slams down letter by letter, WEEK follows as an outline
+          tl.fromTo("#h-black span", { y: -160, opacity: 0, filter: "blur(14px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "power4.out", stagger: 0.05 }, 0.12);
+          tl.fromTo("#h-week span", { y: 160, opacity: 0, filter: "blur(14px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "power4.out", stagger: 0.05 }, 0.42);
+          tl.fromTo("#h-date", { opacity: 0, y: 24, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: P3 }, 0.95);
+          tl.fromTo("#h-offer1", { opacity: 0, y: 50, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: P3 }, 1.45);
+          tl.fromTo("#h-offer2", { opacity: 0, scale: 1.35, filter: "blur(16px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 1.7);
+
+          // Exit: everything flies up at speed into the feature run
+          tl.to(["#h-black", "#h-week", "#h-dateWrap", "#h-offer1", "#h-offer2"], {
+            y: -320,
+            opacity: 0,
+            filter: "blur(12px)",
+            duration: 0.38,
+            ease: "power3.in",
+            stagger: 0.03,
+          }, 3.12);
+          tl.to(["#h-bandTop", "#h-bandBot"], { opacity: 0, duration: 0.3, ease: "power2.in" }, 3.2);
+
+          window.__timelines["hook"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

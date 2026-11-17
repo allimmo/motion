@@ -1,0 +1,375 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-900-normal.woff2") format("woff2");
+          font-weight: 900;
+        }
+        @font-face {
+          font-family: "Josefin Sans";
+          src: url("assets/fonts/josefin-sans-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        #o-root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #ffffff;
+        }
+        .o-band {
+          position: absolute;
+          left: -120px;
+          width: 1320px;
+          height: 84px;
+          overflow: hidden;
+        }
+        #o-bandTop {
+          top: 130px;
+          background: #12b4cd;
+          transform: rotate(-5deg);
+        }
+        #o-bandBot {
+          top: 1590px;
+          background: #020507;
+          border-top: 3px solid #12b4cd;
+          border-bottom: 3px solid #12b4cd;
+          transform: rotate(4deg);
+        }
+        .o-track {
+          position: absolute;
+          left: 0;
+          top: 0;
+          white-space: nowrap;
+          font-weight: 900;
+          font-size: 42px;
+          line-height: 84px;
+          letter-spacing: 0.02em;
+        }
+        #o-bandTop .o-track {
+          color: #020507;
+        }
+        #o-bandBot .o-track {
+          color: #6fe3f3;
+          line-height: 78px;
+        }
+
+        /* ----- logo (assembled), logo units 1650 × 415 at 600 px wide ----- */
+        #o-logo {
+          position: absolute;
+          left: 240px;
+          top: 262px;
+          width: 600px;
+          height: 151px;
+        }
+        .o-fit {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1650px;
+          height: 415px;
+          transform: scale(0.363636);
+          transform-origin: 0 0;
+        }
+        .o-shell {
+          position: absolute;
+          inset: 0;
+          border-radius: 208px;
+          overflow: hidden;
+          background: linear-gradient(180deg, #2c566b 0%, #1d4255 38%, #143444 72%, #0f2a38 100%);
+          box-shadow:
+            inset 0 3px 0 rgba(255, 255, 255, 0.22),
+            inset 0 -14px 40px rgba(0, 0, 0, 0.4),
+            0 40px 80px rgba(0, 0, 0, 0.6);
+        }
+        .o-gloss {
+          position: absolute;
+          left: 315px;
+          width: 1040px;
+          top: 12px;
+          height: 5px;
+          border-radius: 5px;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85) 20%, rgba(255, 255, 255, 0.85) 80%, transparent);
+        }
+        .o-ring {
+          position: absolute;
+          inset: 38px;
+          border: 16px solid #12b4cd;
+          border-radius: 999px;
+        }
+        .o-band2 {
+          position: absolute;
+          left: 695px;
+          top: 132px;
+          width: 550px;
+          height: 133px;
+          background: linear-gradient(180deg, #ffffff 0%, #edf5f7 70%, #d9e7eb 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding-left: 20px;
+        }
+        .o-pill {
+          position: absolute;
+          top: 85px;
+          height: 225px;
+          border-radius: 112.5px;
+          background: linear-gradient(180deg, #2cc7de 0%, #12b4cd 55%, #0c9db4 100%);
+          box-shadow:
+            inset 0 5px 8px rgba(255, 255, 255, 0.28),
+            inset 0 -8px 14px rgba(0, 0, 0, 0.22),
+            0 20px 36px rgba(0, 0, 0, 0.45);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .o-lg {
+          font-family: "Josefin Sans", sans-serif;
+          font-weight: 700;
+          line-height: 1;
+        }
+        .o-lgSearch {
+          font-size: 112px;
+          letter-spacing: 0.06em;
+          margin-right: -0.06em;
+          color: #ffffff;
+          padding-top: 18px;
+        }
+        .o-lgPlace {
+          font-size: 114px;
+          letter-spacing: 0.03em;
+          color: #12b4cd;
+          padding-top: 20px;
+        }
+        .o-lgAi {
+          font-size: 168px;
+          letter-spacing: 0.2em;
+          margin-right: -0.2em;
+          color: #ffffff;
+          padding-top: 12px;
+        }
+
+        /* ----- offer ----- */
+        .o-big {
+          position: absolute;
+          left: 0;
+          right: 0;
+          display: flex;
+          justify-content: center;
+          font-weight: 900;
+          line-height: 1;
+          letter-spacing: -0.04em;
+        }
+        .o-big span {
+          display: block;
+        }
+        #o-month {
+          top: 455px;
+          font-size: 140px;
+        }
+        #o-free {
+          top: 600px;
+          font-size: 220px;
+          color: #12b4cd;
+        }
+        #o-ticket {
+          position: absolute;
+          left: 150px;
+          top: 892px;
+          width: 780px;
+          height: 230px;
+          border-radius: 30px;
+          border: 4px dashed #12b4cd;
+          background: rgba(18, 180, 205, 0.08);
+        }
+        .o-notch {
+          position: absolute;
+          top: 81px;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          background: #030a0e;
+          border: 4px solid #12b4cd;
+        }
+        #o-notchL {
+          left: -34px;
+        }
+        #o-notchR {
+          right: -34px;
+        }
+        #o-ticketIn {
+          position: absolute;
+          inset: 0;
+          border-radius: 26px;
+          overflow: hidden;
+        }
+        #o-codeLabel {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 30px;
+          text-align: center;
+          padding-left: 0.3em;
+          font-family: "Josefin Sans", sans-serif;
+          font-weight: 700;
+          font-size: 30px;
+          letter-spacing: 0.3em;
+          color: #6fe3f3;
+        }
+        #o-code {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 76px;
+          display: flex;
+          justify-content: center;
+          font-weight: 900;
+          font-size: 124px;
+          line-height: 1;
+          letter-spacing: 0.14em;
+          padding-left: 0.14em;
+        }
+        #o-code span {
+          display: block;
+        }
+        #o-shine {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 240px;
+          background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+        }
+        #o-valid {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1160px;
+          text-align: center;
+          font-size: 40px;
+          font-weight: 600;
+          color: #c9dde4;
+        }
+        #o-urlWrap {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1236px;
+          display: flex;
+          justify-content: center;
+        }
+        #o-url {
+          display: block;
+          padding: 18px 44px 20px;
+          border-radius: 999px;
+          background: #ffffff;
+          color: #020507;
+          font-size: 46px;
+          font-weight: 900;
+          letter-spacing: -0.01em;
+        }
+        #o-miss {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1366px;
+          text-align: center;
+          font-size: 66px;
+          font-weight: 900;
+          letter-spacing: -0.03em;
+        }
+        #o-missLine {
+          position: absolute;
+          left: 300px;
+          width: 480px;
+          top: 1446px;
+          height: 8px;
+          border-radius: 4px;
+          background: #12b4cd;
+          transform-origin: 0 50%;
+        }
+      </style>
+
+      <div id="o-root" data-composition-id="offer" data-width="1080" data-height="1920">
+        <div id="o-bandTop" class="o-band" data-layout-allow-overflow><div id="o-trackTop" class="o-track" data-layout-allow-overflow></div></div>
+        <div id="o-bandBot" class="o-band" data-layout-allow-overflow><div id="o-trackBot" class="o-track" data-layout-allow-overflow></div></div>
+
+        <div id="o-logo">
+          <div class="o-fit">
+            <div class="o-shell">
+              <div class="o-gloss"></div>
+              <div class="o-ring"></div>
+              <div class="o-band2"><span class="o-lg o-lgPlace">PLACE</span></div>
+              <div class="o-pill" style="left: 90px; width: 625px"><span class="o-lg o-lgSearch">SEARCH</span></div>
+              <div class="o-pill" style="right: 120px; width: 310px"><span class="o-lg o-lgAi">AI</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="o-month" class="o-big"><span>1</span><span>&nbsp;</span><span>M</span><span>O</span><span>N</span><span>A</span><span>T</span></div>
+        <div id="o-free" class="o-big"><span>G</span><span>R</span><span>A</span><span>T</span><span>I</span><span>S</span></div>
+
+        <div id="o-ticket">
+          <div id="o-ticketIn">
+            <div id="o-codeLabel">GUTSCHEINCODE</div>
+            <div id="o-code"><span>B</span><span>L</span><span>A</span><span>C</span><span>K</span></div>
+            <div id="o-shine" data-layout-allow-overflow></div>
+          </div>
+          <div id="o-notchL" class="o-notch"></div>
+          <div id="o-notchR" class="o-notch"></div>
+        </div>
+        <div id="o-valid">Gültig vom 23.–29.11.</div>
+        <div id="o-urlWrap"><span id="o-url">searchplace.ai</span></div>
+        <div id="o-miss">Nicht verpassen!</div>
+        <div id="o-missLine"></div>
+      </div>
+
+      <script>
+        (function () {
+          const UNIT = "BLACK WEEK  •  1 MONAT GRATIS  •  CODE BLACK  •  23.–29.11.  •  ";
+          document.getElementById("o-trackTop").textContent = UNIT.repeat(5);
+          document.getElementById("o-trackBot").textContent = UNIT.repeat(5);
+
+          gsap.set("#o-shine", { x: -300 });
+          gsap.set("#o-missLine", { scaleX: 0 });
+
+          const tl = gsap.timeline({ paused: true });
+          const P3 = "power3.out";
+
+          tl.fromTo(["#o-bandTop", "#o-bandBot"], { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.08 }, 0.05);
+          tl.fromTo("#o-trackTop", { x: 0 }, { x: -1600, duration: 5.85, ease: "none" }, 0);
+          tl.fromTo("#o-trackBot", { x: -1600 }, { x: 0, duration: 5.85, ease: "none" }, 0);
+
+          tl.fromTo("#o-logo", { opacity: 0, scale: 0.85, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "expo.out" }, 0.08);
+          tl.fromTo("#o-month span", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.45, ease: P3, stagger: 0.035 }, 0.3);
+          tl.fromTo("#o-free span", { opacity: 0, scale: 1.6, filter: "blur(16px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power4.out", stagger: 0.045 }, 0.5);
+
+          tl.fromTo("#o-ticket", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.55, ease: "expo.out" }, 1.1);
+          tl.fromTo("#o-code span", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: P3, stagger: 0.06 }, 1.25);
+          tl.to("#o-shine", { x: 900, duration: 0.75, ease: "power2.inOut" }, 1.95);
+          tl.fromTo("#o-valid", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: P3 }, 1.8);
+          tl.fromTo("#o-url", { opacity: 0, y: 24, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: P3 }, 2.2);
+          tl.fromTo("#o-miss", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out" }, 2.65);
+          tl.to("#o-missLine", { scaleX: 1, duration: 0.5, ease: "power3.inOut" }, 2.9);
+
+          window.__timelines["offer"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

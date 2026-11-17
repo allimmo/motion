@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #bg-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: radial-gradient(120% 80% at 50% 45%, #06161e 0%, #030b10 50%, #020507 100%);
+        }
+        #bg-grid {
+          position: absolute;
+          left: 0;
+          top: -200px;
+          width: 1080px;
+          height: 2400px;
+          background-image: radial-gradient(rgba(111, 227, 243, 0.12) 1.6px, transparent 1.8px);
+          background-size: 44px 44px;
+          -webkit-mask-image: radial-gradient(70% 45% at 50% 50%, #000 0%, transparent 100%);
+          mask-image: radial-gradient(70% 45% at 50% 50%, #000 0%, transparent 100%);
+        }
+        #bg-glow {
+          position: absolute;
+          left: 90px;
+          top: 510px;
+          width: 900px;
+          height: 900px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(18, 180, 205, 0.3) 0%, rgba(18, 180, 205, 0) 65%);
+        }
+        #bg-vignette {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(90% 60% at 50% 50%, transparent 50%, rgba(0, 0, 0, 0.7) 100%);
+        }
+      </style>
+      <div id="bg-root" data-composition-id="bg" data-width="1080" data-height="1920">
+        <div id="bg-grid" data-layout-allow-overflow></div>
+        <div id="bg-glow"></div>
+        <div id="bg-vignette"></div>
+      </div>
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#bg-grid", { y: 0 }, { y: -260, duration: 21, ease: "none" }, 0);
+        tl.fromTo("#bg-glow", { y: -60, scale: 0.7, opacity: 0.5 }, { y: -40, scale: 1, opacity: 0.9, duration: 1.6, ease: "power2.out" }, 0);
+        tl.to("#bg-glow", { y: 40, scale: 0.95, opacity: 0.7, duration: 1, ease: "power3.inOut" }, 3.3);
+        tl.to("#bg-glow", { y: -40, scale: 1.2, opacity: 1, duration: 1, ease: "power3.inOut" }, 15.0);
+        window.__timelines["bg"] = tl;
+      </script>
+    </template>
+  </body>
+</html>
