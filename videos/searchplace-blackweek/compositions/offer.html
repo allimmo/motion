@@ -33,90 +33,14 @@
           color: #f5f5f7;
         }
 
-        /* ----- the black gift card ----- */
-        #o-stage {
+        /* ----- the logo, born from the search bar (logo units 1650 × 415) ----- */
+        #o-logoCam {
           position: absolute;
-          left: 160px;
-          top: 290px;
-          width: 760px;
-          height: 470px;
-          perspective: 1600px;
-        }
-        #o-turn {
-          position: absolute;
-          inset: 0;
-          transform-style: preserve-3d;
-        }
-        #o-card {
-          position: absolute;
-          inset: 0;
-          border-radius: 40px;
-          background: linear-gradient(145deg, #232326 0%, #111113 45%, #050506 100%);
-          border: 1px solid rgba(255, 255, 255, 0.14);
-          box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.18),
-            0 60px 120px rgba(0, 0, 0, 0.9),
-            0 0 80px rgba(18, 180, 205, 0.12);
-          overflow: hidden;
-        }
-        #o-cardLight {
-          position: absolute;
-          left: -120px;
-          top: -200px;
-          width: 620px;
-          height: 520px;
-          border-radius: 50%;
-          background: radial-gradient(circle, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 70%);
-        }
-        #o-sheen {
-          position: absolute;
-          top: -40px;
-          bottom: -40px;
-          left: 0;
-          width: 260px;
-          background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.16) 50%, transparent 100%);
-        }
-        #o-cardTerm {
-          position: absolute;
-          right: 44px;
-          top: 50px;
-          font-size: 26px;
-          font-weight: 600;
-          color: #a1a1a6;
-        }
-        #o-codeLabel {
-          position: absolute;
-          left: 48px;
-          top: 262px;
-          font-family: "Josefin Sans", sans-serif;
-          font-weight: 700;
-          font-size: 22px;
-          letter-spacing: 0.3em;
-          color: #86868b;
-        }
-        #o-code {
-          position: absolute;
-          left: 44px;
-          top: 300px;
-          font-size: 128px;
-          font-weight: 700;
-          line-height: 1;
-          letter-spacing: 0.12em;
-          color: #d2d2d7;
-          background: linear-gradient(180deg, #ffffff 0%, #d2d2d7 45%, #8e8e93 100%);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          padding-bottom: 8px;
-        }
-
-        /* mini logo on the card, logo units 1650 × 415 at 280 px */
-        #o-logo {
-          position: absolute;
-          left: 46px;
-          top: 44px;
-          width: 280px;
-          height: 70px;
+          left: 70px;
+          top: 762px;
+          width: 940px;
+          height: 236px;
+          transform-origin: 50% 0;
         }
         .o-fit {
           position: absolute;
@@ -124,7 +48,7 @@
           top: 0;
           width: 1650px;
           height: 415px;
-          transform: scale(0.169697);
+          transform: scale(0.569697);
           transform-origin: 0 0;
         }
         .o-shell {
@@ -132,81 +56,145 @@
           inset: 0;
           border-radius: 208px;
           overflow: hidden;
-          background: linear-gradient(180deg, #2a4f62 0%, #1b3c4d 38%, #122f3d 72%, #0d2632 100%);
+          background: linear-gradient(180deg, #2c566b 0%, #1d4255 38%, #143444 72%, #0f2a38 100%);
+          box-shadow:
+            inset 0 3px 0 rgba(255, 255, 255, 0.22),
+            inset 0 -14px 40px rgba(0, 0, 0, 0.4),
+            0 60px 120px rgba(0, 0, 0, 0.9);
+        }
+        #o-gloss {
+          position: absolute;
+          left: 315px;
+          width: 1040px;
+          top: 12px;
+          height: 5px;
+          border-radius: 5px;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85) 20%, rgba(255, 255, 255, 0.85) 80%, transparent);
         }
         .o-ring {
           position: absolute;
           inset: 38px;
           border: 16px solid #12b4cd;
           border-radius: 999px;
+          box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.35);
         }
-        .o-band {
+        #o-placeholder {
+          position: absolute;
+          left: 128px;
+          top: 165px;
+          font-size: 70px;
+          font-weight: 500;
+          line-height: 1.2;
+          letter-spacing: -0.01em;
+          white-space: nowrap;
+          color: rgba(200, 225, 235, 0.55);
+        }
+        #o-band {
           position: absolute;
           left: 695px;
           top: 132px;
           width: 550px;
           height: 133px;
-          background: #f5f5f7;
+          background: linear-gradient(180deg, #ffffff 0%, #edf5f7 70%, #d9e7eb 100%);
+          box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
           display: flex;
           align-items: center;
           justify-content: center;
           padding-left: 20px;
+          transform-origin: 0 50%;
         }
         .o-pill {
           position: absolute;
           top: 85px;
           height: 225px;
           border-radius: 112.5px;
-          background: #12b4cd;
+          background: linear-gradient(180deg, #2cc7de 0%, #12b4cd 55%, #0c9db4 100%);
+          box-shadow:
+            inset 0 5px 8px rgba(255, 255, 255, 0.28),
+            inset 0 -8px 14px rgba(0, 0, 0, 0.22),
+            0 20px 36px rgba(0, 0, 0, 0.45);
           display: flex;
           align-items: center;
           justify-content: center;
         }
+        #o-search {
+          left: 90px;
+          width: 625px;
+        }
+        #o-mic {
+          right: 120px;
+          width: 225px;
+          overflow: hidden;
+        }
+        .o-micsvg {
+          position: absolute;
+          left: 57px;
+          top: 57px;
+          width: 110px;
+          height: 110px;
+        }
         .o-lg {
           font-family: "Josefin Sans", sans-serif;
           font-weight: 700;
+          display: flex;
           line-height: 1;
+          text-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
         }
-        .o-lgSearch {
+        .o-lg span {
+          display: block;
+        }
+        #o-searchTxt {
           font-size: 112px;
           letter-spacing: 0.06em;
           margin-right: -0.06em;
           color: #ffffff;
           padding-top: 18px;
         }
-        .o-lgPlace {
+        #o-placeTxt {
           font-size: 114px;
           letter-spacing: 0.03em;
           color: #12b4cd;
           padding-top: 20px;
+          text-shadow: 0 3px 4px rgba(0, 0, 0, 0.18);
         }
-        .o-lgAi {
+        #o-aiTxt {
+          position: absolute;
+          inset: 0;
+          align-items: center;
+          justify-content: center;
+          gap: 34px;
           font-size: 168px;
-          letter-spacing: 0.2em;
-          margin-right: -0.2em;
           color: #ffffff;
           padding-top: 12px;
         }
+        #o-sweep {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 300px;
+          background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.26) 50%, transparent 100%);
+        }
 
-        /* ----- message ----- */
+        /* ----- the end page ----- */
         .o-line {
           position: absolute;
           left: 40px;
           right: 40px;
           text-align: center;
-          letter-spacing: -0.04em;
           line-height: 1.05;
         }
         #o-month {
-          top: 850px;
-          font-size: 72px;
+          top: 776px;
+          font-size: 64px;
           font-weight: 600;
           letter-spacing: -0.03em;
         }
         #o-gift {
-          top: 940px;
-          font-size: 160px;
+          top: 852px;
+          font-size: 150px;
           font-weight: 700;
+          letter-spacing: -0.045em;
           color: #6fe3f3;
           background: linear-gradient(100deg, #b8f6ff 0%, #6fe3f3 35%, #12b4cd 70%, #2f86c9 100%);
           -webkit-background-clip: text;
@@ -214,85 +202,140 @@
           -webkit-text-fill-color: transparent;
           padding-bottom: 12px;
         }
-        #o-terms,
-        #o-terms2 {
-          top: 1146px;
-          font-size: 38px;
+        #o-codeBox {
+          position: absolute;
+          left: 290px;
+          top: 1070px;
+          width: 500px;
+          height: 168px;
+          border-radius: 30px;
+          border: 2px solid rgba(255, 255, 255, 0.2);
+          overflow: hidden;
+        }
+        #o-codeLabel {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 28px;
+          text-align: center;
+          padding-left: 0.32em;
+          font-size: 22px;
           font-weight: 600;
-          line-height: 1.35;
+          letter-spacing: 0.32em;
+          color: #86868b;
+        }
+        #o-code {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 62px;
+          display: flex;
+          justify-content: center;
+          padding-left: 0.16em;
+          font-size: 84px;
+          font-weight: 700;
+          line-height: 1;
+          letter-spacing: 0.16em;
+          color: #f5f5f7;
+        }
+        #o-code span {
+          display: block;
+        }
+        #o-codeSheen {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 200px;
+          background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.12) 50%, transparent 100%);
+        }
+        #o-when {
+          top: 1290px;
+          font-size: 36px;
+          font-weight: 600;
           letter-spacing: -0.01em;
           color: #86868b;
         }
-        #o-terms2 {
-          top: 1198px;
-        }
-        #o-terms b {
-          font-weight: 600;
-          color: #f5f5f7;
-        }
         #o-url {
-          top: 1290px;
+          top: 1372px;
           font-size: 46px;
           font-weight: 600;
           letter-spacing: -0.02em;
-          color: #6fe3f3;
-        }
-        #o-miss {
-          top: 1380px;
-          font-size: 44px;
-          font-weight: 600;
-          letter-spacing: -0.02em;
+          color: #f5f5f7;
         }
       </style>
 
       <div id="o-root" data-composition-id="offer" data-width="1080" data-height="1920">
-        <div id="o-stage">
-          <div id="o-turn">
-          <div id="o-card">
-            <div id="o-cardLight" data-layout-allow-overflow></div>
-            <div id="o-logo">
-              <div class="o-fit">
-                <div class="o-shell">
-                  <div class="o-ring"></div>
-                  <div class="o-band"><span class="o-lg o-lgPlace">PLACE</span></div>
-                  <div class="o-pill" style="left: 90px; width: 625px"><span class="o-lg o-lgSearch">SEARCH</span></div>
-                  <div class="o-pill" style="right: 120px; width: 310px"><span class="o-lg o-lgAi">AI</span></div>
-                </div>
+        <div id="o-logoCam">
+          <div class="o-fit">
+            <div class="o-shell">
+              <div id="o-gloss"></div>
+              <div class="o-ring"></div>
+              <div id="o-placeholder">Was suchst du?</div>
+              <div id="o-band">
+                <div id="o-placeTxt" class="o-lg"><span>P</span><span>L</span><span>A</span><span>C</span><span>E</span></div>
               </div>
+              <div id="o-search" class="o-pill">
+                <div id="o-searchTxt" class="o-lg"><span>S</span><span>E</span><span>A</span><span>R</span><span>C</span><span>H</span></div>
+              </div>
+              <div id="o-mic" class="o-pill">
+                <svg id="o-micIcon" class="o-micsvg" viewBox="0 0 110 110" fill="none">
+                  <rect x="38" y="8" width="34" height="58" rx="17" fill="#ffffff" />
+                  <path d="M22 50 a33 33 0 0 0 66 0" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                  <path d="M55 84 V100" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                </svg>
+                <div id="o-aiTxt" class="o-lg"><span>A</span><span>I</span></div>
+              </div>
+              <div id="o-sweep" data-layout-allow-overflow></div>
             </div>
-            <div id="o-cardTerm">1 Monat</div>
-            <div id="o-codeLabel">CODE</div>
-            <div id="o-code">BLACK</div>
-            <div id="o-sheen" data-layout-allow-overflow></div>
-          </div>
           </div>
         </div>
 
         <div id="o-month" class="o-line">Ein Monat SearchPlace.</div>
         <div id="o-gift" class="o-line">Geschenkt.</div>
-        <div id="o-terms" class="o-line">Mit dem Code <b>BLACK</b>.</div>
-        <div id="o-terms2" class="o-line">Nur vom 23. bis 29. November.</div>
-        <div id="o-url" class="o-line">searchplace.ai ›</div>
-        <div id="o-miss" class="o-line">Nicht verpassen.</div>
+        <div id="o-codeBox">
+          <div id="o-codeLabel">CODE</div>
+          <div id="o-code"><span>B</span><span>L</span><span>A</span><span>C</span><span>K</span></div>
+          <div id="o-codeSheen" data-layout-allow-overflow></div>
+        </div>
+        <div id="o-when" class="o-line">Nur vom 23. bis 29. November. Nicht verpassen.</div>
+        <div id="o-url" class="o-line">searchplace.ai</div>
       </div>
 
       <script>
         (function () {
-          gsap.set("#o-sheen", { x: -320 });
+          gsap.set(["#o-search", "#o-gloss"], { opacity: 0 });
+          gsap.set("#o-band", { scaleX: 0 });
+          gsap.set(["#o-searchTxt span", "#o-aiTxt span", "#o-placeTxt span"], { opacity: 0 });
+          gsap.set(["#o-sweep", "#o-codeSheen"], { x: -420 });
+          gsap.set(["#o-month", "#o-gift", "#o-codeBox", "#o-when", "#o-url"], { opacity: 0 });
+
           const tl = gsap.timeline({ paused: true });
           const soft = "power3.out";
 
-          // The card arrives like a product shot, then turns slowly in the light
-          tl.fromTo("#o-card", { opacity: 0, y: 120, rotationX: 28, scale: 0.94 }, { opacity: 1, y: 0, rotationX: 0, scale: 1, duration: 1.3, ease: soft }, 0.15);
-          tl.fromTo("#o-turn", { rotationY: -7 }, { rotationY: 6, duration: 6.2, ease: "sine.inOut" }, 0.15);
-          tl.to("#o-sheen", { x: 1000, duration: 1.2, ease: "power2.inOut" }, 1.35);
+          // 1 — the search bar returns, alone in the dark
+          tl.fromTo("#o-logoCam", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.9, ease: soft }, 0.1);
 
-          // Same words as the opening — the line people should remember
-          tl.fromTo("#o-month", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 1.0);
-          tl.fromTo("#o-gift", { opacity: 0, y: 26, scale: 1.04, filter: "blur(10px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.9, ease: soft }, 1.3);
-          tl.fromTo(["#o-terms", "#o-terms2"], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: soft, stagger: 0.12 }, 2.1);
-          tl.fromTo("#o-url", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 2.7);
-          tl.fromTo("#o-miss", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 3.2);
+          // 2 — and becomes the logo
+          tl.to("#o-placeholder", { opacity: 0, x: -30, duration: 0.3, ease: "power2.in" }, 0.75);
+          tl.to("#o-micIcon", { scale: 0.5, opacity: 0, duration: 0.3, ease: "power2.in" }, 0.8);
+          tl.to("#o-mic", { width: 310, duration: 0.7, ease: "power3.inOut" }, 0.95);
+          tl.fromTo("#o-search", { x: -760, opacity: 0 }, { x: 0, opacity: 1, duration: 0.9, ease: "expo.out" }, 1.05);
+          tl.fromTo("#o-band", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "expo.out" }, 1.35);
+          tl.fromTo("#o-searchTxt span", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: soft, stagger: 0.05 }, 1.3);
+          tl.fromTo("#o-aiTxt span", { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: soft, stagger: 0.08 }, 1.45);
+          tl.fromTo("#o-placeTxt span", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: soft, stagger: 0.05 }, 1.6);
+          tl.fromTo("#o-gloss", { opacity: 0, scaleX: 0.3 }, { opacity: 1, scaleX: 1, duration: 0.9, ease: soft }, 1.8);
+          tl.to("#o-sweep", { x: 1800, duration: 1.1, ease: "power2.inOut" }, 2.0);
+
+          // 3 — logo rises; the offer, quietly
+          tl.to("#o-logoCam", { y: -271, scale: 0.82, duration: 1.1, ease: "power3.inOut" }, 2.75);
+          tl.fromTo("#o-month", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.9, ease: soft }, 3.35);
+          tl.fromTo("#o-gift", { opacity: 0, y: 24, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.0, ease: soft }, 3.55);
+          tl.fromTo("#o-codeBox", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.9, ease: soft }, 4.2);
+          tl.to("#o-codeSheen", { x: 700, duration: 1.2, ease: "power2.inOut" }, 4.8);
+          tl.fromTo("#o-when", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 4.75);
+          tl.fromTo("#o-url", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 5.15);
 
           window.__timelines["offer"] = tl;
         })();

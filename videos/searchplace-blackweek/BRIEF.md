@@ -7,7 +7,7 @@ destination: instagram-reels
 aspect: 1080x1920
 language: de
 audience: Wohnungs- und Immobiliensuchende in Österreich / DACH
-length: 22.5s
+length: 24s
 angle: Angebot zuerst, dann Funktionen im Schnelldurchlauf, dann Code + Zeitraum + Dringlichkeit
 ---
 

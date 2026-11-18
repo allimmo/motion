@@ -1,12 +1,12 @@
 ---
 format: 1080x1920
-duration: 22.5
+duration: 24.15
 music: none
 message: "Black Week: SearchPlace 1 Monat gratis – mit Code BLACK, nur vom 23.–29.11."
 mode: autonomous
 ---
 
-# SearchPlace.ai — Black Week (22,5 s, 9:16)
+# SearchPlace.ai — Black Week (24 s, 9:16)
 
 ## Video direction
 
@@ -29,11 +29,13 @@ Gutscheinkarte mit eingraviertem Code BLACK.
 5. „Marktanalysen. Trends im Blick.“ – Preiskurve ohne Zahlen.
 Abschluss: „Und vieles mehr.“
 
-## 03 — Angebot (`compositions/offer.html`, 16,35–22,5 s)
+## 03 — Logo & Angebot (`compositions/offer.html`, 16,35–24,15 s)
 
-Schwarze Gutscheinkarte (Logo, „1 Monat“, CODE BLACK) dreht sich ins Licht ·
-„Ein Monat SearchPlace. Geschenkt.“ · „Mit dem Code BLACK. Nur vom 23. bis 29. November.“ ·
-„searchplace.ai ›“ · „Nicht verpassen.“
+Die Suchleiste kehrt allein ins Dunkel zurück und setzt sich groß zum Logo zusammen
+(Mikrofon → AI-Pille, SEARCH, PLACE, Glanz). Das Logo gleitet nach oben; darunter
+ruhig: „Ein Monat SearchPlace. Geschenkt.“ · Code BLACK im feinen Rahmen ·
+„Nur vom 23. bis 29. November. Nicht verpassen.“ · „searchplace.ai“.
+Im Hook bleibt das Logo bewusst weg.
 
 ## Background (`compositions/bg.html`)
 
