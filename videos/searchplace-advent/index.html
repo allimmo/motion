@@ -1,0 +1,648 @@
+<!doctype html>
+<html
+  lang="de"
+  data-composition-variables='[{"id":"day","type":"number","label":"Türchen (1–24)","default":7}]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>SearchPlace Adventkalender — Intro</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        font-weight: 600;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+        font-weight: 700;
+      }
+      @font-face {
+        font-family: "Josefin Sans";
+        src: url("assets/fonts/josefin-sans-latin-700-normal.woff2") format("woff2");
+        font-weight: 700;
+      }
+      :root {
+        --night: #040b14;
+        --gold: #ffd27a;
+        --warm: #f6a945;
+        --cyan: #12b4cd;
+        --cyan-hi: #6fe3f3;
+        --snow: #eef6fa;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--night);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+        color: #f5f5f7;
+        background: linear-gradient(180deg, #030812 0%, #071726 45%, #0b2233 100%);
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+      .star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #ffffff;
+      }
+
+      /* ----- the world the camera moves through ----- */
+      #world {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        transform-origin: 0 0;
+      }
+      #house {
+        position: absolute;
+        left: 60px;
+        top: 560px;
+        width: 960px;
+        height: 1010px;
+        border-radius: 6px 6px 0 0;
+        background: linear-gradient(180deg, #1b3c4e 0%, #142f3f 60%, #102735 100%);
+        box-shadow: 0 0 120px rgba(0, 0, 0, 0.6);
+      }
+      .floorline {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.06);
+      }
+      #roof {
+        position: absolute;
+        left: -26px;
+        top: -46px;
+        width: 1012px;
+        height: 58px;
+        border-radius: 8px;
+        background: linear-gradient(180deg, #2a5468, #1d4152);
+      }
+      #roofSnow {
+        position: absolute;
+        left: -34px;
+        top: -64px;
+        width: 1028px;
+        height: 28px;
+        border-radius: 16px;
+        background: var(--snow);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+      }
+      .bulb {
+        position: absolute;
+        top: 22px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+      }
+      .bulb.g {
+        background: var(--gold);
+        box-shadow: 0 0 14px 4px rgba(255, 210, 122, 0.7);
+      }
+      .bulb.c {
+        background: var(--cyan-hi);
+        box-shadow: 0 0 14px 4px rgba(111, 227, 243, 0.7);
+      }
+
+      /* windows: 6 × 4 grid, 110 × 150 each */
+      .win {
+        position: absolute;
+        width: 110px;
+        height: 150px;
+        perspective: 420px;
+      }
+      .inside {
+        position: absolute;
+        inset: 0;
+        border-radius: 16px 16px 4px 4px;
+        background: #081720;
+        overflow: hidden;
+      }
+      .win.lit .inside {
+        background: radial-gradient(120% 90% at 50% 60%, #ffe6a8 0%, var(--gold) 40%, var(--warm) 100%);
+        box-shadow: 0 0 40px rgba(246, 169, 69, 0.45);
+      }
+      .mullion {
+        position: absolute;
+        left: 53px;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: rgba(90, 50, 20, 0.35);
+      }
+      .transom {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 52px;
+        height: 4px;
+        background: rgba(90, 50, 20, 0.35);
+      }
+      .frame {
+        position: absolute;
+        inset: -6px;
+        border-radius: 20px 20px 6px 6px;
+        border: 6px solid #d9e6ec;
+      }
+      .shutter {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 55px;
+        background: linear-gradient(180deg, #2c6378 0%, #1f4b5d 100%);
+        border: 2px solid rgba(255, 255, 255, 0.12);
+      }
+      .shutter::after {
+        content: "";
+        position: absolute;
+        left: 9px;
+        right: 9px;
+        top: 14px;
+        bottom: 14px;
+        border-radius: 4px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+      }
+      .sl {
+        left: 0;
+        border-radius: 16px 0 0 4px;
+        transform-origin: 0 50%;
+      }
+      .sr {
+        right: 0;
+        border-radius: 0 16px 4px 0;
+        transform-origin: 100% 50%;
+      }
+      .num {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 48px;
+        text-align: center;
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 700;
+        font-size: 50px;
+        line-height: 1;
+        color: var(--gold);
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      }
+      .sill {
+        position: absolute;
+        left: -12px;
+        width: 134px;
+        bottom: -18px;
+        height: 14px;
+        border-radius: 8px;
+        background: var(--snow);
+      }
+      #bigNum {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 34px;
+        text-align: center;
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 700;
+        font-size: 74px;
+        line-height: 1;
+        color: #ffffff;
+        text-shadow: 0 0 18px rgba(255, 255, 255, 0.8), 0 2px 4px rgba(150, 80, 20, 0.5);
+      }
+      #halo {
+        position: absolute;
+        width: 220px;
+        height: 260px;
+        border-radius: 40px;
+        background: radial-gradient(closest-side, rgba(255, 210, 122, 0.55), rgba(255, 210, 122, 0));
+      }
+
+      /* ground floor */
+      #door {
+        position: absolute;
+        left: 410px;
+        top: 842px;
+        width: 140px;
+        height: 168px;
+        border-radius: 70px 70px 0 0;
+        background: linear-gradient(180deg, #3a2a20, #2a1d16);
+        border: 6px solid #d9e6ec;
+        border-bottom: 0;
+      }
+      #wreath {
+        position: absolute;
+        left: 446px;
+        top: 870px;
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        border: 14px solid #2f6b45;
+        box-shadow: inset 0 0 0 3px #3f8a59;
+      }
+      #bow {
+        position: absolute;
+        left: 470px;
+        top: 922px;
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        background: #c8323c;
+      }
+      .lamp {
+        position: absolute;
+        top: 870px;
+        width: 22px;
+        height: 34px;
+        border-radius: 6px;
+        background: var(--gold);
+        box-shadow: 0 0 30px 10px rgba(255, 210, 122, 0.45);
+      }
+      .shop {
+        position: absolute;
+        top: 860px;
+        width: 250px;
+        height: 120px;
+        border-radius: 10px;
+        border: 6px solid #d9e6ec;
+        background: radial-gradient(120% 120% at 50% 70%, rgba(255, 210, 122, 0.55), rgba(246, 169, 69, 0.25) 60%, #10273a 100%);
+      }
+      #ground {
+        position: absolute;
+        left: -80px;
+        top: 1545px;
+        width: 1240px;
+        height: 500px;
+        border-radius: 300px 300px 0 0 / 60px 60px 0 0;
+        background: linear-gradient(180deg, #e8f1f6 0%, #c3d6e0 60%, #9fb8c6 100%);
+      }
+
+      /* tree */
+      .tier {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left-style: solid;
+        border-right-style: solid;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        border-bottom-style: solid;
+        border-bottom-color: #1f5a3a;
+      }
+      .tlight {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--gold);
+        box-shadow: 0 0 10px 3px rgba(255, 210, 122, 0.7);
+      }
+
+      /* ----- overlays (not moved by the camera) ----- */
+      #vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 540px 880px, rgba(2, 6, 12, 0) 265px, rgba(2, 6, 12, 0.93) 455px);
+      }
+      #burst {
+        position: absolute;
+        left: 140px;
+        top: 480px;
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 220, 140, 0.55) 0%, rgba(255, 200, 110, 0.18) 35%, rgba(255, 200, 110, 0) 65%);
+      }
+      .spark {
+        position: absolute;
+        left: 532px;
+        top: 872px;
+        width: 16px;
+        height: 16px;
+        background: #fff3cf;
+        clip-path: polygon(50% 0%, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0% 50%, 38% 38%);
+      }
+      .flake {
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 50%;
+        background: #ffffff;
+      }
+      #kicker {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 238px;
+        text-align: center;
+        padding-left: 0.32em;
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 700;
+        font-size: 30px;
+        letter-spacing: 0.32em;
+        color: var(--cyan-hi);
+      }
+      #title {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 284px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 104px;
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+        text-shadow: 0 0 40px rgba(255, 210, 122, 0.25);
+      }
+      #today {
+        position: absolute;
+        left: 40px;
+        right: 40px;
+        top: 1118px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 62px;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+      }
+      #today {
+        text-shadow: 0 2px 24px rgba(0, 0, 0, 0.85);
+      }
+      #today b {
+        font-weight: 700;
+        color: var(--gold);
+      }
+      #logo {
+        position: absolute;
+        left: 320px;
+        top: 1236px;
+        width: 440px;
+        height: 111px;
+      }
+      #logo img {
+        display: block;
+        width: 440px;
+        height: 111px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1080" data-height="1920">
+      <div id="sky" class="layer"></div>
+      <div id="world" data-layout-allow-overflow data-layout-allow-overlap data-layout-allow-occlusion>
+        <div id="house" data-layout-allow-overflow>
+          <div id="roof"></div>
+          <div id="roofSnow"></div>
+          <div id="lights"></div>
+          <div id="windows"></div>
+          <div class="shop" style="left: 60px"></div>
+          <div class="shop" style="right: 60px"></div>
+          <div class="lamp" style="left: 370px"></div>
+          <div class="lamp" style="left: 568px"></div>
+          <div id="door"></div>
+          <div id="wreath"></div>
+          <div id="bow"></div>
+        </div>
+        <div id="tree"></div>
+        <div id="ground"></div>
+      </div>
+      <div id="vignette" data-layout-ignore></div>
+      <div id="burst" data-layout-ignore></div>
+      <div id="sparks" data-layout-ignore></div>
+      <div id="snow" class="layer" data-layout-ignore></div>
+      <div id="kicker">SEARCHPLACE</div>
+      <div id="title" data-layout-allow-overlap>Adventkalender</div>
+      <div id="today">Heute hinter <b id="todayNum">Türchen 7</b></div>
+      <div id="logo"><img src="assets/logo.png" alt="SearchPlace AI" /></div>
+    </div>
+
+    <script>
+      (function () {
+        const vars = (window.__hyperframes && window.__hyperframes.getVariables && window.__hyperframes.getVariables()) || {};
+        const DAY = Math.min(24, Math.max(1, Math.round(Number(vars.day) || 7)));
+
+        // Deterministic randomness for snow and stars
+        function rng(seed) {
+          return function () {
+            seed |= 0;
+            seed = (seed + 0x6d2b79f5) | 0;
+            let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+            t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+          };
+        }
+        const rand = rng(2412);
+
+        // Stars
+        const sky = document.getElementById("sky");
+        for (let i = 0; i < 46; i++) {
+          const s = document.createElement("div");
+          s.className = "star";
+          s.style.left = Math.floor(rand() * 1080) + "px";
+          s.style.top = Math.floor(rand() * 560) + "px";
+          s.style.opacity = (0.25 + rand() * 0.6).toFixed(2);
+          sky.appendChild(s);
+        }
+
+        // String lights along the roof, gold and SearchPlace cyan
+        const lights = document.getElementById("lights");
+        for (let i = 0; i < 24; i++) {
+          const b = document.createElement("div");
+          b.className = "bulb " + (i % 2 ? "c" : "g");
+          b.id = "bulb" + i;
+          b.style.left = 18 + i * 40 + "px";
+          b.style.top = (i % 2 ? 26 : 20) + "px";
+          lights.appendChild(b);
+        }
+
+        // 24 windows in a fixed, shuffled order — like a real advent calendar
+        const ORDER = [14, 3, 21, 8, 17, 1, 10, 24, 5, 19, 12, 7, 22, 2, 16, 9, 23, 13, 6, 18, 11, 20, 4, 15];
+        const winsEl = document.getElementById("windows");
+        const HOUSE = { x: 60, y: 560 };
+        const GRID = { x: 70, y: 64, w: 110, h: 150, gx: 32, gy: 46 };
+        let target = null;
+        ORDER.forEach((n, i) => {
+          const col = i % 6;
+          const row = Math.floor(i / 6);
+          const x = GRID.x + col * (GRID.w + GRID.gx);
+          const y = GRID.y + row * (GRID.h + GRID.gy);
+          const w = document.createElement("div");
+          w.className = "win" + (n <= DAY ? " lit" : "");
+          w.style.left = x + "px";
+          w.style.top = y + "px";
+          w.innerHTML =
+            '<div class="inside"><div class="mullion"></div><div class="transom"></div></div>' +
+            '<div class="frame"></div><div class="shutter sl"></div><div class="shutter sr"></div>' +
+            '<div class="num" data-layout-allow-occlusion>' + n + '</div><div class="sill"></div>';
+          winsEl.appendChild(w);
+          if (n === DAY) {
+            w.id = "todayWin";
+            const big = document.createElement("div");
+            big.id = "bigNum";
+            big.setAttribute("data-layout-allow-occlusion", "");
+            big.textContent = n;
+            w.querySelector(".inside").appendChild(big);
+            target = { x: HOUSE.x + x + GRID.w / 2, y: HOUSE.y + y + GRID.h / 2, left: x, top: y };
+          } else if (n < DAY) {
+            // already opened on earlier days
+            gsap.set(w.querySelector(".sl"), { rotationY: -108 });
+            gsap.set(w.querySelector(".sr"), { rotationY: 108 });
+            gsap.set(w.querySelector(".num"), { opacity: 0 });
+          }
+        });
+        for (let r = 1; r < 4; r++) {
+          const l = document.createElement("div");
+          l.className = "floorline";
+          l.style.top = GRID.y + r * (GRID.h + GRID.gy) - GRID.gy / 2 + "px";
+          winsEl.appendChild(l);
+        }
+        const halo = document.createElement("div");
+        halo.id = "halo";
+        halo.style.left = target.left - 55 + "px";
+        halo.style.top = target.top - 55 + "px";
+        winsEl.appendChild(halo);
+
+        // Tree beside the entrance
+        const tree = document.getElementById("tree");
+        [[0, 1330, 70], [20, 1270, 54], [40, 1215, 38]].forEach(([dy, top, half], k) => {
+          const t = document.createElement("div");
+          t.className = "tier";
+          t.style.left = 120 - half + "px";
+          t.style.top = top + 120 + "px";
+          t.style.borderLeftWidth = half + "px";
+          t.style.borderRightWidth = half + "px";
+          t.style.borderBottomWidth = 110 - k * 14 + "px";
+          tree.appendChild(t);
+        });
+        [[100, 1500], [142, 1478], [112, 1440], [134, 1405], [118, 1372]].forEach(([x, y], i) => {
+          const l = document.createElement("div");
+          l.className = "tlight";
+          l.id = "tlight" + i;
+          l.style.left = x + "px";
+          l.style.top = y + "px";
+          tree.appendChild(l);
+        });
+
+        // Sparks around the opened window
+        const sparks = document.getElementById("sparks");
+        const SPARKS = [];
+        for (let i = 0; i < 12; i++) {
+          const a = (i / 12) * Math.PI * 2 + 0.3;
+          const d = 230 + (i % 3) * 70;
+          SPARKS.push([Math.cos(a) * d, Math.sin(a) * d * 1.15, 0.5 + (i % 4) * 0.2]);
+          const s = document.createElement("div");
+          s.className = "spark";
+          s.id = "spark" + i;
+          sparks.appendChild(s);
+        }
+
+        // Snow: near and far flakes, deterministic paths
+        const snow = document.getElementById("snow");
+        const FLAKES = [];
+        for (let i = 0; i < 120; i++) {
+          const near = i >= 104;
+          const size = near ? 12 + rand() * 10 : 3 + rand() * 6;
+          const f = {
+            x: rand() * 1080,
+            y: -1500 + rand() * 3400,
+            size,
+            speed: near ? 300 + rand() * 120 : 90 + rand() * 170,
+            drift: (rand() - 0.5) * 80,
+            op: near ? 0.45 : 0.35 + rand() * 0.55,
+            near,
+          };
+          FLAKES.push(f);
+          const el = document.createElement("div");
+          el.className = "flake";
+          el.id = "flake" + i;
+          el.style.width = size + "px";
+          el.style.height = size + "px";
+          el.style.opacity = f.op.toFixed(2);
+          if (near) el.style.filter = "blur(3px)";
+          snow.appendChild(el);
+        }
+
+        document.getElementById("todayNum").textContent = "Türchen " + DAY;
+
+        // ---------- Timeline ----------
+        gsap.set(["#today", "#logo", "#burst", "#bigNum", "#halo", "#vignette", ".spark"], { opacity: 0 });
+        const tl = gsap.timeline({ paused: true });
+        const soft = "power3.out";
+
+        FLAKES.forEach((f, i) => {
+          tl.fromTo(
+            "#flake" + i,
+            { x: f.x, y: f.y },
+            { x: f.x + f.drift, y: f.y + f.speed * 6, duration: 6, ease: "none" },
+            0
+          );
+        });
+
+        // Settle on the house, title in
+        tl.fromTo("#world", { y: 70, scale: 1.04 }, { y: 0, scale: 1, duration: 1.3, ease: "power2.out" }, 0);
+        tl.fromTo("#kicker", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 0.15);
+        tl.fromTo("#title", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.9, ease: soft }, 0.3);
+
+        // String lights and tree lights twinkle (finite)
+        for (let k = 0; k < 10; k++) {
+          const t = 0.2 + k * 0.55;
+          tl.to(".bulb.g", { opacity: k % 2 ? 1 : 0.45, duration: 0.25, ease: "sine.inOut" }, t);
+          tl.to(".bulb.c", { opacity: k % 2 ? 0.45 : 1, duration: 0.25, ease: "sine.inOut" }, t);
+          tl.to(".tlight", { opacity: k % 2 ? 1 : 0.5, duration: 0.25, ease: "sine.inOut", stagger: 0.04 }, t + 0.1);
+        }
+
+        // Today's window calls
+        tl.fromTo("#halo", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1.12, duration: 0.5, ease: soft }, 0.9);
+        tl.to("#halo", { opacity: 0.6, scale: 1, duration: 0.5, ease: "power2.inOut" }, 1.4);
+
+        // Camera flies to it
+        const S = 2.7;
+        tl.to("#world", { x: 540 - target.x * S, y: 880 - target.y * S, scale: S, duration: 1.5, ease: "power3.inOut" }, 1.5);
+        tl.to("#vignette", { opacity: 1, duration: 1.1, ease: "power2.inOut" }, 1.75);
+        tl.to("#halo", { opacity: 0, duration: 0.4 }, 2.7);
+
+        // The shutters open, light pours out
+        tl.to("#todayWin .num", { opacity: 0, duration: 0.2 }, 3.0);
+        tl.fromTo("#todayWin .sl", { rotationY: 0 }, { rotationY: -112, duration: 0.85, ease: "power3.inOut" }, 3.0);
+        tl.fromTo("#todayWin .sr", { rotationY: 0 }, { rotationY: 112, duration: 0.85, ease: "power3.inOut" }, 3.0);
+        tl.fromTo("#burst", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1.05, duration: 0.7, ease: soft }, 3.2);
+        tl.to("#burst", { opacity: 0.55, scale: 1, duration: 1.2, ease: "power2.out" }, 3.95);
+        tl.fromTo("#bigNum", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" }, 3.4);
+        SPARKS.forEach(([dx, dy, s], i) => {
+          tl.fromTo(
+            "#spark" + i,
+            { opacity: 0, x: 0, y: 0, scale: 0.3, rotation: 0 },
+            { opacity: 1, x: dx * 0.6, y: dy * 0.6, scale: s * 1.4, rotation: 90, duration: 0.45, ease: "power2.out" },
+            3.3 + (i % 4) * 0.05
+          );
+          tl.to("#spark" + i, { opacity: 0, x: dx, y: dy, scale: s * 0.6, duration: 0.6, ease: "power2.in" }, 3.75 + (i % 4) * 0.05);
+        });
+
+        // Today's line and the brand
+        tl.fromTo("#today", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: soft }, 3.9);
+        tl.fromTo("#logo", { opacity: 0, y: 16, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: soft }, 4.3);
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>
