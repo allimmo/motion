@@ -1,0 +1,681 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+          font-weight: 500;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "Josefin Sans";
+          src: url("assets/fonts/josefin-sans-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        #s-root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #f5f5f7;
+        }
+        .s-panel {
+          position: absolute;
+          left: 60px;
+          width: 960px;
+          border-radius: 36px;
+        }
+        .s-head {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 52px;
+        }
+        .s-chip {
+          display: block;
+          padding: 10px 20px 8px;
+          border-radius: 999px;
+          font-family: "Josefin Sans", sans-serif;
+          font-weight: 700;
+          font-size: 24px;
+          letter-spacing: 0.16em;
+        }
+        .s-status {
+          position: relative;
+          width: 480px;
+          height: 40px;
+          font-size: 30px;
+          font-weight: 600;
+        }
+        .s-tok {
+          position: absolute;
+          right: 0;
+          top: 0;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          white-space: nowrap;
+          opacity: 0;
+        }
+
+        /* ----- the old way ----- */
+        #s-panelA {
+          top: 240px;
+          height: 510px;
+          background: #1c1c1e;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        #s-headA {
+          left: 28px;
+          right: 92px;
+          top: 20px;
+        }
+        #s-headA .s-chip {
+          background: #2c2c2e;
+          color: #aeaeb2;
+        }
+        #s-headA .s-status {
+          color: #d2d2d7;
+        }
+        .s-clock {
+          position: absolute;
+          right: 28px;
+          top: 22px;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          border: 4px solid #8e8e93;
+        }
+        .s-hand {
+          position: absolute;
+          left: 18px;
+          width: 4px;
+          border-radius: 2px;
+          background: #d2d2d7;
+          transform-origin: 50% 100%;
+        }
+        #s-handM {
+          top: 4px;
+          height: 16px;
+        }
+        #s-handH {
+          top: 9px;
+          height: 11px;
+          background: #8e8e93;
+        }
+        #s-tabInd {
+          position: absolute;
+          left: 28px;
+          top: 92px;
+          width: 200px;
+          height: 52px;
+          border-radius: 999px;
+          background: #3a3a3c;
+        }
+        .s-tabs {
+          position: absolute;
+          left: 28px;
+          top: 92px;
+          display: flex;
+          gap: 12px;
+        }
+        .s-tab {
+          display: block;
+          width: 200px;
+          height: 52px;
+          line-height: 50px;
+          text-align: center;
+          border-radius: 999px;
+          border: 1px solid #3a3a3c;
+          font-size: 26px;
+          font-weight: 600;
+          color: #d2d2d7;
+        }
+        .s-form {
+          position: absolute;
+          left: 28px;
+          right: 28px;
+          top: 166px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+        .s-field {
+          position: relative;
+          height: 70px;
+          border-radius: 16px;
+          background: #2c2c2e;
+          border: 1px solid #3a3a3c;
+          font-size: 29px;
+          font-weight: 500;
+        }
+        .s-field span {
+          position: absolute;
+          left: 22px;
+          top: 0;
+          line-height: 68px;
+          display: block;
+        }
+        .s-ph {
+          color: #8e8e93;
+        }
+        .s-val {
+          color: #f5f5f7;
+          opacity: 0;
+        }
+        .s-chev {
+          position: absolute;
+          right: 26px;
+          top: 22px;
+          width: 14px;
+          height: 14px;
+          border-right: 4px solid #8e8e93;
+          border-bottom: 4px solid #8e8e93;
+          transform: rotate(45deg);
+        }
+        #s-searchBtn {
+          position: absolute;
+          right: 28px;
+          top: 344px;
+          width: 220px;
+          height: 70px;
+          border-radius: 999px;
+          background: #3a3a3c;
+          color: #f5f5f7;
+          font-size: 29px;
+          font-weight: 700;
+          line-height: 70px;
+          text-align: center;
+        }
+        .s-result {
+          position: absolute;
+          left: 28px;
+          top: 344px;
+          line-height: 70px;
+          font-size: 32px;
+          font-weight: 700;
+          white-space: nowrap;
+          opacity: 0;
+        }
+        #s-resBusy {
+          color: #aeaeb2;
+          font-weight: 500;
+        }
+        #s-res0 {
+          color: #ff7b72;
+        }
+        #s-cursor {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 44px;
+          height: 52px;
+        }
+        #s-ripple {
+          position: absolute;
+          left: -30px;
+          top: -30px;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          border: 4px solid #ffffff;
+          opacity: 0;
+        }
+        #s-vs {
+          position: absolute;
+          left: 500px;
+          top: 770px;
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          background: #000000;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          color: #d2d2d7;
+          font-family: "Josefin Sans", sans-serif;
+          font-weight: 700;
+          font-size: 26px;
+          line-height: 80px;
+          text-align: center;
+        }
+
+        /* ----- SearchPlace ----- */
+        #s-panelB {
+          top: 870px;
+          height: 560px;
+          background: #0c1c24;
+          border: 1px solid rgba(111, 227, 243, 0.3);
+        }
+        #s-headB {
+          left: 88px;
+          right: 88px;
+          top: 888px;
+        }
+        #s-headB .s-chip {
+          background: #12b4cd;
+          color: #000000;
+        }
+        #s-headB .s-status {
+          color: #6fe3f3;
+        }
+        .s-wave {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          height: 36px;
+        }
+        .s-wave i {
+          display: block;
+          width: 6px;
+          height: 36px;
+          border-radius: 3px;
+          background: #6fe3f3;
+        }
+        .s-done {
+          position: relative;
+          display: block;
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          background: #6fe3f3;
+        }
+        .s-done::after {
+          content: "";
+          position: absolute;
+          left: 12px;
+          top: 6px;
+          width: 8px;
+          height: 15px;
+          border-right: 4px solid #000000;
+          border-bottom: 4px solid #000000;
+          transform: rotate(45deg);
+        }
+        #s-progress {
+          position: absolute;
+          left: 100px;
+          top: 1184px;
+          width: 880px;
+          height: 6px;
+          border-radius: 3px;
+          background: rgba(111, 227, 243, 0.15);
+          overflow: hidden;
+        }
+        #s-progressFill {
+          width: 100%;
+          height: 100%;
+          background: #12b4cd;
+          transform-origin: 0 50%;
+        }
+        #s-rows {
+          position: absolute;
+          left: 100px;
+          width: 880px;
+          top: 1202px;
+          display: grid;
+          gap: 8px;
+        }
+        .s-row {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          height: 64px;
+          padding: 0 18px 0 10px;
+          border-radius: 18px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(111, 227, 243, 0.18);
+        }
+        .s-thumb {
+          position: relative;
+          flex: none;
+          width: 46px;
+          height: 46px;
+          border-radius: 11px;
+          overflow: hidden;
+          background: linear-gradient(160deg, #2f5d70, #1592a9);
+        }
+        .s-price {
+          display: block;
+          width: 140px;
+          font-size: 30px;
+          font-weight: 700;
+          letter-spacing: -0.02em;
+        }
+        .s-spec {
+          display: block;
+          font-size: 24px;
+          font-weight: 500;
+          color: #d2d2d7;
+          white-space: nowrap;
+        }
+        .s-badge {
+          position: absolute;
+          right: 14px;
+          top: 15px;
+          padding: 5px 14px;
+          border-radius: 999px;
+          background: #6fe3f3;
+          color: #000000;
+          font-size: 20px;
+          font-weight: 700;
+        }
+
+        /* ----- the search bar (logo shell), logo units 1650 × 415 ----- */
+        #s-barCam {
+          position: absolute;
+          left: 100px;
+          top: 950px;
+          width: 940px;
+          height: 236px;
+          transform-origin: 0 0;
+        }
+        .s-fit {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1650px;
+          height: 415px;
+          transform: scale(0.569697);
+          transform-origin: 0 0;
+        }
+        .s-shell {
+          position: absolute;
+          inset: 0;
+          border-radius: 208px;
+          overflow: hidden;
+          background: linear-gradient(180deg, #2a4f62 0%, #1b3c4d 38%, #122f3d 72%, #0d2632 100%);
+          box-shadow:
+            inset 0 3px 0 rgba(255, 255, 255, 0.2),
+            inset 0 -14px 40px rgba(0, 0, 0, 0.4),
+            0 40px 80px rgba(0, 0, 0, 0.6);
+        }
+        .s-ring {
+          position: absolute;
+          inset: 38px;
+          border: 16px solid #12b4cd;
+          border-radius: 999px;
+        }
+        .s-query {
+          position: absolute;
+          left: 128px;
+          right: 395px;
+          top: 123px;
+          font-size: 70px;
+          font-weight: 500;
+          line-height: 1.2;
+          letter-spacing: -0.01em;
+        }
+        #s-placeholder {
+          position: absolute;
+          left: 0;
+          top: 42px;
+          white-space: nowrap;
+          color: rgba(200, 225, 235, 0.55);
+        }
+        .s-word {
+          display: inline-block;
+        }
+        .s-mic {
+          position: absolute;
+          right: 120px;
+          top: 85px;
+          width: 225px;
+          height: 225px;
+          border-radius: 50%;
+          background: linear-gradient(180deg, #2cc7de 0%, #12b4cd 55%, #0c9db4 100%);
+          box-shadow:
+            inset 0 5px 8px rgba(255, 255, 255, 0.28),
+            inset 0 -8px 14px rgba(0, 0, 0, 0.22);
+        }
+        .s-micsvg {
+          position: absolute;
+          left: 57px;
+          top: 57px;
+          width: 110px;
+          height: 110px;
+        }
+        .s-pulse {
+          position: absolute;
+          right: 120px;
+          top: 85px;
+          width: 225px;
+          height: 225px;
+          border-radius: 50%;
+          border: 8px solid rgba(184, 246, 255, 0.8);
+          opacity: 0;
+        }
+
+        /* ----- the takeaway ----- */
+        .s-line {
+          position: absolute;
+          left: 40px;
+          right: 40px;
+          text-align: center;
+          line-height: 1.05;
+        }
+        #s-say {
+          top: 600px;
+          font-size: 140px;
+          font-weight: 700;
+          letter-spacing: -0.05em;
+        }
+        #s-chaos {
+          top: 770px;
+          font-size: 72px;
+          font-weight: 600;
+          letter-spacing: -0.03em;
+          color: #86868b;
+        }
+      </style>
+
+      <div id="s-root" data-composition-id="story" data-width="1080" data-height="1920">
+        <div id="s-panelA" class="s-panel">
+          <div id="s-headA" class="s-head">
+            <span class="s-chip">BISHER</span>
+            <span class="s-status">
+              <span id="s-ta0" class="s-tok">Filter setzen.</span>
+              <span id="s-ta1" class="s-tok">Portal wechseln.</span>
+              <span id="s-ta2" class="s-tok">Von vorn.</span>
+            </span>
+          </div>
+          <div class="s-clock"><span id="s-handH" class="s-hand"></span><span id="s-handM" class="s-hand"></span></div>
+          <div id="s-tabInd"></div>
+          <div class="s-tabs"><span class="s-tab">Portal A</span><span class="s-tab">Portal B</span><span class="s-tab">Portal C</span></div>
+          <div class="s-form">
+            <div class="s-field"><span class="s-ph">Bezirk wählen</span><span class="s-val">1070 Neubau</span><i class="s-chev"></i></div>
+            <div class="s-field"><span class="s-ph">Zimmer</span><span class="s-val">2 Zimmer</span><i class="s-chev"></i></div>
+            <div class="s-field"><span class="s-ph">Preis von</span><span class="s-val">–</span></div>
+            <div class="s-field"><span class="s-ph">Preis bis</span><span class="s-val">1.100 €</span></div>
+          </div>
+          <div id="s-searchBtn">Suchen</div>
+          <div id="s-resBusy" class="s-result">Suche läuft …</div>
+          <div id="s-res0" class="s-result">0 Treffer</div>
+          <div id="s-cursor">
+            <div id="s-ripple"></div>
+            <svg width="44" height="52" viewBox="0 0 44 52">
+              <path d="M3 2 L3 42 L13 33 L20 49 L28 45 L21 30 L35 30 Z" fill="#ffffff" stroke="#000000" stroke-width="3" stroke-linejoin="round" />
+            </svg>
+          </div>
+        </div>
+
+        <div id="s-vs">VS</div>
+
+        <div id="s-panelB" class="s-panel"></div>
+        <div id="s-headB" class="s-head">
+          <span class="s-chip">MIT SEARCHPLACE</span>
+          <span class="s-status">
+            <span id="s-tb0" class="s-tok">Einfach sagen.</span>
+            <span id="s-tb1" class="s-tok"><span class="s-wave" id="s-wave"></span>Hört zu</span>
+            <span id="s-tb2" class="s-tok">Durchsucht alle Portale …</span>
+            <span id="s-tb3" class="s-tok"><span class="s-done"></span>Fertig.</span>
+          </span>
+        </div>
+        <div id="s-progress"><div id="s-progressFill"></div></div>
+        <div id="s-rows"></div>
+
+        <div id="s-say" class="s-line">Ein Satz.</div>
+        <div id="s-chaos" class="s-line">Statt Filter-Chaos.</div>
+
+        <div id="s-barCam">
+          <div class="s-fit">
+            <div class="s-shell">
+              <div class="s-ring"></div>
+              <div class="s-query">
+                <span id="s-placeholder">Tippen oder sprechen …</span>
+                <span id="s-text"></span>
+              </div>
+              <div id="s-pulse0" class="s-pulse"></div>
+              <div id="s-pulse1" class="s-pulse"></div>
+              <div id="s-mic" class="s-mic">
+                <svg class="s-micsvg" viewBox="0 0 110 110" fill="none">
+                  <rect x="38" y="8" width="34" height="58" rx="17" fill="#ffffff" />
+                  <path d="M22 50 a33 33 0 0 0 66 0" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                  <path d="M55 84 V100" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const root = document.getElementById("s-root");
+          const q = (s) => root.querySelector(s);
+          const qa = (s) => Array.from(root.querySelectorAll(s));
+
+          const WORDS = ["Ruhige", "2-Zimmer-Wohnung", "mit", "Balkon", "in", "Neubau,", "bis 1.100 €"];
+          const textEl = q("#s-text");
+          WORDS.forEach((w, i) => {
+            const s = document.createElement("span");
+            s.className = "s-word";
+            s.textContent = w;
+            textEl.appendChild(s);
+            if (i < WORDS.length - 1) textEl.appendChild(document.createTextNode(" "));
+          });
+          const wave = q("#s-wave");
+          for (let i = 0; i < 12; i++) wave.appendChild(document.createElement("i"));
+
+          const ROWS = [
+            ["1.050 €", "2 Zi · 58 m² · Balkon · ruhig", true],
+            ["990 €", "2 Zi · 52 m² · Balkon · Hofseite", false],
+            ["1.090 €", "2 Zi · 61 m² · Balkon · Altbau", false],
+          ];
+          const rowsEl = q("#s-rows");
+          ROWS.forEach(([price, spec, top], i) => {
+            const r = document.createElement("div");
+            r.className = "s-row";
+            r.id = "s-row" + i;
+            r.innerHTML =
+              '<span class="s-thumb"></span><span class="s-price">' + price + '</span><span class="s-spec">' + spec + "</span>" +
+              (top ? '<span class="s-badge">Top-Treffer</span>' : "");
+            rowsEl.appendChild(r);
+          });
+
+          gsap.set(["#s-resBusy", "#s-res0", ".s-word", "#s-progress", ".s-row", "#s-say", "#s-chaos"], { opacity: 0 });
+          gsap.set("#s-barCam", { scale: 0.93617 });
+          gsap.set("#s-ta0", { opacity: 1 });
+          gsap.set("#s-tb0", { opacity: 1 });
+
+          const tl = gsap.timeline({ paused: true });
+          const soft = "power3.out";
+          const fields = qa(".s-field");
+
+          // Both lanes are on screen from frame 0
+          tl.fromTo("#s-panelA", { y: -30 }, { y: 0, duration: 0.6, ease: soft }, 0);
+          tl.fromTo(["#s-panelB", "#s-headB", "#s-barCam"], { y: 30 }, { y: 0, duration: 0.6, ease: soft }, 0);
+
+          const tok = (ids, times) =>
+            ids.forEach((id, n) => {
+              if (n > 0) tl.set(ids[n - 1], { opacity: 0 }, times[n]);
+              tl.set(id, { opacity: 1 }, times[n]);
+            });
+          tok(["#s-ta0", "#s-ta1", "#s-ta2"], [0, 3.25, 3.7]);
+          tok(["#s-tb0", "#s-tb1", "#s-tb2", "#s-tb3"], [0, 0.55, 2.45, 3.3]);
+
+          // ---------- Old way: click, click, click … nothing ----------
+          tl.fromTo("#s-handM", { rotation: 0 }, { rotation: 360 * 7, duration: 4.8, ease: "none" }, 0);
+          tl.fromTo("#s-handH", { rotation: 30 }, { rotation: 30 + 360 * 0.6, duration: 4.8, ease: "none" }, 0);
+          const P = { bezirk: [250, 201], zimmer: [710, 201], bis: [710, 287], suchen: [822, 379], tabB: [340, 118] };
+          tl.fromTo("#s-cursor", { x: 560, y: 470 }, { x: 560, y: 470, duration: 0.01 }, 0);
+          const move = (to, t, d) => tl.to("#s-cursor", { x: to[0], y: to[1], duration: d, ease: "power2.inOut" }, t);
+          const click = (t) => {
+            tl.to("#s-cursor svg", { scale: 0.84, duration: 0.07, ease: "power2.in", transformOrigin: "10% 5%" }, t);
+            tl.to("#s-cursor svg", { scale: 1, duration: 0.2, ease: soft }, t + 0.08);
+            tl.fromTo("#s-ripple", { scale: 0.3, opacity: 0.9 }, { scale: 1.4, opacity: 0, duration: 0.4, ease: soft }, t);
+          };
+          const fill = (i, t) => {
+            tl.set(fields[i].querySelector(".s-ph"), { opacity: 0 }, t);
+            tl.set(fields[i].querySelector(".s-val"), { opacity: 1 }, t);
+          };
+          move(P.bezirk, 0.15, 0.38); click(0.53); fill(0, 0.55);
+          move(P.zimmer, 0.72, 0.32); click(1.04); fill(1, 1.06);
+          move(P.bis, 1.22, 0.3); click(1.52); fill(3, 1.54);
+          move(P.suchen, 1.7, 0.36); click(2.06);
+          tl.set("#s-resBusy", { opacity: 1 }, 2.1);
+          tl.set("#s-resBusy", { opacity: 0 }, 2.75);
+          tl.set("#s-res0", { opacity: 1 }, 2.75);
+          tl.fromTo("#s-res0", { x: -14 }, { x: 0, duration: 0.3, ease: soft }, 2.75);
+          move(P.tabB, 2.95, 0.3); click(3.25);
+          tl.to("#s-tabInd", { x: 212, duration: 0.28, ease: "power3.inOut" }, 3.27);
+          fields.forEach((f) => {
+            tl.set(f.querySelector(".s-ph"), { opacity: 1 }, 3.3);
+            tl.set(f.querySelector(".s-val"), { opacity: 0 }, 3.3);
+          });
+          tl.set("#s-res0", { opacity: 0 }, 3.3);
+          move(P.bezirk, 3.55, 0.35); click(3.9); fill(0, 3.92);
+          move(P.zimmer, 4.1, 0.3); click(4.4); fill(1, 4.42);
+
+          // ---------- SearchPlace: one sentence ----------
+          tl.to("#s-mic", { scale: 0.88, duration: 0.1, ease: "power2.in" }, 0.42);
+          tl.to("#s-mic", { scale: 1, duration: 0.4, ease: soft }, 0.53);
+          tl.to("#s-placeholder", { opacity: 0, duration: 0.15 }, 0.5);
+          [0.55, 1.05, 1.55].forEach((t, k) =>
+            tl.fromTo(k % 2 ? "#s-pulse1" : "#s-pulse0", { scale: 1, opacity: 0.8 }, { scale: 1.5, opacity: 0, duration: 0.8, ease: soft }, t)
+          );
+          qa("#s-wave i").forEach((b, i) => {
+            gsap.set(b, { scaleY: 0.25 });
+            for (let k = 0; k < 15; k++) {
+              const h = 0.25 + 0.75 * Math.abs(Math.sin(i * 0.9 + k * 1.37) * Math.cos(k * 0.41 + i * 0.3));
+              tl.to(b, { scaleY: h, duration: 0.12, ease: "sine.inOut" }, 0.6 + k * 0.12);
+            }
+          });
+          qa(".s-word").forEach((w, i) =>
+            tl.fromTo(w, { opacity: 0, y: 12, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.28, ease: soft }, 0.75 + i * 0.22)
+          );
+          tl.fromTo("#s-progress", { opacity: 0 }, { opacity: 1, duration: 0.15 }, 2.45);
+          tl.fromTo("#s-progressFill", { scaleX: 0 }, { scaleX: 1, duration: 0.75, ease: "power2.inOut" }, 2.5);
+          tl.to("#s-progress", { opacity: 0, duration: 0.2 }, 3.25);
+          [0, 1, 2].forEach((i) =>
+            tl.fromTo("#s-row" + i, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: soft }, 3.3 + i * 0.12)
+          );
+
+          // ---------- Takeaway: one sentence instead of filter chaos ----------
+          tl.to("#s-panelA", { opacity: 0, y: -60, duration: 0.45, ease: "power2.in" }, 4.85);
+          tl.to("#s-vs", { opacity: 0, duration: 0.3 }, 4.85);
+          tl.to(["#s-panelB", "#s-headB", "#s-rows"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 4.9);
+          tl.to("#s-barCam", { x: -30, y: 70, scale: 1, duration: 0.8, ease: "power3.inOut" }, 4.95);
+          tl.fromTo("#s-say", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: soft }, 5.35);
+          tl.fromTo("#s-chaos", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: soft }, 5.55);
+          tl.to(["#s-say", "#s-chaos"], { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" }, 7.5);
+          tl.to("#s-barCam", { opacity: 0, duration: 0.4, ease: "power2.in" }, 7.5);
+
+          window.__timelines["story"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

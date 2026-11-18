@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "Josefin Sans";
+          src: url("assets/fonts/josefin-sans-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        #e-root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #f5f5f7;
+        }
+
+        /* ----- logo (brand mark as image, 1650 × 415 source) ----- */
+        #e-logo {
+          position: absolute;
+          left: 155px;
+          top: 380px;
+          width: 771px;
+          height: 194px;
+          border-radius: 97px;
+          overflow: hidden;
+          box-shadow: 0 60px 120px rgba(0, 0, 0, 0.9);
+        }
+        #e-logo img {
+          display: block;
+          width: 771px;
+          height: 194px;
+        }
+        #e-sweep {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 300px;
+          background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.26) 50%, transparent 100%);
+        }
+
+        /* ----- offer + call to action ----- */
+        .e-line {
+          position: absolute;
+          left: 40px;
+          right: 40px;
+          text-align: center;
+          line-height: 1.05;
+        }
+        #e-head {
+          top: 660px;
+          font-size: 124px;
+          font-weight: 700;
+          letter-spacing: -0.045em;
+        }
+        .e-grad {
+          color: #6fe3f3;
+          background: linear-gradient(100deg, #b8f6ff 0%, #6fe3f3 35%, #12b4cd 70%, #2f86c9 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        #e-codeBox {
+          position: absolute;
+          left: 290px;
+          top: 852px;
+          width: 500px;
+          height: 160px;
+          border-radius: 30px;
+          border: 2px solid rgba(255, 255, 255, 0.22);
+          overflow: hidden;
+        }
+        #e-codeLabel {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 26px;
+          text-align: center;
+          padding-left: 0.32em;
+          font-size: 22px;
+          font-weight: 600;
+          letter-spacing: 0.32em;
+          color: #86868b;
+        }
+        #e-code {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 58px;
+          text-align: center;
+          padding-left: 0.16em;
+          font-size: 82px;
+          font-weight: 700;
+          line-height: 1;
+          letter-spacing: 0.16em;
+        }
+        #e-codeSheen {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 200px;
+          background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.14) 50%, transparent 100%);
+        }
+        #e-when {
+          top: 1052px;
+          font-size: 36px;
+          font-weight: 600;
+          letter-spacing: -0.01em;
+          color: #86868b;
+        }
+        #e-ctaWrap {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1134px;
+          display: flex;
+          justify-content: center;
+        }
+        #e-cta {
+          display: block;
+          height: 104px;
+          padding: 0 58px;
+          border-radius: 999px;
+          background: #f5f5f7;
+          color: #000000;
+          font-size: 42px;
+          font-weight: 700;
+          letter-spacing: -0.02em;
+          line-height: 104px;
+          white-space: nowrap;
+        }
+        #e-url {
+          top: 1270px;
+          font-size: 38px;
+          font-weight: 600;
+          letter-spacing: -0.01em;
+          color: #d2d2d7;
+        }
+      </style>
+
+      <div id="e-root" data-composition-id="endcard" data-width="1080" data-height="1920">
+        <div id="e-logo">
+          <img src="assets/logo.png" alt="SearchPlace AI" />
+          <div id="e-sweep" data-layout-allow-overflow></div>
+        </div>
+        <div id="e-head" class="e-line">1 Monat <span class="e-grad">gratis.</span></div>
+        <div id="e-codeBox">
+          <div id="e-codeLabel">CODE</div>
+          <div id="e-code">BLACK</div>
+          <div id="e-codeSheen" data-layout-allow-overflow></div>
+        </div>
+        <div id="e-when" class="e-line">Nur vom 23. bis 29. November.</div>
+        <div id="e-ctaWrap"><span id="e-cta">Jetzt kostenlos testen</span></div>
+        <div id="e-url" class="e-line">searchplace.ai</div>
+      </div>
+
+      <script>
+        (function () {
+          gsap.set(["#e-sweep", "#e-codeSheen"], { x: -420 });
+          const tl = gsap.timeline({ paused: true });
+          const soft = "power3.out";
+          tl.fromTo("#e-logo", { opacity: 0, scale: 0.94, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: soft }, 0);
+          tl.to("#e-sweep", { x: 1800, duration: 1.0, ease: "power2.inOut" }, 0.45);
+          tl.fromTo("#e-head", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: soft }, 0.2);
+          tl.fromTo("#e-codeBox", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: soft }, 0.45);
+          tl.to("#e-codeSheen", { x: 700, duration: 1.0, ease: "power2.inOut" }, 1.0);
+          tl.fromTo("#e-when", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: soft }, 0.7);
+          tl.fromTo("#e-cta", { opacity: 0, y: 16, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: soft }, 0.9);
+          tl.fromTo("#e-url", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.6, ease: soft }, 1.1);
+          // one gentle nudge on the button, not a loop
+          tl.to("#e-cta", { scale: 1.04, duration: 0.35, ease: "power2.out" }, 2.4);
+          tl.to("#e-cta", { scale: 1, duration: 0.5, ease: "power2.inOut" }, 2.75);
+          window.__timelines["endcard"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

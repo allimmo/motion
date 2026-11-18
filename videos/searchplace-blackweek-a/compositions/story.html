@@ -1,0 +1,358 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+          font-weight: 500;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        #s-root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #f5f5f7;
+        }
+        .s-title {
+          position: absolute;
+          left: 40px;
+          right: 40px;
+          text-align: center;
+          font-weight: 700;
+          letter-spacing: -0.045em;
+          line-height: 1.06;
+        }
+        .s-title .s-ln {
+          display: block;
+        }
+        #s-hook {
+          top: 396px;
+          font-size: 98px;
+        }
+        #s-hookSub {
+          top: 524px;
+          font-size: 56px;
+          font-weight: 600;
+          letter-spacing: -0.03em;
+          color: #86868b;
+        }
+        #s-t2 {
+          top: 392px;
+          font-size: 96px;
+        }
+        .s-grad {
+          color: #6fe3f3;
+          background: linear-gradient(100deg, #b8f6ff 0%, #6fe3f3 35%, #12b4cd 70%, #2f86c9 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        /* ----- search bar (logo shell), logo units 1650 × 415 ----- */
+        #s-barCam {
+          position: absolute;
+          left: 70px;
+          top: 985px;
+          width: 940px;
+          height: 236px;
+          transform-origin: 50% 0;
+        }
+        .s-fit {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1650px;
+          height: 415px;
+          transform: scale(0.569697);
+          transform-origin: 0 0;
+        }
+        .s-shell {
+          position: absolute;
+          inset: 0;
+          border-radius: 208px;
+          overflow: hidden;
+          background: linear-gradient(180deg, #2a4f62 0%, #1b3c4d 38%, #122f3d 72%, #0d2632 100%);
+          box-shadow:
+            inset 0 3px 0 rgba(255, 255, 255, 0.2),
+            inset 0 -14px 40px rgba(0, 0, 0, 0.4),
+            0 50px 100px rgba(0, 0, 0, 0.8);
+        }
+        .s-ring {
+          position: absolute;
+          inset: 38px;
+          border: 16px solid #12b4cd;
+          border-radius: 999px;
+        }
+        .s-query {
+          position: absolute;
+          left: 128px;
+          right: 395px;
+          top: 123px;
+          font-size: 70px;
+          font-weight: 500;
+          line-height: 1.2;
+          letter-spacing: -0.01em;
+        }
+        #s-placeholder {
+          position: absolute;
+          left: 0;
+          top: 42px;
+          white-space: nowrap;
+          color: rgba(200, 225, 235, 0.55);
+        }
+        .s-word {
+          display: inline-block;
+        }
+        .s-nb {
+          white-space: nowrap;
+        }
+        .s-mic {
+          position: absolute;
+          right: 120px;
+          top: 85px;
+          width: 225px;
+          height: 225px;
+          border-radius: 50%;
+          background: linear-gradient(180deg, #2cc7de 0%, #12b4cd 55%, #0c9db4 100%);
+          box-shadow:
+            inset 0 5px 8px rgba(255, 255, 255, 0.28),
+            inset 0 -8px 14px rgba(0, 0, 0, 0.22);
+        }
+        .s-micsvg {
+          position: absolute;
+          left: 57px;
+          top: 57px;
+          width: 110px;
+          height: 110px;
+        }
+        .s-pulse {
+          position: absolute;
+          right: 120px;
+          top: 85px;
+          width: 225px;
+          height: 225px;
+          border-radius: 50%;
+          border: 8px solid rgba(184, 246, 255, 0.8);
+          opacity: 0;
+        }
+        #s-sweep {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 320px;
+          background: linear-gradient(105deg, transparent 0%, rgba(184, 246, 255, 0.28) 50%, transparent 100%);
+        }
+        #s-scan {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1262px;
+          text-align: center;
+          font-size: 38px;
+          font-weight: 600;
+          color: #86868b;
+        }
+
+        /* ----- results ----- */
+        #s-cards {
+          position: absolute;
+          left: 90px;
+          width: 900px;
+          top: 896px;
+          display: grid;
+          gap: 16px;
+        }
+        .s-card {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 26px;
+          height: 150px;
+          padding: 0 22px;
+          border-radius: 30px;
+          background: #1c1c1e;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .s-thumb {
+          position: relative;
+          flex: none;
+          width: 112px;
+          height: 112px;
+          border-radius: 20px;
+          overflow: hidden;
+          background: linear-gradient(160deg, #2f5d70, #1592a9);
+        }
+        .s-thumb::after {
+          content: "";
+          position: absolute;
+          left: 24px;
+          right: 24px;
+          bottom: 0;
+          height: 74px;
+          border-radius: 4px 4px 0 0;
+          background: repeating-linear-gradient(90deg, #eaf4f7 0 8px, #164a5e 8px 18px, #eaf4f7 18px 26px);
+        }
+        .s-meta {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          min-width: 0;
+        }
+        .s-meta span {
+          display: block;
+          white-space: nowrap;
+        }
+        .s-price {
+          font-size: 44px;
+          font-weight: 700;
+          letter-spacing: -0.03em;
+        }
+        .s-spec {
+          font-size: 26px;
+          font-weight: 500;
+          color: #d2d2d7;
+        }
+        .s-loc {
+          font-size: 24px;
+          font-weight: 600;
+          color: #6fe3f3;
+        }
+        .s-badge {
+          position: absolute;
+          right: 22px;
+          top: 22px;
+          padding: 8px 16px;
+          border-radius: 999px;
+          background: #12b4cd;
+          color: #000000;
+          font-size: 22px;
+          font-weight: 700;
+        }
+      </style>
+
+      <div id="s-root" data-composition-id="story" data-width="1080" data-height="1920">
+        <div id="s-hook" class="s-title">Wohnung gesucht?</div>
+        <div id="s-hookSub" class="s-title">Sag einfach, was du suchst.</div>
+        <div id="s-t2" class="s-title"><span class="s-ln">Alle Immobilien.</span><span class="s-ln s-grad">In Sekunden.</span></div>
+
+        <div id="s-barCam">
+          <div class="s-fit">
+            <div class="s-shell">
+              <div class="s-ring"></div>
+              <div class="s-query">
+                <span id="s-placeholder">Was suchst du?</span>
+                <span id="s-text"></span>
+              </div>
+              <div id="s-pulse0" class="s-pulse"></div>
+              <div id="s-pulse1" class="s-pulse"></div>
+              <div id="s-mic" class="s-mic">
+                <svg class="s-micsvg" viewBox="0 0 110 110" fill="none">
+                  <rect x="38" y="8" width="34" height="58" rx="17" fill="#ffffff" />
+                  <path d="M22 50 a33 33 0 0 0 66 0" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                  <path d="M55 84 V100" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                </svg>
+              </div>
+              <div id="s-sweep" data-layout-allow-overflow></div>
+            </div>
+          </div>
+        </div>
+        <div id="s-scan">Durchsucht alle Portale …</div>
+        <div id="s-cards"></div>
+      </div>
+
+      <script>
+        (function () {
+          const root = document.getElementById("s-root");
+          const q = (s) => root.querySelector(s);
+          const qa = (s) => Array.from(root.querySelectorAll(s));
+
+          // Spoken request (from the launch press example)
+          const WORDS = ["Helle", "3-Zimmer-Wohnung", "mit", "Balkon,", "bis 1.200 €"];
+          const textEl = q("#s-text");
+          WORDS.forEach((w, i) => {
+            const s = document.createElement("span");
+            s.className = "s-word";
+            s.textContent = w;
+            textEl.appendChild(s);
+            if (i < WORDS.length - 1) textEl.appendChild(document.createTextNode(" "));
+          });
+
+          // Illustrative results
+          const CARDS = [
+            ["1.180 €", "3 Zi · 82 m² · Balkon · hell", "1130 Wien · Hietzing", true],
+            ["1.150 €", "3 Zi · 78 m² · Balkon", "1120 Wien · Meidling", false],
+            ["1.190 €", "3 Zi · 84 m² · Balkon · Altbau", "1140 Wien · Penzing", false],
+          ];
+          const cardsEl = q("#s-cards");
+          CARDS.forEach(([price, spec, loc, top], i) => {
+            const c = document.createElement("div");
+            c.className = "s-card";
+            c.id = "s-card" + i;
+            c.innerHTML =
+              '<span class="s-thumb"></span><span class="s-meta"><span class="s-price">' + price + '</span><span class="s-spec">' + spec +
+              '</span><span class="s-loc">' + loc + "</span></span>" + (top ? '<span class="s-badge">Top-Treffer</span>' : "");
+            cardsEl.appendChild(c);
+          });
+
+          gsap.set(["#s-hookSub", "#s-t2 .s-ln", ".s-word", "#s-scan", ".s-card", ".s-badge"], { opacity: 0 });
+          gsap.set("#s-sweep", { x: -440 });
+
+          const tl = gsap.timeline({ paused: true });
+          const soft = "power3.out";
+
+          // Frame 0 already reads: the question and the product
+          tl.fromTo("#s-hook", { scale: 1.05 }, { scale: 1, duration: 0.9, ease: soft }, 0);
+          tl.fromTo("#s-barCam", { y: 40 }, { y: 0, duration: 0.8, ease: soft }, 0);
+          tl.fromTo("#s-hookSub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: soft }, 0.6);
+
+          // Say it
+          tl.to("#s-mic", { scale: 0.9, duration: 0.12, ease: "power2.in" }, 1.05);
+          tl.to("#s-mic", { scale: 1, duration: 0.45, ease: soft }, 1.18);
+          tl.to("#s-placeholder", { opacity: 0, duration: 0.2 }, 1.1);
+          [1.15, 1.65].forEach((t, k) =>
+            tl.fromTo(k ? "#s-pulse1" : "#s-pulse0", { scale: 1, opacity: 0.75 }, { scale: 1.45, opacity: 0, duration: 0.9, ease: soft }, t)
+          );
+          qa(".s-word").forEach((w, i) =>
+            tl.fromTo(w, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: soft }, 1.3 + i * 0.22)
+          );
+
+          // Search the whole market
+          tl.fromTo("#s-scan", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: soft }, 2.6);
+          tl.to("#s-sweep", { x: 1800, duration: 0.8, ease: "power2.inOut" }, 2.65);
+          tl.to("#s-scan", { opacity: 0, duration: 0.25 }, 3.35);
+
+          // Results
+          tl.to(["#s-hook", "#s-hookSub"], { opacity: 0, y: -24, duration: 0.35, ease: "power2.in" }, 3.3);
+          tl.fromTo("#s-t2 .s-ln", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.7, ease: soft, stagger: 0.1 }, 3.6);
+          tl.to("#s-barCam", { y: -345, scale: 0.9, duration: 0.8, ease: "power3.inOut" }, 3.4);
+          [0, 1, 2].forEach((i) =>
+            tl.fromTo("#s-card" + i, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.65, ease: soft }, 4.0 + i * 0.15)
+          );
+          tl.fromTo("#s-card0 .s-badge", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.4, ease: soft }, 4.75);
+          tl.to("#s-card0", { borderColor: "rgba(111,227,243,0.7)", duration: 0.5 }, 4.75);
+
+          // Hand over to the end card
+          tl.to(["#s-t2", "#s-cards"], { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" }, 7.5);
+          tl.to("#s-barCam", { opacity: 0, duration: 0.4, ease: "power2.in" }, 7.5);
+
+          window.__timelines["story"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

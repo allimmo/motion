@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #bg-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #000000;
+        }
+        #bg-glow {
+          position: absolute;
+          left: 40px;
+          top: 460px;
+          width: 1000px;
+          height: 1000px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(18, 180, 205, 0.16) 0%, rgba(18, 180, 205, 0.05) 40%, rgba(18, 180, 205, 0) 68%);
+        }
+      </style>
+      <div id="bg-root" data-composition-id="bg" data-width="1080" data-height="1920">
+        <div id="bg-glow" data-layout-allow-overflow></div>
+      </div>
+      <script>
+        // Pure black and one soft light. Visible from the very first frame.
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#bg-glow", { scale: 0.85, opacity: 0.7 }, { scale: 1, opacity: 1, duration: 2, ease: "power2.out" }, 0);
+        window.__timelines["bg"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

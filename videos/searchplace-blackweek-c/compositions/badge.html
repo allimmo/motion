@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        #b-root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+        }
+        #b-wrap {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 232px;
+          display: flex;
+          justify-content: center;
+        }
+        #b-pill {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          height: 64px;
+          padding: 0 28px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          color: #d2d2d7;
+          font-size: 28px;
+          font-weight: 600;
+          letter-spacing: -0.01em;
+          white-space: nowrap;
+        }
+        #b-pill b {
+          font-weight: 700;
+          color: #ffffff;
+        }
+        #b-dot {
+          display: block;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: #6fe3f3;
+        }
+      </style>
+      <div id="b-root" data-composition-id="badge" data-width="1080" data-height="1920">
+        <div id="b-wrap">
+          <div id="b-pill"><span id="b-dot"></span>Black Week · <b>1 Monat gratis</b> · Code <b>BLACK</b></div>
+        </div>
+      </div>
+      <script>
+        // The offer stays on screen, so even a 3-second viewer has seen it.
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#b-pill", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0);
+        window.__timelines["badge"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

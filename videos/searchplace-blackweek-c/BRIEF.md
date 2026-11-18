@@ -1,0 +1,28 @@
+---
+workflow: product-launch-video
+flow: automation
+storyboard: no
+message: "Black Week: SearchPlace 1 Monat gratis – mit Code BLACK, nur vom 23.–29.11."
+destination: instagram-reels
+aspect: 1080x1920
+language: de
+audience: Wohnungs- und Immobiliensuchende in Österreich
+length: 10.5s
+angle: Angebot + Code im ersten Bild, dann drei Funktionen im Schnelldurchlauf, Angebot.
+---
+
+## Intent
+
+Performance-Variante C – Angebot zuerst für den Black-Week-Anzeigentest (ca. 200 € Tagesbudget),
+neben der Markenfassung D in videos/searchplace-blackweek/.
+
+## Notes
+
+- Auf Abschlüsse optimiert: Einstieg ab Bild 0 lesbar, Angebots-Plakette „Black Week ·
+  1 Monat gratis · Code BLACK“ fast durchgehend sichtbar, Abschlusskarte mit Logo,
+  Code, Zeitraum und Button „Jetzt kostenlos testen“.
+- Gemeinsame Bausteine: compositions/bg.html, badge.html, endcard.html (identisch in A/B/C).
+- Logo als freigestelltes PNG (assets/logo.png), damit es als Bildmarke gilt.
+- Inserate, Preise, Agenten und Benachrichtigungen sind Illustration.
+- Stumm; Musik im Werbeanzeigenmanager aus der Meta Sound Collection.
+- Keine Aussage zur automatischen Beendigung der Probezeit (nicht bestätigt).
