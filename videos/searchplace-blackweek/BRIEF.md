@@ -7,7 +7,7 @@ destination: instagram-reels
 aspect: 1080x1920
 language: de
 audience: Wohnungs- und Immobiliensuchende in Österreich / DACH
-length: 20s
+length: 22.5s
 angle: Angebot zuerst, dann Funktionen im Schnelldurchlauf, dann Code + Zeitraum + Dringlichkeit
 ---
 
@@ -26,7 +26,8 @@ darf.
 
 ## Notes
 
-- Black-Week-Look: fast schwarz statt Petrol, Cyan bleibt Akzent; Laufbänder als Sale-Signal.
+- Look: seriös im Apple-Stil – pures Schwarz, ruhige Typo, weiche Bewegungen, keine
+  Laufbänder (Feedback). Merk-Anker: „Geschenkt.“ am Anfang und Ende + schwarze Gutscheinkarte.
 - Inserate, Agenten-Kriterien und Benachrichtigungen sind Illustration; das
   Diagramm zeigt keine echten Werte (keine Zahlen auf den Achsen).
 - Stumm; Musik in Instagram ergänzen.

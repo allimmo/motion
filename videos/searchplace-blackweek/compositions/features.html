@@ -21,81 +21,35 @@
           src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
           font-weight: 700;
         }
-        @font-face {
-          font-family: "Inter";
-          src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2");
-          font-weight: 800;
-        }
-        @font-face {
-          font-family: "Josefin Sans";
-          src: url("assets/fonts/josefin-sans-latin-700-normal.woff2") format("woff2");
-          font-weight: 700;
-        }
         #f-root {
           position: absolute;
           inset: 0;
           font-family: "Inter", sans-serif;
-          color: #ffffff;
-        }
-        #f-kicker {
-          position: absolute;
-          left: 0;
-          right: 0;
-          top: 262px;
-          text-align: center;
-          padding-left: 0.3em;
-          font-family: "Josefin Sans", sans-serif;
-          font-weight: 700;
-          font-size: 30px;
-          letter-spacing: 0.3em;
-          color: #6fe3f3;
-        }
-        #f-prog {
-          position: absolute;
-          left: 0;
-          right: 0;
-          top: 318px;
-          display: flex;
-          justify-content: center;
-          gap: 12px;
-        }
-        .f-seg {
-          display: block;
-          width: 150px;
-          height: 8px;
-          border-radius: 4px;
-          background: rgba(111, 227, 243, 0.16);
-          overflow: hidden;
-        }
-        .f-segfill {
-          display: block;
-          width: 100%;
-          height: 100%;
-          background: #12b4cd;
-          transform-origin: 0 50%;
+          color: #f5f5f7;
         }
         .f-title {
           position: absolute;
-          left: 50px;
-          right: 50px;
-          top: 380px;
+          left: 40px;
+          right: 40px;
+          top: 400px;
           text-align: center;
-          font-weight: 800;
-          font-size: 92px;
-          line-height: 1.06;
-          letter-spacing: -0.045em;
+          font-weight: 700;
+          font-size: 88px;
+          line-height: 1.07;
+          letter-spacing: -0.04em;
         }
         .f-title .f-ln {
           display: block;
         }
-        .f-title .f-wd {
-          display: inline-block;
+        .f-gray {
+          color: #86868b;
         }
-        .f-title .f-wd + .f-wd {
-          margin-left: 0.24em;
-        }
-        .f-accent {
-          color: #12b4cd;
+        .f-grad {
+          color: #6fe3f3;
+          background: linear-gradient(100deg, #b8f6ff 0%, #6fe3f3 35%, #12b4cd 70%, #2f86c9 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
 
         /* ----- search bar (logo shell), logo units 1650 × 415 ----- */
@@ -120,26 +74,23 @@
           inset: 0;
           border-radius: 208px;
           overflow: hidden;
-          background: linear-gradient(180deg, #2c566b 0%, #1d4255 38%, #143444 72%, #0f2a38 100%);
+          background: linear-gradient(180deg, #2a4f62 0%, #1b3c4d 38%, #122f3d 72%, #0d2632 100%);
           box-shadow:
-            inset 0 3px 0 rgba(255, 255, 255, 0.22),
+            inset 0 3px 0 rgba(255, 255, 255, 0.2),
             inset 0 -14px 40px rgba(0, 0, 0, 0.4),
-            0 40px 80px rgba(0, 0, 0, 0.6);
+            0 50px 100px rgba(0, 0, 0, 0.8);
         }
         .f-ring {
           position: absolute;
           inset: 38px;
           border: 16px solid #12b4cd;
           border-radius: 999px;
-          box-shadow:
-            0 0 30px rgba(18, 180, 205, 0.35),
-            inset 0 0 24px rgba(0, 0, 0, 0.35);
         }
         #f-flash {
           position: absolute;
           inset: 0;
           border-radius: 208px;
-          background: radial-gradient(60% 80% at 50% 50%, rgba(111, 227, 243, 0.45), rgba(111, 227, 243, 0));
+          background: radial-gradient(60% 80% at 50% 50%, rgba(184, 246, 255, 0.35), rgba(184, 246, 255, 0));
         }
         .f-query {
           position: absolute;
@@ -156,7 +107,7 @@
           left: 0;
           top: 42px;
           white-space: nowrap;
-          color: rgba(190, 225, 236, 0.55);
+          color: rgba(200, 225, 235, 0.55);
         }
         .f-word {
           display: inline-block;
@@ -171,8 +122,7 @@
           background: linear-gradient(180deg, #2cc7de 0%, #12b4cd 55%, #0c9db4 100%);
           box-shadow:
             inset 0 5px 8px rgba(255, 255, 255, 0.28),
-            inset 0 -8px 14px rgba(0, 0, 0, 0.22),
-            0 20px 36px rgba(0, 0, 0, 0.45);
+            inset 0 -8px 14px rgba(0, 0, 0, 0.22);
         }
         .f-micsvg {
           position: absolute;
@@ -188,56 +138,51 @@
           width: 225px;
           height: 225px;
           border-radius: 50%;
-          border: 10px solid #6fe3f3;
+          border: 8px solid rgba(184, 246, 255, 0.8);
           opacity: 0;
         }
-        #f-chip {
+        #f-sub {
           position: absolute;
           left: 0;
           right: 0;
-          top: 1262px;
-          display: flex;
-          justify-content: center;
-        }
-        #f-chipIn {
-          display: flex;
-          align-items: center;
-          gap: 14px;
-          padding: 16px 30px;
-          border-radius: 999px;
-          background: rgba(18, 180, 205, 0.14);
-          border: 2px solid rgba(111, 227, 243, 0.5);
-          font-size: 34px;
-          font-weight: 700;
-        }
-        .f-dot {
-          display: block;
-          width: 14px;
-          height: 14px;
-          border-radius: 50%;
-          background: #6fe3f3;
+          top: 1268px;
+          text-align: center;
+          font-size: 38px;
+          font-weight: 600;
+          letter-spacing: -0.01em;
+          color: #86868b;
         }
         .f-tile {
           position: absolute;
           left: 0;
           top: 0;
-          width: 110px;
-          height: 80px;
-          margin: -40px 0 0 -55px;
-          border-radius: 16px;
-          background: linear-gradient(180deg, #1d4a5e, #2a8aa3);
-          border: 2px solid rgba(111, 227, 243, 0.35);
+          width: 120px;
+          height: 92px;
+          margin: -46px 0 0 -60px;
+          border-radius: 18px;
+          background: #1c1c1e;
+          border: 1px solid rgba(255, 255, 255, 0.1);
           overflow: hidden;
+        }
+        .f-tile::before {
+          content: "";
+          position: absolute;
+          left: 8px;
+          right: 8px;
+          top: 8px;
+          height: 50px;
+          border-radius: 11px;
+          background: linear-gradient(160deg, #2f5d70, #1592a9);
         }
         .f-tile::after {
           content: "";
           position: absolute;
-          left: 26px;
-          right: 26px;
-          bottom: 0;
-          height: 48px;
-          border-radius: 3px 3px 0 0;
-          background: repeating-linear-gradient(90deg, #eaf4f7 0 7px, #164a5e 7px 16px, #eaf4f7 16px 23px);
+          left: 10px;
+          top: 68px;
+          width: 64px;
+          height: 8px;
+          border-radius: 4px;
+          background: #48484a;
         }
 
         /* ----- agents ----- */
@@ -245,38 +190,28 @@
           position: absolute;
           left: 90px;
           width: 900px;
-          height: 156px;
+          height: 168px;
           display: flex;
           align-items: center;
           gap: 26px;
-          padding: 0 28px;
+          padding: 0 30px;
           border-radius: 32px;
-          background: linear-gradient(180deg, rgba(30, 72, 90, 0.85), rgba(12, 38, 50, 0.9));
-          border: 2px solid rgba(111, 227, 243, 0.3);
+          background: #1c1c1e;
+          border: 1px solid rgba(255, 255, 255, 0.08);
         }
         #f-agent0 {
-          top: 700px;
+          top: 740px;
         }
         #f-agent1 {
-          top: 880px;
-        }
-        #f-agentAdd {
-          top: 1060px;
-          height: 112px;
-          justify-content: center;
-          background: transparent;
-          border: 3px dashed rgba(111, 227, 243, 0.4);
-          color: #8fb3c2;
-          font-size: 32px;
-          font-weight: 700;
+          top: 932px;
         }
         .f-radar {
           position: relative;
           flex: none;
-          width: 96px;
-          height: 96px;
+          width: 92px;
+          height: 92px;
           border-radius: 50%;
-          border: 3px solid rgba(111, 227, 243, 0.55);
+          border: 2px solid rgba(111, 227, 243, 0.45);
           overflow: hidden;
         }
         .f-radar::before {
@@ -284,30 +219,30 @@
           position: absolute;
           left: 22px;
           top: 22px;
-          width: 46px;
-          height: 46px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
-          border: 2px solid rgba(111, 227, 243, 0.35);
+          border: 2px solid rgba(111, 227, 243, 0.25);
         }
         .f-sweep {
           position: absolute;
           inset: 0;
           border-radius: 50%;
-          background: conic-gradient(from 0deg, rgba(111, 227, 243, 0.65), rgba(111, 227, 243, 0) 28%);
+          background: conic-gradient(from 0deg, rgba(111, 227, 243, 0.55), rgba(111, 227, 243, 0) 26%);
         }
         .f-blip {
           position: absolute;
-          left: 60px;
-          top: 26px;
+          left: 58px;
+          top: 24px;
           width: 12px;
           height: 12px;
           border-radius: 50%;
-          background: #6fe3f3;
+          background: #b8f6ff;
         }
         .f-ameta {
           display: flex;
           flex-direction: column;
-          gap: 6px;
+          gap: 8px;
           min-width: 0;
           flex: 1;
         }
@@ -316,54 +251,70 @@
           white-space: nowrap;
         }
         .f-aname {
-          font-size: 26px;
-          font-weight: 700;
-          color: #6fe3f3;
+          font-size: 25px;
+          font-weight: 600;
+          color: #86868b;
         }
         .f-acrit {
-          font-size: 31px;
+          font-size: 32px;
           font-weight: 600;
+          letter-spacing: -0.01em;
         }
-        .f-live {
-          display: block;
+        .f-state {
+          position: relative;
           flex: none;
-          padding: 8px 18px;
-          border-radius: 999px;
-          border: 2px solid #12b4cd;
-          color: #6fe3f3;
-          font-size: 24px;
-          font-weight: 800;
+          width: 210px;
+          height: 48px;
         }
-        #f-newBadge {
+        .f-pill {
           position: absolute;
-          left: 912px;
-          top: 684px;
-          padding: 8px 16px;
+          right: 0;
+          top: 0;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          height: 48px;
+          padding: 0 18px;
           border-radius: 999px;
+          font-size: 23px;
+          font-weight: 600;
+          white-space: nowrap;
+        }
+        .f-pillActive {
+          background: rgba(255, 255, 255, 0.06);
+          color: #d2d2d7;
+        }
+        .f-pillActive i {
+          display: block;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
           background: #6fe3f3;
-          color: #020507;
-          font-size: 24px;
-          font-weight: 800;
+        }
+        #f-pillNew {
+          background: #12b4cd;
+          color: #000000;
         }
 
         /* ----- phone + notifications ----- */
         #f-phone {
           position: absolute;
-          left: 270px;
-          top: 660px;
-          width: 540px;
-          height: 760px;
-          border-radius: 64px;
-          border: 6px solid #1f4050;
-          background: linear-gradient(180deg, #0b2430, #061219);
+          left: 280px;
+          top: 680px;
+          width: 520px;
+          height: 740px;
+          border-radius: 72px;
+          border: 9px solid #2c2c2e;
+          background: linear-gradient(180deg, #0f2a36 0%, #081720 55%, #050d12 100%);
+          box-shadow: 0 0 0 2px #48484a, 0 60px 120px rgba(0, 0, 0, 0.8);
           overflow: hidden;
         }
         #f-notch {
           position: absolute;
-          left: 200px;
+          left: 186px;
           top: 18px;
-          width: 128px;
-          height: 34px;
+          width: 130px;
+          height: 36px;
           border-radius: 20px;
           background: #000000;
         }
@@ -371,50 +322,50 @@
           position: absolute;
           left: 0;
           right: 0;
-          top: 78px;
+          top: 82px;
           text-align: center;
-          font-size: 104px;
-          font-weight: 800;
+          font-size: 108px;
+          font-weight: 600;
           letter-spacing: -0.03em;
-          color: rgba(255, 255, 255, 0.92);
+          color: rgba(245, 245, 247, 0.95);
         }
         #f-day {
           position: absolute;
           left: 0;
           right: 0;
-          top: 198px;
+          top: 206px;
           text-align: center;
-          font-size: 27px;
+          font-size: 26px;
           font-weight: 600;
-          color: #a9c4ce;
+          color: #c7d3d8;
         }
         #f-notes {
           position: absolute;
-          left: 18px;
-          right: 18px;
-          top: 262px;
+          left: 16px;
+          right: 16px;
+          top: 270px;
           display: grid;
-          gap: 14px;
+          gap: 12px;
         }
         .f-note {
           display: flex;
           gap: 16px;
           padding: 18px;
           border-radius: 26px;
-          background: rgba(46, 82, 98, 0.88);
+          background: rgba(58, 58, 60, 0.82);
         }
         .f-app {
           position: relative;
           flex: none;
-          width: 58px;
-          height: 58px;
-          border-radius: 15px;
+          width: 56px;
+          height: 56px;
+          border-radius: 14px;
           background: linear-gradient(180deg, #2cc7de, #0c9db4);
         }
         .f-app svg {
           position: absolute;
-          left: 13px;
-          top: 13px;
+          left: 12px;
+          top: 12px;
         }
         .f-ntext {
           display: flex;
@@ -428,55 +379,55 @@
         }
         .f-nhead {
           font-size: 19px;
-          font-weight: 700;
-          letter-spacing: 0.04em;
-          color: #a9c4ce;
+          font-weight: 600;
+          color: #aeaeb2;
         }
         .f-ntitle {
           font-size: 23px;
-          font-weight: 700;
+          font-weight: 600;
         }
         .f-nbody {
           font-size: 22px;
           font-weight: 500;
-          color: #dcebf0;
+          color: #d2d2d7;
         }
 
         /* ----- chart ----- */
         #f-chart {
           position: absolute;
           left: 90px;
-          top: 690px;
+          top: 720px;
           width: 900px;
           height: 600px;
           border-radius: 36px;
-          background: linear-gradient(180deg, rgba(24, 60, 76, 0.85), rgba(10, 32, 42, 0.92));
-          border: 2px solid rgba(111, 227, 243, 0.25);
+          background: #1c1c1e;
+          border: 1px solid rgba(255, 255, 255, 0.08);
         }
         #f-chartHead {
           position: absolute;
           left: 40px;
           right: 40px;
-          top: 34px;
+          top: 36px;
           display: flex;
           align-items: center;
           justify-content: space-between;
         }
         #f-chartTitle {
           display: block;
-          font-size: 36px;
-          font-weight: 800;
+          font-size: 34px;
+          font-weight: 600;
         }
         #f-trend {
           display: flex;
           align-items: center;
           gap: 10px;
-          padding: 8px 20px;
+          height: 48px;
+          padding: 0 18px;
           border-radius: 999px;
-          border: 2px solid #12b4cd;
-          color: #6fe3f3;
-          font-size: 26px;
-          font-weight: 800;
+          background: rgba(255, 255, 255, 0.06);
+          color: #d2d2d7;
+          font-size: 23px;
+          font-weight: 600;
         }
         #f-svg {
           position: absolute;
@@ -493,49 +444,19 @@
           right: 40px;
           top: 860px;
           text-align: center;
-          font-weight: 800;
-          font-size: 100px;
-          line-height: 1.06;
-          letter-spacing: -0.045em;
-        }
-        #f-more .f-wd {
-          display: inline-block;
-        }
-        #f-more .f-wd + .f-wd {
-          margin-left: 0.24em;
+          font-weight: 700;
+          font-size: 96px;
+          line-height: 1.07;
+          letter-spacing: -0.04em;
         }
       </style>
 
       <div id="f-root" data-composition-id="features" data-width="1080" data-height="1920">
-        <div id="f-kicker">ALLES INKLUSIVE</div>
-        <div id="f-prog">
-          <span class="f-seg"><span id="f-seg0" class="f-segfill"></span></span>
-          <span class="f-seg"><span id="f-seg1" class="f-segfill"></span></span>
-          <span class="f-seg"><span id="f-seg2" class="f-segfill"></span></span>
-          <span class="f-seg"><span id="f-seg3" class="f-segfill"></span></span>
-          <span class="f-seg"><span id="f-seg4" class="f-segfill"></span></span>
-        </div>
-
-        <div id="f-t0" class="f-title">
-          <span class="f-ln"><span class="f-wd">Eine</span><span class="f-wd">Suche.</span></span>
-          <span class="f-ln"><span class="f-wd f-accent">Alle</span><span class="f-wd f-accent">Immobilien.</span></span>
-        </div>
-        <div id="f-t1" class="f-title">
-          <span class="f-ln"><span class="f-wd">Tippen</span></span>
-          <span class="f-ln"><span class="f-wd">oder</span><span class="f-wd f-accent">sprechen.</span></span>
-        </div>
-        <div id="f-t2" class="f-title">
-          <span class="f-ln"><span class="f-wd f-accent">KI-Suchagenten</span></span>
-          <span class="f-ln"><span class="f-wd">suchen</span><span class="f-wd">für</span><span class="f-wd">dich.</span></span>
-        </div>
-        <div id="f-t3" class="f-title">
-          <span class="f-ln"><span class="f-wd">Sofort</span></span>
-          <span class="f-ln"><span class="f-wd f-accent">benachrichtigt.</span></span>
-        </div>
-        <div id="f-t4" class="f-title">
-          <span class="f-ln"><span class="f-wd f-accent">Marktanalysen.</span></span>
-          <span class="f-ln"><span class="f-wd">Trends</span><span class="f-wd">im</span><span class="f-wd">Blick.</span></span>
-        </div>
+        <div id="f-t0" class="f-title"><span class="f-ln">Eine Suche.</span><span class="f-ln f-grad">Alle Immobilien.</span></div>
+        <div id="f-t1" class="f-title"><span class="f-ln">Tippen.</span><span class="f-ln f-gray">Oder einfach sagen.</span></div>
+        <div id="f-t2" class="f-title"><span class="f-ln">KI-Suchagenten.</span><span class="f-ln f-gray">Suchen für dich.</span></div>
+        <div id="f-t3" class="f-title"><span class="f-ln">Neue Treffer.</span><span class="f-ln f-gray">Sofort aufs Handy.</span></div>
+        <div id="f-t4" class="f-title"><span class="f-ln">Marktanalysen.</span><span class="f-ln f-gray">Trends im Blick.</span></div>
 
         <!-- 1 + 2: one search bar for the whole market, typed or spoken -->
         <div id="f-tiles" data-layout-allow-overflow></div>
@@ -560,21 +481,22 @@
             </div>
           </div>
         </div>
-        <div id="f-chip"><span id="f-chipIn"><span class="f-dot"></span>Ergebnisse in Sekunden</span></div>
+        <div id="f-sub">Ergebnisse in Sekunden.</div>
 
         <!-- 3: AI search agents -->
         <div id="f-agent0" class="f-agent">
           <span class="f-radar"><span id="f-sweep0" class="f-sweep"></span><span class="f-blip" id="f-blip0"></span></span>
-          <span class="f-ameta"><span class="f-aname">Suchagent 1 · aktiv</span><span class="f-acrit">2 Zi · Balkon · Neubau · bis 1.100 €</span></span>
-          <span class="f-live">24/7</span>
+          <span class="f-ameta"><span class="f-aname">Suchagent 1 · Neubau</span><span class="f-acrit">2 Zi · Balkon · bis 1.100 €</span></span>
+          <span class="f-state">
+            <span id="f-pillActive0" class="f-pill f-pillActive"><i></i>Aktiv</span>
+            <span id="f-pillNew" class="f-pill">1 neuer Treffer</span>
+          </span>
         </div>
         <div id="f-agent1" class="f-agent">
           <span class="f-radar"><span id="f-sweep1" class="f-sweep"></span></span>
-          <span class="f-ameta"><span class="f-aname">Suchagent 2 · aktiv</span><span class="f-acrit">3 Zi · Garten · Döbling · bis 1.900 €</span></span>
-          <span class="f-live">24/7</span>
+          <span class="f-ameta"><span class="f-aname">Suchagent 2 · Döbling</span><span class="f-acrit">3 Zi · Garten · bis 1.900 €</span></span>
+          <span class="f-state"><span class="f-pill f-pillActive"><i></i>Aktiv</span></span>
         </div>
-        <div id="f-agentAdd" class="f-agent">+ Neuen Suchagenten anlegen</div>
-        <div id="f-newBadge">1 neu</div>
 
         <!-- 4: instant notifications -->
         <div id="f-phone">
@@ -589,9 +511,9 @@
           <div id="f-chartHead">
             <span id="f-chartTitle">Preisentwicklung</span>
             <span id="f-trend">
-              <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-                <path d="M3 20 L11 12 L15 16 L23 6" stroke="#6fe3f3" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M16 6 H23 V13" stroke="#6fe3f3" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+              <svg width="24" height="24" viewBox="0 0 26 26" fill="none">
+                <path d="M3 20 L11 12 L15 16 L23 6" stroke="#6fe3f3" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M16 6 H23 V13" stroke="#6fe3f3" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
               Trend
             </span>
@@ -599,27 +521,29 @@
           <svg id="f-svg" viewBox="0 0 820 440" fill="none">
             <defs>
               <linearGradient id="f-areaGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#12b4cd" stop-opacity="0.38" />
+                <stop offset="0" stop-color="#12b4cd" stop-opacity="0.32" />
                 <stop offset="1" stop-color="#12b4cd" stop-opacity="0" />
               </linearGradient>
+              <linearGradient id="f-lineGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#12b4cd" />
+                <stop offset="1" stop-color="#b8f6ff" />
+              </linearGradient>
             </defs>
-            <g stroke="rgba(255,255,255,0.08)" stroke-width="2">
+            <g stroke="rgba(255,255,255,0.07)" stroke-width="2">
               <line x1="0" y1="40" x2="820" y2="40" />
               <line x1="0" y1="140" x2="820" y2="140" />
               <line x1="0" y1="240" x2="820" y2="240" />
               <line x1="0" y1="340" x2="820" y2="340" />
             </g>
             <path id="f-area" fill="url(#f-areaGrad)" />
-            <path id="f-line" stroke="#12b4cd" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
-            <circle id="f-ring" cx="790" cy="120" r="12" stroke="#6fe3f3" stroke-width="4" />
-            <circle id="f-end" cx="790" cy="120" r="12" fill="#6fe3f3" stroke="#020507" stroke-width="4" />
-            <g id="f-months" fill="#8fb3c2" font-family="Inter, sans-serif" font-size="24" font-weight="600" text-anchor="middle"></g>
+            <path id="f-line" stroke="url(#f-lineGrad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+            <circle id="f-ring" cx="790" cy="120" r="12" stroke="#b8f6ff" stroke-width="3" />
+            <circle id="f-end" cx="790" cy="120" r="11" fill="#b8f6ff" stroke="#1c1c1e" stroke-width="4" />
+            <g id="f-months" fill="#86868b" font-family="Inter, sans-serif" font-size="24" font-weight="600" text-anchor="middle"></g>
           </svg>
         </div>
 
-        <div id="f-more">
-          <span class="f-wd">…</span><span class="f-wd">und</span><span class="f-wd f-accent">vieles</span><span class="f-wd f-accent">mehr.</span>
-        </div>
+        <div id="f-more">Und vieles <span class="f-grad">mehr.</span></div>
       </div>
 
       <script>
@@ -629,15 +553,13 @@
           const qa = (s) => Array.from(root.querySelectorAll(s));
           const SVGNS = "http://www.w3.org/2000/svg";
 
-          // Listing cloud above and below the bar (deterministic jitter)
+          // Listings from everywhere: a quiet grid above and below the bar (deterministic offsets)
           const tilesEl = q("#f-tiles");
           const TILES = [];
-          const ROWS = [720, 862, 1300, 1420];
-          ROWS.forEach((y, r) => {
+          [740, 876, 1340, 1460].forEach((y, r) => {
             for (let c = 0; c < 5; c++) {
               const i = r * 5 + c;
-              const x = 150 + c * 195 + (((i * 37) % 50) - 25);
-              TILES.push([x, y + (((i * 23) % 30) - 15)]);
+              TILES.push([152 + c * 194 + (((i * 37) % 30) - 15), y + (((i * 23) % 20) - 10)]);
             }
           });
           TILES.forEach((p, i) => {
@@ -649,7 +571,6 @@
             tilesEl.appendChild(t);
           });
 
-          // Spoken words
           const WORDS = ["Ruhige", "2-Zimmer-Wohnung", "mit", "Balkon", "in", "Neubau"];
           const textEl = q("#f-text");
           WORDS.forEach((w, i) => {
@@ -660,7 +581,6 @@
             if (i < WORDS.length - 1) textEl.appendChild(document.createTextNode(" "));
           });
 
-          // Notifications (illustrative)
           const NOTES = [
             ["Neuer Treffer · Suchagent 1", "2 Zi · 58 m² · Neubau · 1.050 €"],
             ["Neuer Treffer · Suchagent 2", "3 Zi · 84 m² · Döbling · 1.850 €"],
@@ -674,12 +594,12 @@
             n.className = "f-note";
             n.id = "f-note" + i;
             n.innerHTML =
-              '<span class="f-app">' + appIcon + '</span><span class="f-ntext"><span class="f-nhead">SEARCHPLACE · JETZT</span><span class="f-ntitle">' +
+              '<span class="f-app">' + appIcon + '</span><span class="f-ntext"><span class="f-nhead">SearchPlace · jetzt</span><span class="f-ntitle">' +
               title + '</span><span class="f-nbody">' + body + "</span></span>";
             notesEl.appendChild(n);
           });
 
-          // Trend line: smooth Catmull-Rom through illustrative points (shape only, no values shown)
+          // Trend line: smooth curve through illustrative points (shape only, no values shown)
           const PTS = [[30, 300], [182, 262], [334, 276], [486, 210], [638, 182], [790, 120]];
           let d = "M" + PTS[0][0] + " " + PTS[0][1];
           for (let i = 0; i < PTS.length - 1; i++) {
@@ -703,92 +623,75 @@
           });
 
           // Initial states
-          gsap.set(["#f-t1 .f-wd", "#f-t2 .f-wd", "#f-t3 .f-wd", "#f-t4 .f-wd", "#f-more .f-wd"], { opacity: 0 });
-          gsap.set(".f-segfill", { scaleX: 0 });
-          gsap.set([".f-tile", "#f-chip", "#f-flash", ".f-word"], { opacity: 0 });
-          gsap.set([".f-agent", "#f-newBadge", "#f-phone", ".f-note", "#f-chart", "#f-area"], { opacity: 0 });
+          gsap.set(["#f-t1 .f-ln", "#f-t2 .f-ln", "#f-t3 .f-ln", "#f-t4 .f-ln", "#f-more"], { opacity: 0 });
+          gsap.set([".f-tile", "#f-sub", "#f-flash", ".f-word", "#f-pillNew"], { opacity: 0 });
+          gsap.set([".f-agent", "#f-phone", ".f-note", "#f-chart", "#f-area"], { opacity: 0 });
           gsap.set(["#f-end", "#f-ring"], { scale: 0, transformOrigin: "50% 50%" });
           gsap.set("#f-line", { strokeDashoffset: len });
 
           const tl = gsap.timeline({ paused: true });
-          const P3 = "power3.out";
-          const wordsIn = (sel, t) =>
-            tl.fromTo(sel, { y: 70, opacity: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.5, ease: P3, stagger: 0.06 }, t);
-          const wordsOut = (sel, t) =>
-            tl.to(sel, { y: -60, opacity: 0, filter: "blur(10px)", duration: 0.25, ease: "power3.in", stagger: 0.025 }, t);
-          const seg = (i, t) => tl.to("#f-seg" + i, { scaleX: 1, duration: 0.4, ease: "power2.out" }, t);
+          const soft = "power3.out";
+          const titleIn = (id, t) =>
+            tl.fromTo(id + " .f-ln", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: soft, stagger: 0.12 }, t);
+          const out = (targets, t) => tl.to(targets, { opacity: 0, y: -24, duration: 0.4, ease: "power2.in" }, t);
 
-          tl.fromTo(["#f-kicker", "#f-prog"], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: P3, stagger: 0.05 }, 0.02);
-
-          // ---------- 1 · One search, the whole market ----------
-          seg(0, 0.1);
-          wordsIn("#f-t0 .f-wd", 0.05);
-          tl.fromTo("#f-barCam", { scaleX: 0.05, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.7, ease: "expo.out" }, 0.15);
+          // ---------- 1 · One search, every listing ----------
+          titleIn("#f-t0", 0.1);
+          tl.fromTo("#f-barCam", { opacity: 0, y: 40, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: soft }, 0.2);
           TILES.forEach((p, i) => {
             const order = (i * 7) % 20;
-            tl.fromTo("#f-tile" + i, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: P3 }, 0.3 + order * 0.02);
-            tl.to("#f-tile" + i, { x: 540 - p[0], y: 1103 - p[1], scale: 0.15, opacity: 0, duration: 0.5, ease: "power2.in" }, 1.0 + order * 0.012);
+            tl.fromTo("#f-tile" + i, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: soft }, 0.35 + order * 0.02);
+            tl.to("#f-tile" + i, { x: 540 - p[0], y: 1103 - p[1], scale: 0.2, opacity: 0, duration: 0.75, ease: "power3.inOut" }, 1.0 + order * 0.015);
           });
-          tl.fromTo("#f-flash", { opacity: 0 }, { opacity: 1, duration: 0.15 }, 1.62);
-          tl.to("#f-flash", { opacity: 0, duration: 0.5, ease: "power2.out" }, 1.77);
-          tl.fromTo("#f-chip", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: P3 }, 1.7);
-          wordsOut("#f-t0 .f-wd", 2.12);
-          tl.to("#f-chip", { opacity: 0, y: -20, duration: 0.25, ease: "power3.in" }, 2.12);
+          tl.fromTo("#f-flash", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 1.7);
+          tl.to("#f-flash", { opacity: 0, duration: 0.7, ease: "power2.out" }, 1.95);
+          tl.fromTo("#f-sub", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: soft }, 1.8);
+          out(["#f-t0", "#f-sub"], 2.15);
 
-          // ---------- 2 · Type or talk ----------
-          seg(1, 2.3);
-          wordsIn("#f-t1 .f-wd", 2.35);
-          tl.to("#f-mic", { scale: 0.88, duration: 0.1, ease: "power2.in" }, 2.45);
-          tl.to("#f-mic", { scale: 1, duration: 0.4, ease: P3 }, 2.57);
-          tl.to("#f-placeholder", { opacity: 0, duration: 0.15 }, 2.5);
-          [2.55, 2.95, 3.35].forEach((t, k) =>
-            tl.fromTo(k % 2 ? "#f-pulse1" : "#f-pulse0", { scale: 1, opacity: 0.85 }, { scale: 1.55, opacity: 0, duration: 0.75, ease: P3 }, t)
+          // ---------- 2 · Type it, or just say it ----------
+          titleIn("#f-t1", 2.45);
+          tl.to("#f-mic", { scale: 0.9, duration: 0.12, ease: "power2.in" }, 2.6);
+          tl.to("#f-mic", { scale: 1, duration: 0.5, ease: soft }, 2.74);
+          tl.to("#f-placeholder", { opacity: 0, duration: 0.2 }, 2.65);
+          [2.7, 3.2].forEach((t, k) =>
+            tl.fromTo(k ? "#f-pulse1" : "#f-pulse0", { scale: 1, opacity: 0.7 }, { scale: 1.45, opacity: 0, duration: 0.9, ease: soft }, t)
           );
           qa(".f-word").forEach((w, i) =>
-            tl.fromTo(w, { opacity: 0, y: 14, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.28, ease: P3 }, 2.65 + i * 0.17)
+            tl.fromTo(w, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: soft }, 2.8 + i * 0.16)
           );
-          wordsOut("#f-t1 .f-wd", 4.2);
-          tl.to("#f-barCam", { y: -220, opacity: 0, duration: 0.35, ease: "power3.in" }, 4.22);
+          out(["#f-t1", "#f-barCam"], 4.3);
 
           // ---------- 3 · AI search agents ----------
-          seg(2, 4.5);
-          wordsIn("#f-t2 .f-wd", 4.55);
-          ["#f-agent0", "#f-agent1", "#f-agentAdd"].forEach((id, i) =>
-            tl.fromTo(id, { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.5, ease: P3 }, 4.7 + i * 0.13)
-          );
-          tl.fromTo("#f-sweep0", { rotation: 0 }, { rotation: 720, duration: 2.2, ease: "none" }, 4.6);
-          tl.fromTo("#f-sweep1", { rotation: 140 }, { rotation: 860, duration: 2.2, ease: "none" }, 4.6);
-          tl.fromTo("#f-blip0", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: P3 }, 5.75);
-          tl.fromTo("#f-newBadge", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.35, ease: P3 }, 5.85);
-          tl.to("#f-agent0", { borderColor: "rgba(111,227,243,0.9)", duration: 0.3 }, 5.85);
-          wordsOut("#f-t2 .f-wd", 6.5);
-          tl.to(["#f-agent0", "#f-agent1", "#f-agentAdd", "#f-newBadge"], { y: -160, opacity: 0, duration: 0.32, ease: "power3.in", stagger: 0.03 }, 6.5);
+          titleIn("#f-t2", 4.6);
+          tl.fromTo("#f-agent0", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 4.75);
+          tl.fromTo("#f-agent1", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 4.9);
+          tl.fromTo("#f-sweep0", { rotation: 0 }, { rotation: 540, duration: 2.3, ease: "none" }, 4.6);
+          tl.fromTo("#f-sweep1", { rotation: 140 }, { rotation: 680, duration: 2.3, ease: "none" }, 4.6);
+          tl.fromTo("#f-blip0", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: soft }, 5.8);
+          tl.to("#f-pillActive0", { opacity: 0, duration: 0.25 }, 5.9);
+          tl.fromTo("#f-pillNew", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: soft }, 5.95);
+          out(["#f-t2", "#f-agent0", "#f-agent1"], 6.55);
 
-          // ---------- 4 · Instant notifications ----------
-          seg(3, 6.8);
-          wordsIn("#f-t3 .f-wd", 6.85);
-          tl.fromTo("#f-phone", { opacity: 0, y: 140 }, { opacity: 1, y: 0, duration: 0.55, ease: P3 }, 6.9);
+          // ---------- 4 · New matches, straight to your phone ----------
+          titleIn("#f-t3", 6.85);
+          tl.fromTo("#f-phone", { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.9, ease: soft }, 6.95);
           [0, 1, 2].forEach((i) =>
-            tl.fromTo("#f-note" + i, { opacity: 0, y: -50, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: P3 }, 7.3 + i * 0.4)
+            tl.fromTo("#f-note" + i, { opacity: 0, y: -30, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: soft }, 7.45 + i * 0.38)
           );
-          wordsOut("#f-t3 .f-wd", 8.72);
-          tl.to("#f-phone", { y: -180, opacity: 0, duration: 0.32, ease: "power3.in" }, 8.72);
+          out(["#f-t3", "#f-phone"], 8.85);
 
           // ---------- 5 · Market analysis ----------
-          seg(4, 9.0);
-          wordsIn("#f-t4 .f-wd", 9.05);
-          tl.fromTo("#f-chart", { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 0.5, ease: P3 }, 9.1);
-          tl.to("#f-line", { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, 9.35);
-          tl.to("#f-area", { opacity: 1, duration: 0.6, ease: "power2.out" }, 9.7);
-          tl.to("#f-end", { scale: 1, duration: 0.3, ease: P3 }, 10.2);
-          tl.fromTo("#f-ring", { scale: 1, opacity: 0.9 }, { scale: 2.6, opacity: 0, duration: 0.7, ease: P3 }, 10.25);
-          wordsOut("#f-t4 .f-wd", 10.72);
-          tl.to("#f-chart", { y: -180, opacity: 0, duration: 0.32, ease: "power3.in" }, 10.72);
-          tl.to(["#f-kicker", "#f-prog"], { opacity: 0, y: -20, duration: 0.3, ease: "power3.in" }, 10.75);
+          titleIn("#f-t4", 9.15);
+          tl.fromTo("#f-chart", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 9.25);
+          tl.to("#f-line", { strokeDashoffset: 0, duration: 1.0, ease: "power2.inOut" }, 9.5);
+          tl.to("#f-area", { opacity: 1, duration: 0.7, ease: "power2.out" }, 9.9);
+          tl.to("#f-end", { scale: 1, duration: 0.35, ease: soft }, 10.45);
+          tl.fromTo("#f-ring", { scale: 1, opacity: 0.8 }, { scale: 2.4, opacity: 0, duration: 0.8, ease: soft }, 10.5);
+          out(["#f-t4", "#f-chart"], 11.0);
 
-          // ---------- … and much more ----------
-          wordsIn("#f-more .f-wd", 11.0);
-          tl.to("#f-more .f-wd", { y: -120, opacity: 0, filter: "blur(12px)", duration: 0.3, ease: "power3.in", stagger: 0.02 }, 11.55);
+          // ---------- … and more ----------
+          tl.fromTo("#f-more", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 11.3);
+          out("#f-more", 12.0);
 
           window.__timelines["features"] = tl;
         })();

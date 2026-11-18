@@ -1,39 +1,40 @@
 ---
 format: 1080x1920
-duration: 21
+duration: 22.5
 music: none
 message: "Black Week: SearchPlace 1 Monat gratis – mit Code BLACK, nur vom 23.–29.11."
 mode: autonomous
 ---
 
-# SearchPlace.ai — Black Week (21 s, 9:16)
+# SearchPlace.ai — Black Week (22,5 s, 9:16)
 
 ## Video direction
 
-Fast schwarzer Grund, Cyan als einziger Akzent, Inter 900 für Sale-Typo, Laufbänder
-oben und unten in Hook und Angebot. Schnelle, saubere Velocity-Cuts zwischen den
-Funktionen (power3/expo, kein Bounce).
+Apple-Stil: pures Schwarz, ein einziges weiches Cyan-Licht, große ruhige Typo
+(Inter 700, enges Tracking), erste Zeile weiß, zweite grau, ein Schlüsselwort mit
+Cyan-Verlauf. Weiche Einblendungen (power3.out), keine Laufbänder, kein Bounce.
+Merk-Anker: „Geschenkt.“ rahmt das Video ein (Anfang und Ende), dazu die schwarze
+Gutscheinkarte mit eingraviertem Code BLACK.
 
-## 01 — Hook (`compositions/hook.html`, 0–3,6 s)
+## 01 — Hook (`compositions/hook.html`, 0–4,1 s)
 
-„BLACK WEEK“ knallt Buchstabe für Buchstabe rein, Datum „23.–29. NOVEMBER“,
-dann „1 Monat gratis.“. Exit nach oben mit Blur.
+„Black Week.“ · „23.–29. November“ → „Ein Monat SearchPlace.“ · „Geschenkt.“
 
-## 02 — Alles inklusive (`compositions/features.html`, 3,45–15,3 s)
+## 02 — Funktionen (`compositions/features.html`, 4,05–16,5 s)
 
-Kopf: „ALLES INKLUSIVE“ + 5 Fortschritts-Segmente.
-1. „Eine Suche. Alle Immobilien.“ – Inserate-Wolke fliegt in die Suchleiste.
-2. „Tippen oder sprechen.“ – dieselbe Leiste, Mikrofon pulsiert, Satz erscheint.
-3. „KI-Suchagenten suchen für dich.“ – zwei aktive Agenten mit Radar.
-4. „Sofort benachrichtigt.“ – Handy, Treffer-Benachrichtigungen fallen rein.
-5. „Marktanalysen. Trends im Blick.“ – Preislinie zeichnet sich, Endpunkt leuchtet.
-Abschluss: „… und vieles mehr.“
+1. „Eine Suche. Alle Immobilien.“ – Inserate gleiten in die Suchleiste, „Ergebnisse in Sekunden.“
+2. „Tippen. Oder einfach sagen.“ – Mikrofon, der Satz erscheint.
+3. „KI-Suchagenten. Suchen für dich.“ – zwei aktive Agenten, einer meldet „1 neuer Treffer“.
+4. „Neue Treffer. Sofort aufs Handy.“ – Sperrbildschirm mit Benachrichtigungen.
+5. „Marktanalysen. Trends im Blick.“ – Preiskurve ohne Zahlen.
+Abschluss: „Und vieles mehr.“
 
-## 03 — Angebot (`compositions/offer.html`, 15,15–21 s)
+## 03 — Angebot (`compositions/offer.html`, 16,35–22,5 s)
 
-Logo · „1 MONAT GRATIS“ · Gutschein-Ticket „BLACK“ · „Gültig vom 23.–29.11.“ ·
-searchplace.ai · „Nicht verpassen!“
+Schwarze Gutscheinkarte (Logo, „1 Monat“, CODE BLACK) dreht sich ins Licht ·
+„Ein Monat SearchPlace. Geschenkt.“ · „Mit dem Code BLACK. Nur vom 23. bis 29. November.“ ·
+„searchplace.ai ›“ · „Nicht verpassen.“
 
-## Background (`compositions/bg.html`, 0–21 s)
+## Background (`compositions/bg.html`)
 
-Schwarz mit leichtem Petrol, driftendes Punktraster, Cyan-Glow.
+Schwarz mit einem weichen Cyan-Licht, das der Geschichte folgt.
