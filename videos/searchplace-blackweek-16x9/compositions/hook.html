@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        #h-root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #f5f5f7;
+        }
+        .h-line {
+          position: absolute;
+          left: 80px;
+          right: 80px;
+          text-align: center;
+          letter-spacing: -0.04em;
+          line-height: 1.05;
+        }
+        #h-week {
+          top: 372px;
+          font-size: 176px;
+          font-weight: 700;
+        }
+        #h-date {
+          top: 600px;
+          font-size: 50px;
+          font-weight: 600;
+          letter-spacing: -0.01em;
+          color: #86868b;
+        }
+        #h-month {
+          top: 330px;
+          font-size: 82px;
+          font-weight: 600;
+          letter-spacing: -0.03em;
+        }
+        #h-gift {
+          top: 432px;
+          font-size: 196px;
+          font-weight: 700;
+          color: #6fe3f3;
+          background: linear-gradient(100deg, #b8f6ff 0%, #6fe3f3 35%, #12b4cd 70%, #2f86c9 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          padding-bottom: 14px;
+        }
+      </style>
+
+      <div id="h-root" data-composition-id="hook" data-width="1920" data-height="1080">
+        <div id="h-week" class="h-line">Black Week.</div>
+        <div id="h-date" class="h-line">23.–29. November</div>
+        <div id="h-month" class="h-line">Ein Monat SearchPlace.</div>
+        <div id="h-gift" class="h-line">Geschenkt.</div>
+      </div>
+
+      <script>
+        (function () {
+          gsap.set(["#h-date", "#h-month", "#h-gift"], { opacity: 0 });
+          const tl = gsap.timeline({ paused: true });
+          const soft = "power3.out";
+
+          // Beat 1 — the occasion
+          tl.fromTo("#h-week", { opacity: 0, y: 40, scale: 1.03 }, { opacity: 1, y: 0, scale: 1, duration: 1.1, ease: soft }, 0.25);
+          tl.fromTo("#h-date", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.9, ease: soft }, 1.0);
+          tl.to(["#h-week", "#h-date"], { opacity: 0, y: -24, duration: 0.45, ease: "power2.in", stagger: 0.05 }, 2.0);
+
+          // Beat 2 — the offer, said once and clearly
+          tl.fromTo("#h-month", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, ease: soft }, 2.45);
+          tl.fromTo("#h-gift", { opacity: 0, y: 30, scale: 1.05, filter: "blur(12px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.0, ease: soft }, 2.8);
+          tl.to(["#h-month", "#h-gift"], { opacity: 0, y: -24, duration: 0.4, ease: "power2.in", stagger: 0.05 }, 3.65);
+
+          window.__timelines["hook"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

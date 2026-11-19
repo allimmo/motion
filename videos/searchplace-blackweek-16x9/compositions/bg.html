@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #bg-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #000000;
+        }
+        #bg-glow {
+          position: absolute;
+          left: 460px;
+          top: 40px;
+          width: 1000px;
+          height: 1000px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(18, 180, 205, 0.16) 0%, rgba(18, 180, 205, 0.05) 40%, rgba(18, 180, 205, 0) 68%);
+        }
+      </style>
+      <div id="bg-root" data-composition-id="bg" data-width="1920" data-height="1080">
+        <div id="bg-glow" data-layout-allow-overflow></div>
+      </div>
+      <script>
+        // One soft light that follows the story: centre, then the product side, then centre again.
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#bg-glow", { scale: 0.75, opacity: 0 }, { scale: 0.9, opacity: 1, duration: 2.2, ease: "power2.out" }, 0);
+        tl.to("#bg-glow", { x: 410, scale: 1, duration: 1.4, ease: "power2.inOut" }, 3.8);
+        tl.to("#bg-glow", { x: 0, y: -60, scale: 1.1, duration: 1.6, ease: "power2.inOut" }, 16.2);
+        window.__timelines["bg"] = tl;
+      </script>
+    </template>
+  </body>
+</html>
