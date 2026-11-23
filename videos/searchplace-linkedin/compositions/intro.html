@@ -91,7 +91,7 @@
         #i-user {
           position: absolute;
           left: 470px;
-          top: 650px;
+          top: 610px;
           width: 140px;
           height: 140px;
           border-radius: 50%;
@@ -108,17 +108,50 @@
           position: absolute;
           left: 80px;
           right: 80px;
-          top: 1086px;
+          top: 1070px;
           display: grid;
-          gap: 18px;
+          gap: 14px;
         }
         .i-item {
           display: flex;
           align-items: center;
           gap: 20px;
-          font-size: 34px;
+          font-size: 32px;
           font-weight: 600;
           letter-spacing: -0.01em;
+        }
+        .i-dot {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          margin: -5px 0 0 -5px;
+          border-radius: 50%;
+        }
+        #i-webWrap {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 972px;
+          display: flex;
+          justify-content: center;
+        }
+        #i-web {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          height: 56px;
+          padding: 0 24px;
+          border-radius: 999px;
+          background: #000000;
+          border: 1px solid rgba(111, 227, 243, 0.55);
+          color: #d2d2d7;
+          font-size: 28px;
+          font-weight: 600;
+          white-space: nowrap;
+        }
+        #i-web b {
+          font-weight: 700;
+          color: #6fe3f3;
         }
         .i-item b {
           display: block;
@@ -152,7 +185,9 @@
         <div id="i-head"><span id="i-h1">Der Markt ist verteilt.</span><span id="i-h2" class="i-gray">Die Suche auch.</span></div>
 
         <svg id="i-svg" viewBox="0 0 1080 1350" fill="none"></svg>
+        <div id="i-dots"></div>
         <div id="i-nodes"></div>
+        <div id="i-webWrap"><span id="i-web"><b>+</b>hunderte Websites von Maklern &amp; Bauträgern</span></div>
         <div id="i-user">
           <svg width="70" height="80" viewBox="0 0 70 80" fill="none">
             <circle cx="35" cy="22" r="16" stroke="#6fe3f3" stroke-width="5" />
@@ -161,7 +196,8 @@
         </div>
 
         <div id="i-list">
-          <div class="i-item"><b></b>Inserate verteilt auf viele Portale</div>
+          <div class="i-item"><b></b>Inserate verteilt auf Portale und Websites</div>
+          <div class="i-item"><b></b>Manche Objekte erscheinen nie auf einem Portal</div>
           <div class="i-item"><b></b>Starre Filter: „ruhig“ oder „hell“ passen nicht hinein</div>
           <div class="i-item"><b></b>Dubletten und verpasste neue Angebote</div>
         </div>
@@ -170,12 +206,12 @@
       <script>
         (function () {
           const SVGNS = "http://www.w3.org/2000/svg";
-          const C = [540, 720];
+          const C = [540, 680];
           const NODES = [
             ["Portal A", -150], ["Portal B", -90], ["Portal C", -30], ["Portal D", 30], ["Portal E", 90], ["Portal F", 150],
           ].map(([label, deg]) => {
             const a = (deg * Math.PI) / 180;
-            return { label, x: Math.round(C[0] + 340 * Math.cos(a)), y: Math.round(C[1] + 285 * Math.sin(a)) };
+            return { label, x: Math.round(C[0] + 300 * Math.cos(a)), y: Math.round(C[1] + 232 * Math.sin(a)) };
           });
 
           const svg = document.getElementById("i-svg");
@@ -206,7 +242,21 @@
           dup.id = "i-dup";
           svg.appendChild(dup);
 
-          gsap.set(["#i-h2", ".i-node", ".i-item", "#i-user"], { opacity: 0 });
+          // the outer ring: broker and developer websites, many of them never feed a portal
+          const dotsEl = document.getElementById("i-dots");
+          const DOTS = 64;
+          for (let i = 0; i < DOTS; i++) {
+            const a = (i / DOTS) * Math.PI * 2 + 0.05;
+            const j = ((i * 37) % 9) - 4; // deterministic jitter
+            const d = document.createElement("div");
+            d.className = "i-dot";
+            d.style.left = Math.round(C[0] + (470 + j * 5) * Math.cos(a)) + "px";
+            d.style.top = Math.round(C[1] + (316 + j * 4) * Math.sin(a)) + "px";
+            d.style.background = i % 3 === 0 ? "rgba(111,227,243,0.85)" : "rgba(174,174,178,0.55)";
+            dotsEl.appendChild(d);
+          }
+
+          gsap.set(["#i-h2", ".i-node", ".i-item", "#i-user", ".i-dot", "#i-web"], { opacity: 0 });
           gsap.set([...lines, dup], { opacity: 0 });
 
           const tl = gsap.timeline({ paused: true });
@@ -223,11 +273,13 @@
             tl.fromTo(lines[i], { opacity: 0 }, { opacity: 1, duration: 0.4 }, t + 0.05);
           });
           tl.fromTo("#i-h2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 2.8);
+          tl.fromTo(".i-dot", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.4, ease: soft, stagger: 0.012 }, 2.6);
+          tl.fromTo("#i-web", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, ease: soft }, 3.3);
           tl.fromTo(dup, { opacity: 0 }, { opacity: 1, duration: 0.4 }, 5.3);
 
           // why that hurts
           Array.from(document.querySelectorAll("#i-list .i-item")).forEach((el, i) =>
-            tl.fromTo(el, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.6, ease: soft }, 3.9 + i * 0.75)
+            tl.fromTo(el, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.6, ease: soft }, 4.0 + i * 0.65)
           );
 
           tl.to("#i-root > *", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" }, 9.0);

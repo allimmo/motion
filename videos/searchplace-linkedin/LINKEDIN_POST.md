@@ -4,7 +4,9 @@
 
 Wer in Österreich eine Wohnung sucht, kennt das: mehrere Portale offen, überall dieselben Filter setzen, Dubletten aussortieren. Und trotzdem bleibt das Gefühl, etwas zu verpassen.
 
-Das Problem ist selten zu wenig Angebot. Es ist die Art, wie gesucht wird.
+Dieses Gefühl täuscht nicht. Viele Objekte stehen auf den Websites von Maklern, Bauträgern und anderen Anbietern. Davon gibt es hunderte, und manches Angebot erscheint nie auf einem der großen Portale.
+
+Das Problem ist also selten zu wenig Angebot. Es ist verstreut, und die Werkzeuge, um es zu durchsuchen, sind starr.
 
 Klassische Filter kennen Zimmer, Preis und Bezirk. Was Menschen tatsächlich suchen, klingt anders: „hell“, „ruhig“, „nahe Schönbrunn“. Das passt in kein Dropdown.
 
@@ -12,7 +14,7 @@ Mit SearchPlace gehen wir das anders an:
 
 → Die Anfrage kommt in Alltagssprache, getippt oder gesprochen.
 → Unsere KI übersetzt sie in Kriterien, auch in weiche wie „ruhig“.
-→ Der Abgleich läuft über mehrere Portale gleichzeitig, gerankt nach Relevanz.
+→ Der Abgleich läuft über die großen Portale und hunderte Websites von Maklern und Bauträgern, gerankt nach Relevanz.
 → KI-Suchagenten beobachten den Markt weiter und melden passende neue Inserate.
 → Marktanalysen zeigen Preise und Entwicklungen je Lage.
 
