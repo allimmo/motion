@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "Josefin Sans";
+          src: url("assets/fonts/josefin-sans-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        #c-root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #f5f5f7;
+        }
+        #c-logo {
+          position: absolute;
+          left: 210px;
+          top: 350px;
+          width: 660px;
+          height: 166px;
+          border-radius: 83px;
+          box-shadow: 0 50px 100px rgba(0, 0, 0, 0.85);
+        }
+        #c-logo img {
+          display: block;
+          width: 660px;
+          height: 166px;
+        }
+        .c-line {
+          position: absolute;
+          left: 80px;
+          right: 80px;
+          text-align: center;
+        }
+        #c-tag {
+          top: 576px;
+          font-size: 54px;
+          font-weight: 700;
+          letter-spacing: -0.03em;
+        }
+        #c-rule {
+          position: absolute;
+          left: 290px;
+          width: 500px;
+          top: 690px;
+          height: 2px;
+          background: rgba(255, 255, 255, 0.16);
+        }
+        #c-label {
+          top: 730px;
+          padding-left: 0.24em;
+          font-family: "Josefin Sans", sans-serif;
+          font-weight: 700;
+          font-size: 28px;
+          letter-spacing: 0.24em;
+          color: #86868b;
+        }
+        #c-offer1,
+        #c-offer2 {
+          font-size: 40px;
+          font-weight: 600;
+          letter-spacing: -0.01em;
+          color: #d2d2d7;
+        }
+        #c-offer1 {
+          top: 784px;
+        }
+        #c-offer2 {
+          top: 836px;
+        }
+        #c-offer2 b {
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          color: #f5f5f7;
+        }
+        #c-url {
+          top: 934px;
+          font-size: 42px;
+          font-weight: 600;
+          letter-spacing: -0.01em;
+          color: #6fe3f3;
+        }
+      </style>
+
+      <div id="c-root" data-composition-id="close" data-width="1080" data-height="1350">
+        <div id="c-logo"><img src="assets/logo.png" alt="SearchPlace AI" /></div>
+        <div id="c-tag" class="c-line">Eine Suche für den ganzen Markt.</div>
+        <div id="c-rule"></div>
+        <div id="c-label" class="c-line">BLACK WEEK · 23.–29. NOVEMBER</div>
+        <div id="c-offer1" class="c-line">Zum Ausprobieren: 1 Monat kostenlos</div>
+        <div id="c-offer2" class="c-line">mit dem Code <b>BLACK</b>.</div>
+        <div id="c-url" class="c-line">searchplace.ai</div>
+      </div>
+
+      <script>
+        (function () {
+          gsap.set(["#c-tag", "#c-label", "#c-offer1", "#c-offer2", "#c-url"], { opacity: 0 });
+          gsap.set("#c-rule", { scaleX: 0 });
+          const tl = gsap.timeline({ paused: true });
+          const soft = "power3.out";
+          tl.fromTo("#c-logo", { opacity: 0, scale: 0.95, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.9, ease: soft }, 0.1);
+          tl.fromTo("#c-tag", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 0.6);
+          tl.to("#c-rule", { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 1.0);
+          tl.fromTo("#c-label", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.6, ease: soft }, 1.25);
+          tl.fromTo(["#c-offer1", "#c-offer2"], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: soft, stagger: 0.15 }, 1.45);
+          tl.fromTo("#c-url", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7, ease: soft }, 1.95);
+          window.__timelines["close"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

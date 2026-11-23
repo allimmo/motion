@@ -1,0 +1,395 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+          font-weight: 500;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "Josefin Sans";
+          src: url("assets/fonts/josefin-sans-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        #a-root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #f5f5f7;
+        }
+        #a-kicker {
+          position: absolute;
+          left: 80px;
+          top: 120px;
+          font-family: "Josefin Sans", sans-serif;
+          font-weight: 700;
+          font-size: 28px;
+          letter-spacing: 0.28em;
+          color: #6fe3f3;
+        }
+        #a-head {
+          position: absolute;
+          left: 80px;
+          right: 80px;
+          top: 172px;
+          font-weight: 700;
+          font-size: 76px;
+          line-height: 1.08;
+          letter-spacing: -0.04em;
+        }
+        #a-head span {
+          display: block;
+        }
+        .a-gray {
+          color: #86868b;
+        }
+
+        /* step rail */
+        .a-num {
+          position: absolute;
+          left: 78px;
+          width: 52px;
+          height: 52px;
+          border-radius: 50%;
+          border: 2px solid #12b4cd;
+          color: #6fe3f3;
+          font-size: 28px;
+          font-weight: 700;
+          line-height: 48px;
+          text-align: center;
+        }
+        .a-rail {
+          position: absolute;
+          left: 103px;
+          width: 2px;
+          background: rgba(111, 227, 243, 0.45);
+          transform-origin: 50% 0;
+        }
+        .a-label {
+          position: absolute;
+          left: 150px;
+          right: 80px;
+          font-size: 36px;
+          font-weight: 600;
+          line-height: 48px;
+          letter-spacing: -0.01em;
+        }
+
+        /* step 1: the search bar (logo shell), logo units 1650 × 415 at 850 px */
+        #a-barCam {
+          position: absolute;
+          left: 150px;
+          top: 470px;
+          width: 850px;
+          height: 214px;
+        }
+        .a-fit {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1650px;
+          height: 415px;
+          transform: scale(0.515152);
+          transform-origin: 0 0;
+        }
+        .a-shell {
+          position: absolute;
+          inset: 0;
+          border-radius: 208px;
+          overflow: hidden;
+          background: linear-gradient(180deg, #2a4f62 0%, #1b3c4d 38%, #122f3d 72%, #0d2632 100%);
+          box-shadow:
+            inset 0 3px 0 rgba(255, 255, 255, 0.2),
+            inset 0 -14px 40px rgba(0, 0, 0, 0.4);
+        }
+        .a-ring {
+          position: absolute;
+          inset: 38px;
+          border: 16px solid #12b4cd;
+          border-radius: 999px;
+        }
+        .a-query {
+          position: absolute;
+          left: 128px;
+          right: 395px;
+          top: 123px;
+          font-size: 70px;
+          font-weight: 500;
+          line-height: 1.2;
+          letter-spacing: -0.01em;
+        }
+        #a-placeholder {
+          position: absolute;
+          left: 0;
+          top: 42px;
+          white-space: nowrap;
+          color: rgba(200, 225, 235, 0.55);
+        }
+        .a-word {
+          display: inline-block;
+        }
+        .a-nb {
+          white-space: nowrap;
+        }
+        .a-mic {
+          position: absolute;
+          right: 120px;
+          top: 85px;
+          width: 225px;
+          height: 225px;
+          border-radius: 50%;
+          background: linear-gradient(180deg, #2cc7de 0%, #12b4cd 55%, #0c9db4 100%);
+        }
+        .a-micsvg {
+          position: absolute;
+          left: 57px;
+          top: 57px;
+          width: 110px;
+          height: 110px;
+        }
+
+        /* step 2: criteria */
+        #a-chips {
+          position: absolute;
+          left: 150px;
+          right: 80px;
+          top: 792px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 14px;
+        }
+        .a-chip {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          height: 58px;
+          padding: 0 22px;
+          border-radius: 999px;
+          background: rgba(18, 180, 205, 0.12);
+          border: 1px solid rgba(111, 227, 243, 0.5);
+          font-size: 28px;
+          font-weight: 600;
+        }
+        .a-chip i {
+          display: block;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: #6fe3f3;
+        }
+        .a-chip.a-soft {
+          background: rgba(18, 180, 205, 0.3);
+          border-color: #6fe3f3;
+        }
+
+        /* step 3: ranked results across portals */
+        #a-rows {
+          position: absolute;
+          left: 150px;
+          right: 80px;
+          top: 1030px;
+          display: grid;
+          gap: 10px;
+        }
+        .a-row {
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          height: 64px;
+          padding: 0 18px;
+          border-radius: 16px;
+          background: #1c1c1e;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          font-size: 28px;
+          font-weight: 500;
+          color: #d2d2d7;
+          white-space: nowrap;
+        }
+        .a-rank {
+          display: block;
+          flex: none;
+          width: 34px;
+          font-weight: 700;
+          color: #6fe3f3;
+        }
+        .a-price {
+          display: block;
+          flex: none;
+          width: 130px;
+          font-weight: 700;
+          color: #f5f5f7;
+        }
+        .a-spec {
+          display: block;
+          flex: 1;
+          min-width: 0;
+        }
+        .a-src {
+          display: block;
+          flex: none;
+          padding: 2px 16px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.07);
+          font-size: 28px;
+          font-weight: 600;
+          color: #aeaeb2;
+        }
+      </style>
+
+      <div id="a-root" data-composition-id="approach" data-width="1080" data-height="1350">
+        <div id="a-kicker">UNSER ANSATZ</div>
+        <div id="a-head"><span id="a-h1">Semantische Suche</span><span id="a-h2" class="a-gray">über den ganzen Markt.</span></div>
+
+        <div id="a-n1" class="a-num" style="top: 406px">1</div>
+        <div id="a-l1" class="a-label" style="top: 406px">Anfrage in Alltagssprache</div>
+        <div id="a-r1" class="a-rail" style="top: 454px; height: 270px"></div>
+        <div id="a-n2" class="a-num" style="top: 728px">2</div>
+        <div id="a-l2" class="a-label" style="top: 728px">Die KI erkennt die Kriterien, auch weiche</div>
+        <div id="a-r2" class="a-rail" style="top: 776px; height: 190px"></div>
+        <div id="a-n3" class="a-num" style="top: 970px">3</div>
+        <div id="a-l3" class="a-label" style="top: 970px">Abgleich über alle Portale, gerankt</div>
+
+        <div id="a-barCam">
+          <div class="a-fit">
+            <div class="a-shell">
+              <div class="a-ring"></div>
+              <div class="a-query">
+                <span id="a-placeholder">Was suchst du?</span>
+                <span id="a-text"></span>
+              </div>
+              <div id="a-mic" class="a-mic">
+                <svg class="a-micsvg" viewBox="0 0 110 110" fill="none">
+                  <rect x="38" y="8" width="34" height="58" rx="17" fill="#ffffff" />
+                  <path d="M22 50 a33 33 0 0 0 66 0" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                  <path d="M55 84 V100" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="a-chips">
+          <span class="a-chip a-soft"><i></i>Ruhig</span>
+          <span class="a-chip"><i></i>2 Zimmer</span>
+          <span class="a-chip"><i></i>Balkon</span>
+          <span class="a-chip"><i></i>1070 Neubau</span>
+          <span class="a-chip"><i></i>max. 1.100 €</span>
+        </div>
+
+        <div id="a-rows"></div>
+      </div>
+
+      <script>
+        (function () {
+          const root = document.getElementById("a-root");
+          const q = (s) => root.querySelector(s);
+          const qa = (s) => Array.from(root.querySelectorAll(s));
+
+          // The request: [text, is a criterion, trailing]
+          const SPOKEN = [
+            ["Ruhige", 1, " "], ["2-Zimmer-Wohnung", 1, " "], ["mit", 0, " "], ["Balkon", 1, " "],
+            ["in", 0, " "], ["Neubau", 1, ", "], ["bis 1.100 €", 1, ""],
+          ];
+          const textEl = q("#a-text");
+          const words = [];
+          const keys = [];
+          SPOKEN.forEach(([t, k, trail]) => {
+            const w = document.createElement("span");
+            w.className = "a-word";
+            w.textContent = t;
+            if (trail === ", ") {
+              const nb = document.createElement("span");
+              nb.className = "a-nb";
+              const comma = document.createElement("span");
+              comma.className = "a-word";
+              comma.textContent = ",";
+              nb.append(w, comma);
+              textEl.appendChild(nb);
+              textEl.appendChild(document.createTextNode(" "));
+              words.push(w, comma);
+            } else {
+              textEl.appendChild(w);
+              if (trail) textEl.appendChild(document.createTextNode(trail));
+              words.push(w);
+            }
+            if (k) keys.push(w);
+          });
+
+          // Ranked matches, each from a different source (illustrative)
+          const ROWS = [
+            ["1", "1.050 €", "2 Zi · 58 m² · Balkon · ruhig", "Portal B"],
+            ["2", "990 €", "2 Zi · 52 m² · Hofseite", "Portal E"],
+            ["3", "1.090 €", "2 Zi · 61 m² · Altbau", "Portal A"],
+          ];
+          const rowsEl = q("#a-rows");
+          ROWS.forEach(([r, p, s, src], i) => {
+            const row = document.createElement("div");
+            row.className = "a-row";
+            row.id = "a-row" + i;
+            row.innerHTML =
+              '<span class="a-rank">' + r + '</span><span class="a-price">' + p + '</span><span class="a-spec">' + s +
+              '</span><span class="a-src">' + src + "</span>";
+            rowsEl.appendChild(row);
+          });
+
+          gsap.set(["#a-h2", ".a-num", ".a-label", "#a-barCam", ".a-chip", ".a-row", "#a-placeholder"], { opacity: 0 });
+          gsap.set(words, { opacity: 0 });
+          gsap.set(".a-rail", { scaleY: 0 });
+
+          const tl = gsap.timeline({ paused: true });
+          const soft = "power3.out";
+          const step = (n, t) => {
+            tl.fromTo("#a-n" + n, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.45, ease: soft }, t);
+            tl.fromTo("#a-l" + n, { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.6, ease: soft }, t + 0.1);
+          };
+
+          tl.fromTo("#a-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: soft }, 0.1);
+          tl.fromTo("#a-h1", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 0.25);
+          tl.fromTo("#a-h2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 0.5);
+
+          // 1 — ask the way you would ask a person
+          step(1, 1.0);
+          tl.fromTo("#a-barCam", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: soft }, 1.2);
+          tl.to("#a-mic", { scale: 0.9, duration: 0.1, ease: "power2.in" }, 1.55);
+          tl.to("#a-mic", { scale: 1, duration: 0.4, ease: soft }, 1.66);
+          words.forEach((w, i) =>
+            tl.fromTo(w, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: soft }, 1.75 + i * 0.17)
+          );
+
+          // 2 — the request becomes structured criteria
+          tl.to("#a-r1", { scaleY: 1, duration: 0.5, ease: "power2.inOut" }, 3.4);
+          step(2, 3.75);
+          keys.forEach((k, i) => tl.to(k, { color: "#6fe3f3", duration: 0.3 }, 4.0 + i * 0.18));
+          qa(".a-chip").forEach((c, i) =>
+            tl.fromTo(c, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: soft }, 4.05 + i * 0.18)
+          );
+
+          // 3 — matched across every source, best first
+          tl.to("#a-r2", { scaleY: 1, duration: 0.45, ease: "power2.inOut" }, 5.4);
+          step(3, 5.7);
+          [0, 1, 2].forEach((i) =>
+            tl.fromTo("#a-row" + i, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: soft }, 6.0 + i * 0.18)
+          );
+
+          tl.to("#a-root > *", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" }, 10.75);
+          window.__timelines["approach"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

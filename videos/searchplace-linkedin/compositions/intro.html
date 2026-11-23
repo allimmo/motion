@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+          font-weight: 500;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "Josefin Sans";
+          src: url("assets/fonts/josefin-sans-latin-700-normal.woff2") format("woff2");
+          font-weight: 700;
+        }
+        #i-root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #f5f5f7;
+        }
+        #i-kicker {
+          position: absolute;
+          left: 80px;
+          top: 120px;
+          font-family: "Josefin Sans", sans-serif;
+          font-weight: 700;
+          font-size: 28px;
+          letter-spacing: 0.28em;
+          color: #6fe3f3;
+        }
+        #i-head {
+          position: absolute;
+          left: 80px;
+          right: 80px;
+          top: 172px;
+          font-weight: 700;
+          font-size: 76px;
+          line-height: 1.08;
+          letter-spacing: -0.04em;
+        }
+        #i-head span {
+          display: block;
+        }
+        .i-gray {
+          color: #86868b;
+        }
+        #i-svg {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1080px;
+          height: 1350px;
+        }
+        .i-node {
+          position: absolute;
+          width: 214px;
+          height: 72px;
+          margin: -36px 0 0 -107px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          border-radius: 18px;
+          background: #1c1c1e;
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          font-size: 28px;
+          font-weight: 600;
+          color: #d2d2d7;
+        }
+        .i-node i {
+          display: block;
+          width: 14px;
+          height: 14px;
+          border-radius: 4px;
+          background: #48484a;
+        }
+        #i-user {
+          position: absolute;
+          left: 470px;
+          top: 650px;
+          width: 140px;
+          height: 140px;
+          border-radius: 50%;
+          background: #1c1c1e;
+          border: 2px solid rgba(111, 227, 243, 0.6);
+          box-shadow: 0 0 60px rgba(18, 180, 205, 0.25);
+        }
+        #i-user svg {
+          position: absolute;
+          left: 35px;
+          top: 30px;
+        }
+        #i-list {
+          position: absolute;
+          left: 80px;
+          right: 80px;
+          top: 1086px;
+          display: grid;
+          gap: 18px;
+        }
+        .i-item {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          font-size: 34px;
+          font-weight: 600;
+          letter-spacing: -0.01em;
+        }
+        .i-item b {
+          display: block;
+          flex: none;
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          border: 2px solid #ff7b72;
+          position: relative;
+        }
+        .i-item b::before,
+        .i-item b::after {
+          content: "";
+          position: absolute;
+          left: 15px;
+          top: 7px;
+          width: 2px;
+          height: 16px;
+          background: #ff7b72;
+        }
+        .i-item b::before {
+          transform: rotate(45deg);
+        }
+        .i-item b::after {
+          transform: rotate(-45deg);
+        }
+      </style>
+
+      <div id="i-root" data-composition-id="intro" data-width="1080" data-height="1350">
+        <div id="i-kicker">IMMOBILIENSUCHE, NEU GEDACHT</div>
+        <div id="i-head"><span id="i-h1">Der Markt ist verteilt.</span><span id="i-h2" class="i-gray">Die Suche auch.</span></div>
+
+        <svg id="i-svg" viewBox="0 0 1080 1350" fill="none"></svg>
+        <div id="i-nodes"></div>
+        <div id="i-user">
+          <svg width="70" height="80" viewBox="0 0 70 80" fill="none">
+            <circle cx="35" cy="22" r="16" stroke="#6fe3f3" stroke-width="5" />
+            <path d="M6 76 C6 54 20 44 35 44 C50 44 64 54 64 76" stroke="#6fe3f3" stroke-width="5" stroke-linecap="round" />
+          </svg>
+        </div>
+
+        <div id="i-list">
+          <div class="i-item"><b></b>Inserate verteilt auf viele Portale</div>
+          <div class="i-item"><b></b>Starre Filter: „ruhig“ oder „hell“ passen nicht hinein</div>
+          <div class="i-item"><b></b>Dubletten und verpasste neue Angebote</div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const SVGNS = "http://www.w3.org/2000/svg";
+          const C = [540, 720];
+          const NODES = [
+            ["Portal A", -150], ["Portal B", -90], ["Portal C", -30], ["Portal D", 30], ["Portal E", 90], ["Portal F", 150],
+          ].map(([label, deg]) => {
+            const a = (deg * Math.PI) / 180;
+            return { label, x: Math.round(C[0] + 340 * Math.cos(a)), y: Math.round(C[1] + 285 * Math.sin(a)) };
+          });
+
+          const svg = document.getElementById("i-svg");
+          const nodesEl = document.getElementById("i-nodes");
+          const lines = [];
+          NODES.forEach((n, i) => {
+            const p = document.createElementNS(SVGNS, "path");
+            p.setAttribute("d", "M" + C[0] + " " + C[1] + " L" + n.x + " " + n.y);
+            p.setAttribute("stroke", "rgba(255,255,255,0.28)");
+            p.setAttribute("stroke-width", "3");
+            p.setAttribute("stroke-dasharray", "8 10");
+            p.id = "i-line" + i;
+            svg.appendChild(p);
+            lines.push(p);
+            const el = document.createElement("div");
+            el.className = "i-node";
+            el.id = "i-node" + i;
+            el.style.left = n.x + "px";
+            el.style.top = n.y + "px";
+            el.innerHTML = "<i></i>" + n.label;
+            nodesEl.appendChild(el);
+          });
+          // the same listing showing up twice: a faint cross-link between two portals
+          const dup = document.createElementNS(SVGNS, "path");
+          dup.setAttribute("d", "M" + NODES[2].x + " " + (NODES[2].y + 36) + " L" + NODES[3].x + " " + (NODES[3].y - 36));
+          dup.setAttribute("stroke", "rgba(255,123,114,0.7)");
+          dup.setAttribute("stroke-width", "3");
+          dup.id = "i-dup";
+          svg.appendChild(dup);
+
+          gsap.set(["#i-h2", ".i-node", ".i-item", "#i-user"], { opacity: 0 });
+          gsap.set([...lines, dup], { opacity: 0 });
+
+          const tl = gsap.timeline({ paused: true });
+          const soft = "power3.out";
+
+          tl.fromTo("#i-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: soft }, 0.15);
+          tl.fromTo("#i-h1", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 0.3);
+
+          // one searcher, many places to look
+          tl.fromTo("#i-user", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.6, ease: soft }, 0.9);
+          NODES.forEach((n, i) => {
+            const t = 1.2 + i * 0.22;
+            tl.fromTo("#i-node" + i, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: soft }, t);
+            tl.fromTo(lines[i], { opacity: 0 }, { opacity: 1, duration: 0.4 }, t + 0.05);
+          });
+          tl.fromTo("#i-h2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: soft }, 2.8);
+          tl.fromTo(dup, { opacity: 0 }, { opacity: 1, duration: 0.4 }, 5.3);
+
+          // why that hurts
+          Array.from(document.querySelectorAll("#i-list .i-item")).forEach((el, i) =>
+            tl.fromTo(el, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.6, ease: soft }, 3.9 + i * 0.75)
+          );
+
+          tl.to("#i-root > *", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" }, 9.0);
+          window.__timelines["intro"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
