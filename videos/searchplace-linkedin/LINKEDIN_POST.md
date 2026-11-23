@@ -36,4 +36,4 @@ Code BLACK eingeben, 1 Monat kostenlos. Gültig vom 23. bis 29. November.
 - Video hochladen (4:5, 1080 × 1350), Text einfügen, Link erst in den ersten Kommentar: Beiträge mit externem Link im Text bekommen auf LinkedIn meist weniger Reichweite.
 - Am besten vom persönlichen Profil posten und von der Unternehmensseite teilen.
 - Titelbild: das Schlussbild mit Logo (SearchPlace_LinkedIn_BlackWeek_Cover.jpg).
-- Das Video ist stumm, LinkedIn spielt ohnehin ohne Ton ab. Alles Wichtige steht im Bild.
+- Das Video hat eine eigens komponierte, lizenzfreie Hintergrundmusik. LinkedIn startet Videos stumm; die Musik hört man, sobald jemand den Ton einschaltet. Alles Wichtige steht deshalb trotzdem im Bild.

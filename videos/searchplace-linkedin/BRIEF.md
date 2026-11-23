@@ -21,5 +21,5 @@ am Ende, zurückhaltend formuliert.
 
 - Beitragstext + erster Kommentar: LINKEDIN_POST.md.
 - Portale generisch (A–F); Inserate/Agenten/Kurve sind Illustration, keine Zahlen erfunden.
-- Stumm, alle Aussagen im Bild (LinkedIn spielt ohne Ton ab).
+- Musik: eigens komponierter, lizenzfreier Track (assets/music/linkedin-bed.wav, erzeugt von compose_linkedin_bed.py), D-Dur, 90 BPM, -16 LUFS, Whooshes auf den Szenenwechseln, Glocke beim Logo. Alle Aussagen bleiben im Bild, weil LinkedIn stumm startet.
 - CLI-Pin auf 0.9.84 aktualisiert; Mindestschrift 28 px für Handy-Lesbarkeit.
