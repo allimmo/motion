@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <title>SearchPlace.ai — Black Week GIF 2</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        font-weight: 600;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+        font-weight: 700;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2");
+        font-weight: 800;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-900-normal.woff2") format("woff2");
+        font-weight: 900;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: #000000;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #000000;
+        font-family: "Inter", sans-serif;
+        color: #f5f5f7;
+      }
+      #glow {
+        position: absolute;
+        left: 90px;
+        top: 110px;
+        width: 900px;
+        height: 900px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(18, 180, 205, 0.2) 0%, rgba(18, 180, 205, 0.06) 42%, rgba(18, 180, 205, 0) 68%);
+      }
+      #logo {
+        position: absolute;
+        left: 330px;
+        top: 64px;
+        width: 420px;
+        height: 106px;
+      }
+      #logo img {
+        display: block;
+        width: 420px;
+        height: 106px;
+      }
+      #url {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 958px;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: #d2d2d7;
+      }
+      .grad {
+        color: #6fe3f3;
+        background: linear-gradient(100deg, #b8f6ff 0%, #6fe3f3 35%, #12b4cd 70%, #2f86c9 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .beat {
+        position: absolute;
+        inset: 0;
+      }
+      .row {
+        position: absolute;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        line-height: 1;
+      }
+      .row span {
+        display: block;
+      }
+
+      /* ---------- 1 · BLACK WEEK ---------- */
+      #b1a,
+      #b1b {
+        font-size: 210px;
+        font-weight: 900;
+        letter-spacing: -0.045em;
+      }
+      #b1a {
+        top: 330px;
+      }
+      #b1b {
+        top: 540px;
+      }
+      #b1b span {
+        padding-bottom: 14px;
+      }
+
+      /* ---------- 2 · 1 Monat gratis ---------- */
+      #b2a {
+        top: 360px;
+        font-size: 104px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+      #b2b {
+        top: 470px;
+        font-size: 228px;
+        font-weight: 800;
+        letter-spacing: -0.05em;
+      }
+      #b2b span {
+        padding-bottom: 18px;
+      }
+
+      /* ---------- shared scene titles ---------- */
+      .title {
+        position: absolute;
+        left: 40px;
+        right: 40px;
+        top: 232px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 92px;
+        line-height: 1.07;
+        letter-spacing: -0.04em;
+      }
+      .title .ln {
+        display: block;
+        padding-bottom: 6px;
+      }
+
+      /* ---------- 3 · Alle Immobilien. Eine Suche. + Off-Market ---------- */
+      #tiles {
+        position: absolute;
+        inset: 0;
+      }
+      .tile {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 120px;
+        height: 92px;
+        margin: -46px 0 0 -60px;
+        border-radius: 18px;
+        background: #1c1c1e;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+      }
+      .tile::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        top: 8px;
+        height: 50px;
+        border-radius: 11px;
+        background: linear-gradient(160deg, #2f5d70, #1592a9);
+      }
+      .tile::after {
+        content: "";
+        position: absolute;
+        left: 10px;
+        top: 68px;
+        width: 64px;
+        height: 8px;
+        border-radius: 4px;
+        background: #48484a;
+      }
+      #flash {
+        position: absolute;
+        left: 240px;
+        top: 450px;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(184, 246, 255, 0.4) 0%, rgba(111, 227, 243, 0.12) 35%, rgba(18, 180, 205, 0) 65%);
+      }
+      #sources {
+        top: 690px;
+        font-size: 46px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: #d2d2d7;
+      }
+      #offRow {
+        top: 790px;
+      }
+      #off {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        height: 92px;
+        padding: 0 38px 0 30px;
+        border-radius: 999px;
+        border: 3px solid #12b4cd;
+        background: rgba(18, 180, 205, 0.12);
+        box-shadow: 0 0 70px rgba(18, 180, 205, 0.3);
+        overflow: hidden;
+      }
+      #off svg {
+        display: block;
+        width: 44px;
+        height: 44px;
+        flex: none;
+      }
+      #offTxt {
+        display: block;
+        font-size: 44px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+      }
+      #offSheen {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 200px;
+        background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.26) 50%, transparent 100%);
+      }
+
+      /* ---------- 4 · Markttrends, Analysen & Rendite ---------- */
+      .card {
+        position: absolute;
+        top: 500px;
+        width: 240px;
+        height: 320px;
+        border-radius: 32px;
+        background: #1c1c1e;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .card svg {
+        display: block;
+        width: 240px;
+        height: 320px;
+      }
+      #c1 {
+        left: 140px;
+      }
+      #c2 {
+        left: 420px;
+      }
+      #c3 {
+        left: 700px;
+      }
+
+      /* ---------- 5 · Jetzt gratis testen ---------- */
+      #e1 {
+        top: 318px;
+        font-size: 112px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+      #e2 {
+        top: 438px;
+        font-size: 230px;
+        font-weight: 800;
+        letter-spacing: -0.05em;
+      }
+      #e2 span {
+        padding-bottom: 18px;
+      }
+      #e3 {
+        top: 760px;
+        font-size: 50px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        color: #d2d2d7;
+      }
+      #e3 b {
+        font-weight: 700;
+        color: #f5f5f7;
+      }
+      #e3 i {
+        font-style: normal;
+        font-weight: 700;
+        color: #6fe3f3;
+      }
+
+      /* light streak on a scene change */
+      #streak {
+        position: absolute;
+        left: 0;
+        top: 538px;
+        width: 1080px;
+        height: 4px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, rgba(111, 227, 243, 0) 0%, rgba(184, 246, 255, 0.95) 50%, rgba(111, 227, 243, 0) 100%);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="13.5" data-width="1080" data-height="1080">
+      <div id="glow" data-layout-allow-overflow></div>
+      <div id="logo"><img src="assets/logo.png" alt="SearchPlace AI" /></div>
+
+      <!-- 1 · BLACK WEEK -->
+      <div id="b1" class="beat">
+        <div id="b1a" class="row"><span>B</span><span>L</span><span>A</span><span>C</span><span>K</span></div>
+        <div id="b1b" class="row"><span class="grad">W</span><span class="grad">E</span><span class="grad">E</span><span class="grad">K</span></div>
+      </div>
+      <div id="url">searchplace.ai</div>
+
+      <!-- 2 · 1 Monat gratis. -->
+      <div id="b2" class="beat">
+        <div id="b2a" class="row"><span>1 Monat</span></div>
+        <div id="b2b" class="row"><span class="grad">gratis.</span></div>
+      </div>
+
+      <!-- 3 · Alle Immobilien. Eine Suche. Auch Off-Market. -->
+      <div id="t3" class="title"><span class="ln">Alle Immobilien.</span><span class="ln grad">Eine Suche.</span></div>
+      <div id="tiles" data-layout-allow-overflow></div>
+      <div id="flash" data-layout-allow-overflow></div>
+      <div id="sources" class="row"><span>Portale · Makler · Bauträger</span></div>
+      <div id="offRow" class="row">
+        <div id="off">
+          <svg viewBox="0 0 44 44" fill="none">
+            <path d="M3 22 C9 11 16 7 22 7 C28 7 35 11 41 22 C35 33 28 37 22 37 C16 37 9 33 3 22 Z" stroke="#6fe3f3" stroke-width="3.5" stroke-linejoin="round" />
+            <circle cx="22" cy="22" r="7" fill="#6fe3f3" />
+          </svg>
+          <span id="offTxt">Auch Off-Market-Objekte</span>
+          <div id="offSheen" data-layout-allow-overflow></div>
+        </div>
+      </div>
+
+      <!-- 4 · Markttrends. Analysen & Rendite. (illustrative visuals, no values) -->
+      <div id="t4" class="title"><span class="ln">Markttrends.</span><span class="ln grad">Analysen &amp; Rendite.</span></div>
+      <div id="c1" class="card">
+        <svg viewBox="0 0 240 320" fill="none">
+          <defs>
+            <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#12b4cd" stop-opacity="0.35" />
+              <stop offset="1" stop-color="#12b4cd" stop-opacity="0" />
+            </linearGradient>
+            <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#12b4cd" />
+              <stop offset="1" stop-color="#b8f6ff" />
+            </linearGradient>
+          </defs>
+          <g stroke="rgba(255,255,255,0.07)" stroke-width="2">
+            <line x1="24" y1="100" x2="216" y2="100" />
+            <line x1="24" y1="175" x2="216" y2="175" />
+            <line x1="24" y1="250" x2="216" y2="250" />
+          </g>
+          <path id="area" fill="url(#areaGrad)" />
+          <path id="line" stroke="url(#lineGrad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+          <circle id="dotRing" cx="212" cy="96" r="10" stroke="#b8f6ff" stroke-width="3" />
+          <circle id="dot" cx="212" cy="96" r="9" fill="#b8f6ff" stroke="#1c1c1e" stroke-width="3" />
+        </svg>
+      </div>
+      <div id="c2" class="card">
+        <svg viewBox="0 0 240 320" fill="none">
+          <defs>
+            <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#b8f6ff" />
+              <stop offset="1" stop-color="#12b4cd" />
+            </linearGradient>
+          </defs>
+          <line x1="24" y1="262" x2="216" y2="262" stroke="rgba(255,255,255,0.12)" stroke-width="2" />
+          <rect id="bar0" class="bar" x="30" y="172" width="26" height="90" rx="8" fill="#3a3a3c" />
+          <rect id="bar1" class="bar" x="70" y="132" width="26" height="130" rx="8" fill="#3a3a3c" />
+          <rect id="bar2" class="bar" x="110" y="152" width="26" height="110" rx="8" fill="#3a3a3c" />
+          <rect id="bar3" class="bar" x="150" y="82" width="26" height="180" rx="8" fill="url(#barGrad)" />
+          <rect id="bar4" class="bar" x="190" y="122" width="26" height="140" rx="8" fill="#3a3a3c" />
+        </svg>
+      </div>
+      <div id="c3" class="card">
+        <svg viewBox="0 0 240 320" fill="none">
+          <defs>
+            <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#b8f6ff" />
+              <stop offset="1" stop-color="#12b4cd" />
+            </linearGradient>
+          </defs>
+          <circle cx="120" cy="165" r="76" stroke="#2c2c2e" stroke-width="18" />
+          <circle id="gauge" cx="120" cy="165" r="76" stroke="url(#ringGrad)" stroke-width="18" stroke-linecap="round" transform="rotate(-90 120 165)" />
+          <text x="120" y="190" fill="#f5f5f7" font-family="Inter, sans-serif" font-size="68" font-weight="700" text-anchor="middle">%</text>
+        </svg>
+      </div>
+
+      <!-- 5 · Jetzt gratis testen -->
+      <div id="e1" class="row"><span>Jetzt gratis</span></div>
+      <div id="e2" class="row"><span class="grad">testen.</span></div>
+      <div id="e3" class="row"><span>Bis <i>29.11.</i> auf <b>SearchPlace.ai</b></span></div>
+
+      <div id="streak" data-layout-allow-overflow></div>
+    </div>
+
+    <script>
+      (function () {
+        // Listings from everywhere: two rows above and two below the meeting point (deterministic offsets)
+        const MEET = [540, 718];
+        const tilesEl = document.getElementById("tiles");
+        const TILES = [];
+        [520, 624, 840, 944].forEach((y, r) => {
+          for (let c = 0; c < 5; c++) {
+            const i = r * 5 + c;
+            TILES.push([152 + c * 194 + (((i * 37) % 30) - 15), y + (((i * 23) % 16) - 8)]);
+          }
+        });
+        TILES.forEach((p, i) => {
+          const t = document.createElement("div");
+          t.className = "tile";
+          t.id = "tile" + i;
+          t.style.left = p[0] + "px";
+          t.style.top = p[1] + "px";
+          tilesEl.appendChild(t);
+        });
+
+        // Mini trend curve (shape only, no values)
+        const PTS = [[28, 236], [72, 214], [112, 224], [152, 170], [184, 150], [212, 96]];
+        let d = "M" + PTS[0][0] + " " + PTS[0][1];
+        for (let i = 0; i < PTS.length - 1; i++) {
+          const p0 = PTS[Math.max(0, i - 1)], p1 = PTS[i], p2 = PTS[i + 1], p3 = PTS[Math.min(PTS.length - 1, i + 2)];
+          const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+          const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+          d += " C" + c1[0] + " " + c1[1] + " " + c2[0] + " " + c2[1] + " " + p2[0] + " " + p2[1];
+        }
+        const line = document.getElementById("line");
+        line.setAttribute("d", d);
+        document.getElementById("area").setAttribute("d", d + " L212 262 L28 262 Z");
+        const len = line.getTotalLength();
+        line.style.strokeDasharray = len;
+        const gauge = document.getElementById("gauge");
+        const circ = 2 * Math.PI * 76;
+        gauge.style.strokeDasharray = circ;
+
+        // Initial states
+        gsap.set(["#b1a span", "#b1b span", "#url", "#logo", "#b2a", "#b2b"], { opacity: 0 });
+        gsap.set(["#t3 .ln", ".tile", "#flash", "#sources", "#offRow"], { opacity: 0 });
+        gsap.set("#offSheen", { x: -260 });
+        gsap.set(["#t4 .ln", ".card", "#area"], { opacity: 0 });
+        gsap.set("#line", { strokeDashoffset: len });
+        gsap.set(["#dot", "#dotRing"], { scale: 0, transformOrigin: "50% 50%" });
+        gsap.set(".bar", { scaleY: 0, transformOrigin: "50% 100%" });
+        gsap.set("#gauge", { strokeDashoffset: circ });
+        gsap.set(["#e1", "#e2", "#e3"], { opacity: 0 });
+        gsap.set("#streak", { x: -1200, opacity: 0 });
+
+        const tl = gsap.timeline({ paused: true });
+        const soft = "power3.out";
+        const streak = (t) => {
+          tl.fromTo("#streak", { x: -1200, opacity: 1 }, { x: 1200, opacity: 1, duration: 0.42, ease: "power2.inOut" }, t);
+          tl.set("#streak", { opacity: 0 }, t + 0.43);
+        };
+        const glowPulse = (t) => {
+          tl.to("#glow", { scale: 1.12, opacity: 1, duration: 0.35, ease: "power2.out" }, t);
+          tl.to("#glow", { scale: 1, opacity: 0.85, duration: 0.9, ease: "power2.inOut" }, t + 0.35);
+        };
+        const titleIn = (id, t) =>
+          tl.fromTo(id + " .ln", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: soft, stagger: 0.1 }, t);
+        const out = (targets, t) => tl.to(targets, { opacity: 0, y: -24, duration: 0.35, ease: "power2.in" }, t);
+        tl.fromTo("#glow", { opacity: 0.85, scale: 1 }, { opacity: 0.85, scale: 1, duration: 0.01 }, 0);
+
+        // ---------- 1 · BLACK WEEK ----------
+        tl.fromTo("#b1a span", { y: 90, opacity: 0, filter: "blur(14px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "power4.out", stagger: 0.045 }, 0.12);
+        tl.fromTo("#b1b span", { y: 90, opacity: 0, filter: "blur(14px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "power4.out", stagger: 0.045 }, 0.32);
+        tl.fromTo("#url", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 0.12);
+        glowPulse(0.3);
+        tl.to("#b1", { scale: 1.08, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power2.in" }, 1.6);
+        tl.to("#url", { opacity: 0, duration: 0.3, ease: "power2.in" }, 1.6);
+
+        // ---------- 2 · 1 Monat gratis. ----------
+        streak(1.72);
+        tl.fromTo("#logo", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.6, ease: soft }, 1.9);
+        tl.fromTo("#b2a", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: soft }, 1.85);
+        tl.fromTo("#b2b", { opacity: 0, scale: 1.25, filter: "blur(16px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, 2.0);
+        glowPulse(2.0);
+        tl.to("#b2", { scale: 1.08, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power2.in" }, 3.3);
+
+        // ---------- 3 · Alle Immobilien. Eine Suche. Auch Off-Market. ----------
+        titleIn("#t3", 3.55);
+        TILES.forEach((p, i) => {
+          const order = (i * 7) % 20;
+          tl.fromTo("#tile" + i, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: soft }, 3.7 + order * 0.018);
+          tl.to("#tile" + i, { x: MEET[0] - p[0], y: MEET[1] - p[1], scale: 0.2, opacity: 0, duration: 0.6, ease: "power3.inOut" }, 4.35 + order * 0.012);
+        });
+        tl.fromTo("#flash", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 4.9);
+        tl.to("#flash", { opacity: 0, duration: 0.6, ease: "power2.out" }, 5.2);
+        tl.fromTo("#sources", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: soft }, 5.0);
+        glowPulse(4.9);
+        tl.fromTo("#offRow", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "expo.out" }, 5.6);
+        tl.to("#offSheen", { x: 760, duration: 0.8, ease: "power2.inOut" }, 6.0);
+        out(["#t3", "#sources", "#offRow"], 7.0);
+
+        // ---------- 4 · Markttrends. Analysen & Rendite. ----------
+        titleIn("#t4", 7.37);
+        ["#c1", "#c2", "#c3"].forEach((c, k) =>
+          tl.fromTo(c, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.6, ease: soft }, 7.5 + k * 0.1)
+        );
+        tl.to("#line", { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, 7.75);
+        tl.to("#area", { opacity: 1, duration: 0.5, ease: "power2.out" }, 8.1);
+        tl.to("#dot", { scale: 1, duration: 0.3, ease: soft }, 8.52);
+        tl.fromTo("#dotRing", { scale: 1, opacity: 0.8 }, { scale: 2.4, opacity: 0, duration: 0.7, ease: soft }, 8.56);
+        [0, 1, 2, 3, 4].forEach((b) =>
+          tl.to("#bar" + b, { scaleY: 1, duration: 0.55, ease: "power3.out" }, 8.0 + b * 0.08)
+        );
+        tl.to("#gauge", { strokeDashoffset: circ * 0.28, duration: 0.9, ease: "power2.inOut" }, 8.3);
+        out(["#t4", "#c1", "#c2", "#c3"], 9.95);
+
+        // ---------- 5 · Jetzt gratis testen. Bis 29.11. auf SearchPlace.ai ----------
+        streak(10.1);
+        tl.fromTo("#e1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: soft }, 10.25);
+        tl.fromTo("#e2", { opacity: 0, scale: 1.25, filter: "blur(16px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, 10.4);
+        tl.fromTo("#e3", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: soft }, 10.7);
+        glowPulse(10.4);
+
+        // fade to black, so the loop lands cleanly back on BLACK WEEK
+        tl.to(["#e1", "#e2", "#e3", "#logo"], { opacity: 0, duration: 0.35, ease: "power2.in" }, 13.1);
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>
