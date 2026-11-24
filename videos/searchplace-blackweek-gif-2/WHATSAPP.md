@@ -2,8 +2,8 @@
 
 ## Datei
 
-- `exports/SearchPlace_BlackWeek_WhatsApp_2.gif` – 640 × 640, 13,5 s Endlosschleife, 9,2 MB
-- `exports/SearchPlace_BlackWeek_WhatsApp_2.mp4` – 1080 × 1080, 13,5 s, 1,2 MB, schärfer
+- `exports/SearchPlace_BlackWeek_WhatsApp_2.gif` – 640 × 640, 16,9 s Endlosschleife, 10,8 MB
+- `exports/SearchPlace_BlackWeek_WhatsApp_2.mp4` – 1080 × 1080, 16,9 s, 1,5 MB, schärfer
 
 Für die Gruppe das GIF schicken: es läuft dort von selbst und stumm in Schleife.
 Das MP4 ist für den WhatsApp-Status oder überall, wo ein normales Video passt.
