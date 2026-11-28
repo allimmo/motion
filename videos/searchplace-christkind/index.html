@@ -1,0 +1,1705 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>SearchPlace.ai — Das Christkind sucht eine Wohnung</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script src="assets/art.js"></script>
+    <style>
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        font-weight: 500;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        font-weight: 600;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+        font-weight: 700;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2");
+        font-weight: 800;
+      }
+      @font-face {
+        font-family: "Josefin Sans";
+        src: url("assets/fonts/josefin-sans-latin-700-normal.woff2") format("woff2");
+        font-weight: 700;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #072833;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #072833;
+        font-family: "Inter", sans-serif;
+        color: #f5f5f7;
+      }
+      .abs {
+        position: absolute;
+      }
+
+      /* ================= background: night, bokeh, snow, drifts ================= */
+      #bg {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(120% 70% at 50% 28%, #16596b 0%, #0c3b4a 48%, #072833 100%);
+      }
+      .bk {
+        position: absolute;
+        border-radius: 50%;
+      }
+      .sf {
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 50%;
+        background: #ffffff;
+      }
+      #ground {
+        position: absolute;
+        left: 0;
+        top: 1500px;
+        width: 1080px;
+        height: 420px;
+      }
+
+      /* ================= the advent panel ================= */
+      #panel {
+        position: absolute;
+        left: 120px;
+        top: 306px;
+        width: 840px;
+        height: 1494px;
+        border-radius: 64px;
+        overflow: hidden;
+        background: #4d4769;
+        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5);
+        isolation: isolate;
+      }
+      .layer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 840px;
+        height: 1494px;
+      }
+      #pbgBlue {
+        background: radial-gradient(90% 60% at 50% 30%, #0f7099 0%, #0c5f83 50%, #094a67 100%);
+      }
+      .ps {
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 50%;
+        background: #ffffff;
+      }
+
+      /* ---------- scene 1: the attic ---------- */
+      #s1Zoom,
+      #s1Cam {
+        transform-origin: 501px 1032px;
+      }
+      #t1card {
+        position: absolute;
+        left: 40px;
+        top: 92px;
+        width: 760px;
+        height: 196px;
+        border-radius: 32px;
+        background: rgba(22, 108, 140, 0.94);
+        box-shadow: 0 18px 40px rgba(10, 20, 40, 0.35);
+        text-align: center;
+      }
+      #t1a {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 38px;
+        font-size: 38px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        color: #ffffff;
+      }
+      #t1b {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100px;
+        font-size: 44px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: #f7d248;
+      }
+      .flet {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 96px;
+        height: 62px;
+      }
+      .ringx {
+        position: absolute;
+        left: 441px;
+        top: 972px;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 6px solid rgba(247, 210, 72, 0.95);
+      }
+      .bubble {
+        position: absolute;
+        padding: 16px 30px;
+        border-radius: 40px;
+        font-size: 36px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        white-space: nowrap;
+        box-shadow: 0 14px 30px rgba(8, 30, 50, 0.28);
+      }
+      .bubble::after {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background: inherit;
+        transform: rotate(45deg);
+        border-radius: 4px;
+      }
+      #bub1 {
+        left: 40px;
+        top: 586px;
+        background: #ece9f7;
+        color: #22637f;
+        font-size: 40px;
+        transform-origin: 85% 120%;
+      }
+      #bub1::after {
+        right: 90px;
+        bottom: -12px;
+      }
+
+      /* ---------- scene 2–4: the phone ---------- */
+      #phone {
+        position: absolute;
+        left: 100px;
+        top: 70px;
+        width: 640px;
+        height: 1290px;
+        border-radius: 96px;
+        background: #0d1418;
+        box-shadow:
+          0 0 0 4px #2a343a,
+          0 40px 80px rgba(0, 20, 40, 0.45);
+      }
+      #screen {
+        position: absolute;
+        left: 14px;
+        top: 14px;
+        width: 612px;
+        height: 1262px;
+        border-radius: 82px;
+        overflow: hidden;
+        background: #eef5f9;
+        color: #17252c;
+      }
+      #clock {
+        position: absolute;
+        left: 60px;
+        top: 26px;
+        font-size: 30px;
+        font-weight: 600;
+        color: #111a1f;
+      }
+      #island {
+        position: absolute;
+        left: 206px;
+        top: 18px;
+        width: 200px;
+        height: 56px;
+        border-radius: 28px;
+        background: #05090b;
+      }
+      #sig {
+        position: absolute;
+        right: 58px;
+        top: 34px;
+        display: flex;
+        gap: 6px;
+        align-items: flex-end;
+      }
+      #sig i {
+        display: block;
+        width: 8px;
+        border-radius: 3px;
+        background: #111a1f;
+      }
+      #burger {
+        position: absolute;
+        left: 44px;
+        top: 112px;
+        width: 38px;
+        height: 30px;
+      }
+      #burger i {
+        display: block;
+        height: 4px;
+        border-radius: 2px;
+        background: #33434b;
+        margin-bottom: 9px;
+      }
+      #login {
+        position: absolute;
+        right: 36px;
+        top: 98px;
+        padding: 8px 20px;
+        border-radius: 30px;
+        background: #ffffff;
+        border: 2px solid #cfe3ec;
+        font-size: 28px;
+        font-weight: 700;
+        color: #14698f;
+      }
+      #appLogo {
+        position: absolute;
+        left: 136px;
+        top: 172px;
+        width: 340px;
+        height: 86px;
+      }
+      #sBig {
+        position: absolute;
+        left: 28px;
+        top: 292px;
+        width: 556px;
+        height: 330px;
+        border-radius: 30px;
+        background: #ffffff;
+        box-shadow: 0 14px 34px rgba(13, 80, 110, 0.14);
+        transform-origin: 50% 0;
+      }
+      #sHead {
+        position: absolute;
+        left: 28px;
+        top: 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-size: 30px;
+        font-weight: 500;
+        color: #6a7a82;
+      }
+      #sHead .dv {
+        display: block;
+        width: 2px;
+        height: 34px;
+        background: #d5dde2;
+      }
+      #typed {
+        position: absolute;
+        left: 28px;
+        top: 84px;
+        width: 500px;
+        font-size: 34px;
+        font-weight: 500;
+        line-height: 46px;
+        color: #17252c;
+      }
+      #typed .ch {
+        display: none;
+      }
+      #tcaret {
+        display: inline-block;
+        width: 3px;
+        height: 38px;
+        margin-left: 2px;
+        vertical-align: -7px;
+        background: #1584ad;
+      }
+      #los {
+        position: absolute;
+        right: 22px;
+        bottom: 22px;
+        width: 124px;
+        height: 62px;
+        border-radius: 31px;
+        background: #14698f;
+        color: #ffffff;
+        font-size: 30px;
+        font-weight: 800;
+        line-height: 62px;
+        text-align: center;
+      }
+      #ripple {
+        position: absolute;
+        right: 42px;
+        bottom: 12px;
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        border: 4px solid #1584ad;
+      }
+      #count {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 640px;
+        display: flex;
+        justify-content: center;
+      }
+      #count span {
+        display: block;
+        padding: 2px 14px;
+        border-radius: 10px;
+        border: 2px solid #d5e0e6;
+        font-size: 28px;
+        color: #5f6f77;
+      }
+      .know {
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 31px;
+        color: #2c3c44;
+      }
+      #know1 {
+        top: 726px;
+      }
+      #know2 {
+        top: 772px;
+      }
+      .hl {
+        padding: 0 10px;
+        border-radius: 8px;
+        background: #d4edf6;
+        color: #10678d;
+        font-weight: 700;
+      }
+      #sSmall {
+        position: absolute;
+        left: 28px;
+        top: 292px;
+        width: 556px;
+        height: 84px;
+        border-radius: 42px;
+        background: #ffffff;
+        box-shadow: 0 10px 26px rgba(13, 80, 110, 0.14);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 14px 0 26px;
+      }
+      #sSmall svg {
+        display: block;
+        flex: none;
+      }
+      #sSmall .q {
+        display: block;
+        flex: 1;
+        font-size: 28px;
+        font-weight: 600;
+        color: #17252c;
+        white-space: nowrap;
+      }
+      #sSmall .l2 {
+        display: block;
+        flex: none;
+        width: 96px;
+        height: 56px;
+        border-radius: 28px;
+        background: #14698f;
+        color: #ffffff;
+        font-size: 28px;
+        font-weight: 800;
+        line-height: 56px;
+        text-align: center;
+      }
+      #scan {
+        position: absolute;
+        left: 0;
+        top: 400px;
+        width: 612px;
+        height: 862px;
+      }
+      #scanHead {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        font-size: 30px;
+        font-weight: 600;
+        color: #2c3c44;
+      }
+      .odo {
+        display: flex;
+        padding: 0 8px;
+        border-radius: 8px;
+        background: #d4edf6;
+        color: #10678d;
+        font-weight: 800;
+      }
+      .odo .col {
+        display: block;
+        height: 38px;
+        overflow: hidden;
+      }
+      .odo .strip {
+        display: block;
+      }
+      .odo .strip span,
+      .odo .dot {
+        display: block;
+        height: 38px;
+        line-height: 38px;
+      }
+      #pbar {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        top: 76px;
+        height: 10px;
+        border-radius: 5px;
+        background: #d8e6ec;
+        overflow: hidden;
+      }
+      #pfill {
+        position: absolute;
+        inset: 0;
+        border-radius: 5px;
+        background: linear-gradient(90deg, #12b4cd, #6fe3f3);
+        transform-origin: 0 50%;
+      }
+      #tilesWrap {
+        position: absolute;
+        left: 0;
+        top: 116px;
+        width: 612px;
+        height: 746px;
+        overflow: hidden;
+      }
+      .mt {
+        position: absolute;
+        width: 124px;
+        height: 96px;
+        border-radius: 16px;
+        background: #ffffff;
+        box-shadow: 0 6px 14px rgba(13, 80, 110, 0.1);
+        overflow: hidden;
+      }
+      .mt i {
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        top: 8px;
+        height: 52px;
+        border-radius: 10px;
+      }
+      .mt b {
+        position: absolute;
+        left: 10px;
+        top: 70px;
+        width: 66px;
+        height: 8px;
+        border-radius: 4px;
+        background: #d5dde2;
+      }
+      .mt s {
+        position: absolute;
+        inset: 0;
+        border-radius: 16px;
+        box-shadow:
+          inset 0 0 0 4px #f7d248,
+          0 0 26px rgba(247, 210, 72, 0.8);
+        opacity: 0;
+      }
+      #scanLine {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 612px;
+        height: 6px;
+        background: linear-gradient(90deg, rgba(18, 180, 205, 0), #6fe3f3 50%, rgba(18, 180, 205, 0));
+        box-shadow: 0 0 24px #6fe3f3;
+      }
+      #results {
+        position: absolute;
+        left: 0;
+        top: 400px;
+        width: 612px;
+        height: 862px;
+        overflow: hidden;
+      }
+      #list {
+        position: absolute;
+        left: 28px;
+        top: 0;
+        width: 556px;
+        height: 2220px;
+      }
+      #rHead {
+        font-size: 38px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: #10222b;
+      }
+      #rSub {
+        margin-top: 2px;
+        font-size: 28px;
+        color: #5f6f77;
+      }
+      .card {
+        position: absolute;
+        left: 0;
+        width: 556px;
+        height: 655px;
+        border-radius: 28px;
+        background: #ffffff;
+        box-shadow: 0 14px 30px rgba(13, 80, 110, 0.13);
+        overflow: hidden;
+      }
+      .cimg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 556px;
+        height: 345px;
+        overflow: hidden;
+      }
+      .cimg .art {
+        position: absolute;
+        inset: 0;
+      }
+      .badge {
+        position: absolute;
+        left: 16px;
+        top: 16px;
+        padding: 5px 16px;
+        border-radius: 22px;
+        background: #f7d76a;
+        color: #3a2a00;
+        font-size: 28px;
+        font-weight: 700;
+        transform-origin: 0 50%;
+      }
+      .heart {
+        position: absolute;
+        right: 16px;
+        top: 14px;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: #ffffff;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+      }
+      .heart svg {
+        position: absolute;
+        left: 14px;
+        top: 15px;
+        width: 36px;
+        height: 34px;
+      }
+      .cbody {
+        position: absolute;
+        left: 22px;
+        right: 22px;
+        top: 362px;
+      }
+      .ct {
+        height: 78px;
+        font-size: 31px;
+        font-weight: 800;
+        line-height: 38px;
+        letter-spacing: -0.01em;
+        color: #10222b;
+      }
+      .cl {
+        margin-top: 6px;
+        letter-spacing: -0.015em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 28px;
+        color: #5f6f77;
+        white-space: nowrap;
+      }
+      .cl i {
+        display: block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #12b4cd;
+        flex: none;
+      }
+      .cf {
+        margin-top: 8px;
+        height: 72px;
+        font-size: 28px;
+        line-height: 36px;
+        color: #34444c;
+      }
+      .cp {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 236px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .price {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        white-space: nowrap;
+      }
+      .price b {
+        font-size: 40px;
+        font-weight: 800;
+        color: #10678d;
+        letter-spacing: -0.02em;
+      }
+      .price span {
+        font-size: 28px;
+        color: #5f6f77;
+      }
+      .cbtn {
+        padding: 8px 18px;
+        border-radius: 30px;
+        border: 2px solid #10678d;
+        font-size: 28px;
+        font-weight: 700;
+        color: #10678d;
+        white-space: nowrap;
+      }
+      #glowRing {
+        position: absolute;
+        left: 0;
+        top: 100px;
+        width: 556px;
+        height: 655px;
+        border-radius: 28px;
+        box-shadow:
+          0 0 0 5px #f7d248,
+          0 0 40px rgba(247, 210, 72, 0.7);
+      }
+      .burst {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 22px;
+        height: 22px;
+      }
+      #kiNote {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 2150px;
+        text-align: center;
+        font-size: 28px;
+        color: #5f6f77;
+      }
+
+      /* corner angel + its speech bubbles */
+      #a2Box {
+        position: absolute;
+        left: 590px;
+        top: 1150px;
+        width: 250px;
+        height: 275px;
+      }
+      .cb {
+        right: 200px;
+        top: 1262px;
+        font-size: 34px;
+        background: #ffffff;
+        color: #14698f;
+        transform-origin: 100% 100%;
+      }
+      .cb::after {
+        right: -10px;
+        bottom: 26px;
+      }
+      .cb.yellow {
+        background: #f7d76a;
+        color: #3a2a00;
+      }
+
+      /* ---------- scene 5: the dream home ---------- */
+      #home {
+        transform-origin: 0 0;
+      }
+      #homeZoom {
+        transform-origin: 420px 420px;
+      }
+      #a3Box {
+        position: absolute;
+        left: 210px;
+        top: 600px;
+        width: 420px;
+        height: 462px;
+      }
+      #cap {
+        position: absolute;
+        left: 50px;
+        top: 1222px;
+        width: 740px;
+        height: 176px;
+        border-radius: 36px;
+        background: rgba(18, 106, 142, 0.95);
+        box-shadow: 0 18px 40px rgba(10, 30, 50, 0.35);
+        text-align: center;
+      }
+      #capA {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 34px;
+        font-size: 44px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: #ffffff;
+      }
+      #capB {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100px;
+        font-size: 32px;
+        font-weight: 700;
+        color: #f7d248;
+      }
+      .spk {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 44px;
+        height: 44px;
+      }
+
+      /* ---------- scene 6: the end card ---------- */
+      .eline {
+        position: absolute;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        gap: 0.26em;
+        letter-spacing: -0.02em;
+      }
+      .eline span {
+        display: block;
+      }
+      #eA {
+        top: 308px;
+        font-size: 50px;
+        font-weight: 700;
+      }
+      #eB {
+        top: 374px;
+        font-size: 50px;
+        font-weight: 700;
+      }
+      .yl {
+        color: #f7d248;
+      }
+      #eC {
+        top: 480px;
+        font-size: 56px;
+        font-weight: 800;
+        color: #f7d248;
+      }
+      #logoCam {
+        position: absolute;
+        left: 70px;
+        top: 630px;
+        width: 700px;
+        height: 176px;
+      }
+      .fit {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1650px;
+        height: 415px;
+        transform: scale(0.424242);
+        transform-origin: 0 0;
+      }
+      .shell {
+        position: absolute;
+        inset: 0;
+        border-radius: 208px;
+        overflow: hidden;
+        background: linear-gradient(180deg, #2c566b 0%, #1d4255 38%, #143444 72%, #0f2a38 100%);
+        box-shadow:
+          inset 0 3px 0 rgba(255, 255, 255, 0.22),
+          inset 0 -14px 40px rgba(0, 0, 0, 0.4),
+          0 50px 100px rgba(0, 0, 0, 0.55);
+      }
+      #gloss {
+        position: absolute;
+        left: 315px;
+        width: 1040px;
+        top: 12px;
+        height: 5px;
+        border-radius: 5px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85) 20%, rgba(255, 255, 255, 0.85) 80%, transparent);
+      }
+      .ring {
+        position: absolute;
+        inset: 38px;
+        border: 16px solid #12b4cd;
+        border-radius: 999px;
+        box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.35);
+      }
+      #ph {
+        position: absolute;
+        left: 128px;
+        top: 157px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+      }
+      #phText {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        font-size: 72px;
+        font-weight: 500;
+        line-height: 100px;
+        letter-spacing: -0.01em;
+        color: #e3f3f8;
+      }
+      #caret {
+        display: block;
+        width: 7px;
+        height: 84px;
+        margin-left: 6px;
+        border-radius: 4px;
+        background: #6fe3f3;
+      }
+      #band {
+        position: absolute;
+        left: 695px;
+        top: 132px;
+        width: 550px;
+        height: 133px;
+        background: linear-gradient(180deg, #ffffff 0%, #edf5f7 70%, #d9e7eb 100%);
+        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 20px;
+        transform-origin: 0 50%;
+      }
+      .pill {
+        position: absolute;
+        top: 85px;
+        height: 225px;
+        border-radius: 112.5px;
+        background: linear-gradient(180deg, #2cc7de 0%, #12b4cd 55%, #0c9db4 100%);
+        box-shadow:
+          inset 0 5px 8px rgba(255, 255, 255, 0.28),
+          inset 0 -8px 14px rgba(0, 0, 0, 0.22),
+          0 20px 36px rgba(0, 0, 0, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #searchPill {
+        left: 90px;
+        width: 625px;
+      }
+      #mic {
+        right: 120px;
+        width: 225px;
+        overflow: hidden;
+      }
+      .micsvg {
+        position: absolute;
+        left: 57px;
+        top: 57px;
+        width: 110px;
+        height: 110px;
+      }
+      #pulse {
+        position: absolute;
+        right: 120px;
+        top: 85px;
+        width: 225px;
+        height: 225px;
+        border-radius: 50%;
+        border: 8px solid rgba(184, 246, 255, 0.8);
+      }
+      .lg {
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 700;
+        display: flex;
+        line-height: 1;
+        text-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+      }
+      .lg span {
+        display: block;
+      }
+      #searchTxt {
+        font-size: 112px;
+        letter-spacing: 0.06em;
+        margin-right: -0.06em;
+        color: #ffffff;
+        padding-top: 18px;
+      }
+      #placeTxt {
+        font-size: 114px;
+        letter-spacing: 0.03em;
+        color: #12b4cd;
+        padding-top: 20px;
+        text-shadow: 0 3px 4px rgba(0, 0, 0, 0.18);
+      }
+      #aiTxt {
+        position: absolute;
+        inset: 0;
+        align-items: center;
+        justify-content: center;
+        gap: 34px;
+        font-size: 168px;
+        color: #ffffff;
+        padding-top: 12px;
+      }
+      #sweep {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 300px;
+        background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.26) 50%, transparent 100%);
+      }
+      #tag {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 860px;
+        text-align: center;
+        font-size: 34px;
+        font-weight: 600;
+        color: #e8f6fb;
+      }
+      #urlRow {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 936px;
+        display: flex;
+        justify-content: center;
+      }
+      #urlPill {
+        position: relative;
+        padding: 14px 40px;
+        border-radius: 44px;
+        background: #f7d248;
+        color: #0b3346;
+        font-size: 38px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        overflow: hidden;
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+      }
+      #urlSheen {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 120px;
+        background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+      }
+      #a4Box {
+        position: absolute;
+        left: 300px;
+        top: 1095px;
+        width: 240px;
+        height: 264px;
+      }
+
+      /* ================= frame overlays ================= */
+      #goldFrame {
+        position: absolute;
+        left: 66px;
+        top: 66px;
+        width: 948px;
+        height: 1788px;
+        border-radius: 72px;
+        border: 4px solid #e3c36c;
+        box-shadow:
+          0 0 22px rgba(227, 195, 108, 0.35),
+          inset 0 0 22px rgba(227, 195, 108, 0.25);
+      }
+      #branch {
+        position: absolute;
+        left: -10px;
+        top: -16px;
+        width: 520px;
+        height: 400px;
+        transform: scale(1.15);
+        transform-origin: 0 0;
+      }
+      #brand {
+        position: absolute;
+        right: 96px;
+        top: 92px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 46px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+      #brand svg {
+        display: block;
+      }
+      #brand .w {
+        color: #ffffff;
+      }
+      #brand .c {
+        color: #5fd3e6;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="32" data-width="1080" data-height="1920">
+      <div id="bg"></div>
+      <div id="bokeh" class="abs" data-layout-ignore></div>
+      <div id="snowBack" class="abs" data-layout-ignore></div>
+      <svg id="ground" viewBox="0 0 1080 420" data-layout-ignore>
+        <path d="M0 140 C200 60 420 120 600 80 C780 40 920 110 1080 70 V420 H0 Z" fill="#a9c3d0" />
+        <path d="M0 200 C180 140 360 210 560 160 C760 110 900 190 1080 150 V420 H0 Z" fill="#cfdfe8" />
+        <path d="M0 290 C220 230 420 300 640 250 C820 210 960 280 1080 250 V420 H0 Z" fill="#edf4f8" />
+        <g id="glints" fill="#ffffff"></g>
+      </svg>
+
+      <div id="panel">
+        <div id="pbgBlue" class="layer"></div>
+        <div id="pSnow" class="layer" data-layout-ignore></div>
+
+        <!-- 1 · the attic -->
+        <div id="s1" class="layer">
+          <div id="s1Zoom" class="layer">
+            <div id="s1Cam" class="layer">
+              <div id="attic" class="layer" data-layout-ignore></div>
+              <div id="ring1" class="ringx"></div>
+              <div id="ring2" class="ringx"></div>
+              <div id="flets" class="layer" data-layout-ignore></div>
+              <div id="bub1" class="bubble" data-layout-allow-overlap>Zeit für was Neues!</div>
+            </div>
+          </div>
+          <div id="t1card">
+            <div id="t1a">Das Christkind hat ein Problem:</div>
+            <div id="t1b">Die Wohnung ist viel zu klein.</div>
+          </div>
+        </div>
+
+        <!-- 2–4 · the phone -->
+        <div id="s2" class="layer">
+          <div id="phone">
+            <div id="screen" data-layout-allow-safe-zone>
+              <div id="clock">17:24</div>
+              <div id="island"></div>
+              <div id="sig"><i style="height: 10px"></i><i style="height: 15px"></i><i style="height: 20px"></i></div>
+              <div id="burger"><i></i><i></i><i></i></div>
+              <div id="login">Anmelden →</div>
+              <img id="appLogo" src="assets/logo.png" alt="SearchPlace AI" />
+              <div id="sBig">
+                <div id="sHead">
+                  <span>Ich suche …</span><span class="dv"></span>
+                  <svg width="30" height="34" viewBox="0 0 30 34" fill="none">
+                    <rect x="9" y="1" width="12" height="20" rx="6" stroke="#6a7a82" stroke-width="2.6" />
+                    <path d="M3 16 a12 12 0 0 0 24 0 M15 28 V33" stroke="#6a7a82" stroke-width="2.6" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div id="typed"></div>
+                <div id="ripple"></div>
+                <div id="los">LOS</div>
+              </div>
+              <div id="count"><span>88/100 Zeichen</span></div>
+              <div id="know1" class="know">Ich kenne aktuell <span class="hl">205.736</span></div>
+              <div id="know2" class="know">Immobilien in ganz Österreich</div>
+              <div id="sSmall">
+                <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+                  <circle cx="14" cy="14" r="10" stroke="#14698f" stroke-width="4" />
+                  <path d="M22 22 L31 31" stroke="#14698f" stroke-width="4.5" stroke-linecap="round" />
+                </svg>
+                <span class="q">eine große Wohnung …</span>
+                <span class="l2">LOS</span>
+              </div>
+              <div id="scan">
+                <div id="scanHead"><span>KI durchsucht</span><span id="odo" class="odo" data-layout-ignore></span><span>Immobilien …</span></div>
+                <div id="pbar"><i id="pfill"></i></div>
+                <div id="tilesWrap" data-layout-ignore>
+                  <div id="tilesTrack" class="abs"></div>
+                  <div id="scanLine"></div>
+                </div>
+              </div>
+              <div id="results">
+                <div id="list" data-layout-allow-overflow data-layout-allow-safe-zone>
+                  <div id="rHead">3 Treffer für dich</div>
+                  <div id="rSub">sortiert nach höchster Übereinstimmung</div>
+                  <div id="glowRing"></div>
+                  <div id="kiNote">Ich bin ein KI-Modell und kann Fehler machen.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- corner Christkind with speech bubbles (scenes 2–4) -->
+        <div id="corner" class="layer" data-layout-allow-safe-zone>
+          <div id="a2Box" data-layout-ignore></div>
+          <div id="cb1" data-layout-allow-overlap class="bubble cb">Ich beschreib's einfach!</div>
+          <div id="cb2" data-layout-allow-overlap class="bubble cb">Ooh …</div>
+          <div id="cb3" data-layout-allow-overlap class="bubble cb">Schön, aber …</div>
+          <div id="cb4" data-layout-allow-overlap class="bubble cb">Zu windig da oben …</div>
+          <div id="cb5" data-layout-allow-overlap class="bubble cb yellow">Doch die erste! DIE ist es!</div>
+        </div>
+
+        <!-- 5 · the dream home -->
+        <div id="home" class="layer">
+          <div id="homeZoom" class="layer">
+            <div id="loft" class="layer" data-layout-ignore></div>
+            <div id="a3Box" data-layout-ignore></div>
+            <div id="homeSpk" class="layer" data-layout-ignore></div>
+            <div id="cap">
+              <div id="capA">Endlich Platz für alle Wünsche.</div>
+              <div id="capB">Gefunden mit SearchPlace.ai</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 · the end card -->
+        <div id="s6" class="layer">
+          <div id="eA" class="eline"><span>Wenn</span><span>sogar</span><span>das</span><span>Christkind</span></div>
+          <div id="eB" class="eline"><span>seine</span><span class="yl">Traumwohnung</span><span>findet …</span></div>
+          <div id="eC" class="eline"><span>… warum nicht auch du?</span></div>
+          <div id="logoCam">
+            <div class="fit">
+              <div class="shell">
+                <div id="gloss"></div>
+                <div class="ring"></div>
+                <div id="ph"><span id="phText" data-layout-allow-overflow>Was suchst du?</span><span id="caret"></span></div>
+                <div id="band">
+                  <div id="placeTxt" class="lg" data-layout-ignore><span>P</span><span>L</span><span>A</span><span>C</span><span>E</span></div>
+                </div>
+                <div id="searchPill" class="pill" data-layout-allow-overflow>
+                  <div id="searchTxt" class="lg" data-layout-ignore><span>S</span><span>E</span><span>A</span><span>R</span><span>C</span><span>H</span></div>
+                </div>
+                <div id="pulse"></div>
+                <div id="mic" class="pill">
+                  <svg id="micIcon" class="micsvg" viewBox="0 0 110 110" fill="none">
+                    <rect x="38" y="8" width="34" height="58" rx="17" fill="#ffffff" />
+                    <path d="M22 50 a33 33 0 0 0 66 0" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                    <path d="M55 84 V100" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+                  </svg>
+                  <div id="aiTxt" class="lg" data-layout-ignore><span>A</span><span>I</span></div>
+                </div>
+                <div id="sweep" data-layout-allow-overflow></div>
+              </div>
+            </div>
+          </div>
+          <div id="tag">Beschreib dein Zuhause. Die KI findet es.</div>
+          <div id="urlRow"><div id="urlPill">searchplace.ai<div id="urlSheen" data-layout-allow-overflow></div></div></div>
+          <div id="a4Box" data-layout-ignore></div>
+          <div id="endSpk" class="layer" data-layout-ignore></div>
+        </div>
+      </div>
+
+      <div id="goldFrame"></div>
+      <div id="branch" data-layout-ignore></div>
+      <div id="brand" data-layout-allow-safe-zone>
+        <svg width="52" height="50" viewBox="0 0 52 50" fill="none">
+          <path d="M5 24 L26 6 L47 24 M11 19 V44 H41 V19" stroke="#5fd3e6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span><span class="w">search</span><span class="c">place</span></span>
+      </div>
+      <!-- original score + sound design, synthesised for this film (assets/music/compose_christkind_score.py) -->
+      <audio id="score" src="assets/music/christkind-score.wav" data-start="0" data-duration="32" data-track-index="9" data-volume="1"></audio>
+    </div>
+
+    <script>
+      (function () {
+        const A = window.SPArt;
+        const R = A.rng(2024);
+        const $ = (s) => document.querySelector(s);
+        const inner = (svg) => svg.replace(/^[\s\S]*?<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
+        const D = 32;
+
+        /* ============ build: background ============ */
+        const bokeh = $("#bokeh");
+        for (let i = 0; i < 16; i++) {
+          const s = 50 + R() * 150;
+          const d = document.createElement("div");
+          d.className = "bk";
+          d.id = "bk" + i;
+          const warm = i % 3 === 0;
+          d.style.cssText = `left:${(R() * 1080 - s / 2).toFixed(0)}px;top:${(R() * 1700).toFixed(0)}px;width:${s.toFixed(0)}px;height:${s.toFixed(0)}px;background:radial-gradient(circle, ${warm ? "rgba(255,214,140,.22)" : "rgba(190,235,245,.16)"} 0%, rgba(255,255,255,0) 68%);`;
+          bokeh.appendChild(d);
+        }
+        const flakes = [];
+        const snowBack = $("#snowBack");
+        for (let i = 0; i < 90; i++) {
+          const near = i % 4 === 0;
+          const s = near ? 7 + R() * 6 : 3 + R() * 4;
+          const d = document.createElement("div");
+          d.className = "sf";
+          d.id = "sf" + i;
+          d.style.width = d.style.height = s.toFixed(1) + "px";
+          d.style.opacity = (near ? 0.9 : 0.45 + R() * 0.4).toFixed(2);
+          snowBack.appendChild(d);
+          flakes.push({ id: "#sf" + i, x: R() * 1080, y: R() * 1960, v: near ? 90 + R() * 50 : 40 + R() * 40, a: 8 + R() * 22, p: 2 + R() * 2.5 });
+        }
+        const pflakes = [];
+        const pSnow = $("#pSnow");
+        for (let i = 0; i < 44; i++) {
+          const s = 3 + R() * 6;
+          const d = document.createElement("div");
+          d.className = "ps";
+          d.id = "ps" + i;
+          d.style.width = d.style.height = s.toFixed(1) + "px";
+          d.style.opacity = (0.35 + R() * 0.5).toFixed(2);
+          pSnow.appendChild(d);
+          pflakes.push({ id: "#ps" + i, x: R() * 840, y: R() * 1534, v: 30 + R() * 40, a: 6 + R() * 14, p: 2.2 + R() * 2.5 });
+        }
+        const glints = $("#glints");
+        let gl = "";
+        for (let i = 0; i < 12; i++) {
+          const gx = 20 + R() * 1040, gy = 200 + R() * 200;
+          gl += `<path class="glint" d="${A.sparkle(Math.round(gx), Math.round(gy), 9)}"/>`;
+        }
+        glints.innerHTML = gl;
+
+        /* ============ build: overlays ============ */
+        $("#branch").innerHTML = A.branch("br", 2);
+
+        /* ============ build: scene 1 ============ */
+        let attic = A.attic("at");
+        attic = attic.replace(
+          '<g id="at-angelSlot"></g>',
+          `<g transform="translate(130 597) scale(1.45)"><g id="a1-rig">${inner(A.angel("a1"))}</g></g>`
+        );
+        $("#attic").innerHTML = attic;
+        const FL = [
+          [150, 1262, -14], [610, 1330, 16], [330, 1440, -8], [740, 1250, 12],
+        ];
+        FL.forEach((f, i) => {
+          const d = document.createElement("div");
+          d.className = "flet";
+          d.id = "flet" + i;
+          d.innerHTML = `<svg viewBox="-48 -31 96 62" width="96" height="62">${A.letter(0, 0, 0)}</svg>`;
+          $("#flets").appendChild(d);
+        });
+
+        /* ============ build: phone ============ */
+        const TXT = "eine große Wohnung mit Kamin, hohen Decken für meine Flügel und viel Platz für Geschenke";
+        const typed = $("#typed");
+        typed.innerHTML = Array.from(TXT).map((c, i) => `<span class="ch" id="ch${i}">${c === " " ? " " : c}</span>`).join("") + '<span id="tcaret"></span>';
+        // odometer 205.736
+        const odo = $("#odo");
+        const DIG = "205736";
+        DIG.split("").forEach((d, i) => {
+          if (i === 3) odo.insertAdjacentHTML("beforeend", '<span class="dot">.</span>');
+          let strip = "";
+          for (let k = 0; k < 20; k++) strip += `<span>${k % 10}</span>`;
+          odo.insertAdjacentHTML("beforeend", `<span class="col"><span class="strip" id="od${i}">${strip}</span></span>`);
+        });
+        // scanning tiles
+        const track = $("#tilesTrack");
+        const TCOL = ["linear-gradient(160deg,#2f5d70,#1592a9)", "linear-gradient(160deg,#c48f5e,#f1dcae)", "linear-gradient(160deg,#1d2f80,#5470c6)", "linear-gradient(160deg,#5e9a5a,#a9d18e)", "linear-gradient(160deg,#8a5a9e,#d9839c)"];
+        for (let r = 0; r < 16; r++) {
+          for (let c = 0; c < 4; c++) {
+            const i = r * 4 + c;
+            const t = document.createElement("div");
+            t.className = "mt";
+            t.id = "mt" + i;
+            t.style.left = 28 + c * 142 + "px";
+            t.style.top = r * 112 + "px";
+            t.innerHTML = `<i style="background:${TCOL[(i * 7) % 5]}"></i><b></b><s id="hit${i}"></s>`;
+            track.appendChild(t);
+          }
+        }
+        // result cards
+        const CARDS = [
+          { id: "c1", art: A.loft("th1", "0 400 840 521"), m: "98", t: "Loft mit Kamin &amp; Sternenfenster", l: "Wien · gleich beim Christkindlmarkt", f: "210 m² · 4 Zimmer · Kamin · 5 m Raumhöhe", p: "2.412 €" },
+          { id: "c2", art: A.altbau("th2"), m: "94", t: "Altbau mit Geschenke-Lager", l: "1010 Wien · Innere Stadt", f: "240 m² · 5 Zimmer · Lager · Keksbackstube", p: "1.712 €" },
+          { id: "c3", art: A.penthouse("th3"), m: "89", t: "Wolken-Penthouse mit Sternenblick", l: "Über den Dächern Wiens · 7. Himmel", f: "180 m² · 5 Zimmer · Flügel-Landeplatz", p: "2.990 €" },
+        ];
+        const HEART = "M18 31 C8 24 2 18 2 11 C2 5.5 6 2 11 2 C14 2 16.5 3.6 18 6 C19.5 3.6 22 2 25 2 C30 2 34 5.5 34 11 C34 18 28 24 18 31 Z";
+        const list = $("#list");
+        CARDS.forEach((c, i) => {
+          const d = document.createElement("div");
+          d.className = "card";
+          d.id = c.id;
+          d.style.top = 100 + i * 681 + "px";
+          d.innerHTML = `
+            <div class="cimg"><div class="art" id="${c.id}art" data-layout-ignore>${c.art}</div>
+              <div class="badge" id="${c.id}badge">${c.m} % Übereinstimmung</div>
+              <div class="heart"><svg viewBox="0 0 36 34"><path d="${HEART}" fill="none" stroke="#14698f" stroke-width="3.2"/><path id="${c.id}hf" d="${HEART}" fill="#e2445c" opacity="0"/></svg></div>
+            </div>
+            <div class="cbody">
+              <div class="ct">${c.t}</div>
+              <div class="cl"><i></i><span>${c.l}</span></div>
+              <div class="cf">${c.f}</div>
+              <div class="cp"><div class="price"><b>${c.p}</b><span>/ Monat</span></div><div class="cbtn">Zum Inserat →</div></div>
+            </div>`;
+          list.appendChild(d);
+        });
+        for (let i = 0; i < 10; i++) {
+          const b = document.createElement("div");
+          b.className = "burst";
+          b.id = "burst" + i;
+          b.innerHTML = i % 2
+            ? `<svg viewBox="0 0 36 34" width="22" height="22"><path d="${HEART}" fill="#e2445c"/></svg>`
+            : `<svg viewBox="-12 -12 24 24" width="22" height="22"><path d="${A.sparkle(0, 0, 11)}" fill="#f7d248"/></svg>`;
+          list.appendChild(b);
+        }
+        $("#a2Box").innerHTML = A.angel("a2");
+
+        /* ============ build: home ============ */
+        $("#loft").innerHTML = A.loft("lf");
+        $("#a3Box").innerHTML = A.angel("a3");
+        const SPK = (host, n, pre) => {
+          for (let i = 0; i < n; i++) {
+            const d = document.createElement("div");
+            d.className = "spk";
+            d.id = pre + i;
+            d.innerHTML = `<svg viewBox="-22 -22 44 44" width="44" height="44"><path d="${A.sparkle(0, 0, 21)}" fill="${i % 2 ? "#ffffff" : "#f7d248"}"/></svg>`;
+            $(host).appendChild(d);
+          }
+        };
+        SPK("#homeSpk", 8, "hs");
+        $("#a4Box").innerHTML = A.angel("a4");
+        SPK("#endSpk", 7, "es");
+
+        /* ============ initial states ============ */
+        const FACES = ["eyes", "eyesHappy", "brows", "mSmile", "mSad", "mFlat", "mOpen", "mOoh"];
+        const setFace = (p, on) => FACES.forEach((f) => gsap.set(`#${p}-${f}`, { opacity: on.includes(f) ? 1 : 0 }));
+        setFace("a1", ["eyes", "brows", "mSad"]);
+        setFace("a2", ["eyes", "mSmile"]);
+        setFace("a3", ["eyesHappy", "mOpen"]);
+        setFace("a4", ["eyesHappy", "mOpen"]);
+        gsap.set(["#pbgBlue", "#pSnow", "#ring1", "#ring2", "#bub1", "#t1b"], { opacity: 0 });
+        gsap.set("#t1card", { opacity: 0, y: -40 });
+        gsap.set("#t1a", { opacity: 0 });
+        gsap.set(".flet", { opacity: 0 });
+        gsap.set("#s2", { opacity: 0 });
+        gsap.set(["#clock", "#island", "#sig", "#burger", "#login", "#appLogo", "#sBig", "#know1", "#know2", "#count", "#sSmall", "#scan", "#results"], { opacity: 0 });
+        gsap.set(["#ripple"], { opacity: 0, scale: 0.4 });
+        gsap.set(["#corner"], { opacity: 1 });
+        gsap.set("#a2Box", { opacity: 0 });
+        gsap.set(".cb", { opacity: 0, scale: 0.6 });
+        gsap.set([".card", "#rHead", "#rSub", "#glowRing", ".burst", "#kiNote"], { opacity: 0 });
+        gsap.set(".badge", { scale: 0.6, opacity: 0 });
+        gsap.set("#pfill", { scaleX: 0 });
+        gsap.set("#th3-wind", { opacity: 0 });
+        gsap.set(".th3-gust", { strokeDasharray: "190 2000", strokeDashoffset: 190 });
+        gsap.set("#home", { opacity: 0 });
+        gsap.set(["#a3Box", "#cap", "#capA", "#capB", ".spk"], { opacity: 0 });
+        ["lf-ug0", "lf-ug1", "lf-ug2", "lf-ug3"].forEach((g) => gsap.set("#" + g, { opacity: 0 }));
+        gsap.set("#s6", { opacity: 0 });
+        gsap.set(["#eA span", "#eB span", "#eC", "#logoCam", "#pulse", "#tag", "#urlRow", "#a4Box"], { opacity: 0 });
+        gsap.set(["#searchPill", "#gloss", "#searchTxt span", "#aiTxt span", "#placeTxt span"], { opacity: 0 });
+        gsap.set("#band", { scaleX: 0 });
+        gsap.set(["#sweep"], { x: -420 });
+        gsap.set("#urlSheen", { x: -160 });
+        gsap.set("#phText", { maxWidth: 0 });
+
+        const tl = gsap.timeline({ paused: true });
+        const soft = "power3.out";
+        const face = (p, t, on, d) => FACES.forEach((f) => tl.to(`#${p}-${f}`, { opacity: on.includes(f) ? 1 : 0, duration: d || 0.12 }, t));
+        const blink = (p, t) => tl.to(`#${p}-eyes`, { scaleY: 0.1, svgOrigin: "200 165", duration: 0.07, yoyo: true, repeat: 1, ease: "power1.inOut" }, t);
+        const flap = (p, t, n, amp) => {
+          tl.to(`#${p}-wingL`, { rotation: -(amp || 14), svgOrigin: "158 272", duration: 0.17, yoyo: true, repeat: n * 2 - 1, ease: "sine.inOut" }, t);
+          tl.to(`#${p}-wingR`, { rotation: amp || 14, svgOrigin: "242 272", duration: 0.17, yoyo: true, repeat: n * 2 - 1, ease: "sine.inOut" }, t);
+        };
+        const haloBob = (p, t, n) => tl.to(`#${p}-halo`, { y: -7, duration: 0.8, yoyo: true, repeat: n * 2 - 1, ease: "sine.inOut" }, t);
+        const bubbleIn = (id, t, out) => {
+          tl.fromTo(id, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2.2)" }, t);
+          if (out) tl.to(id, { opacity: 0, scale: 0.85, duration: 0.22, ease: "power2.in" }, out);
+        };
+
+        /* ============ ambient: snow, bokeh, lights, bauble (whole film) ============ */
+        const wrapY = (lo, hi) => gsap.utils.unitize(gsap.utils.wrap(lo, hi));
+        flakes.forEach((f) => {
+          tl.fromTo(f.id, { y: f.y }, { y: f.y + f.v * D, duration: D, ease: "none", modifiers: { y: wrapY(-40, 1960) } }, 0);
+          const n = Math.floor(D / f.p);
+          tl.fromTo(f.id, { x: f.x - f.a }, { x: f.x + f.a, duration: f.p, ease: "sine.inOut", yoyo: true, repeat: n - 1 }, 0);
+        });
+        pflakes.forEach((f) => {
+          tl.fromTo(f.id, { y: f.y }, { y: f.y + f.v * D, duration: D, ease: "none", modifiers: { y: wrapY(-20, 1514) } }, 0);
+          const n = Math.floor(D / f.p);
+          tl.fromTo(f.id, { x: f.x - f.a }, { x: f.x + f.a, duration: f.p, ease: "sine.inOut", yoyo: true, repeat: n - 1 }, 0);
+        });
+        for (let i = 0; i < 16; i++) {
+          const p = 3 + R() * 3;
+          tl.fromTo("#bk" + i, { opacity: 0.5, x: -10 }, { opacity: 1, x: 10, duration: p, ease: "sine.inOut", yoyo: true, repeat: Math.max(0, Math.floor(D / p) - 1) }, 0);
+        }
+        document.querySelectorAll(".br-fl").forEach((el, i) => {
+          const p = 0.7 + R() * 1.1;
+          tl.fromTo(el, { opacity: 0.35 + R() * 0.3 }, { opacity: 1, duration: p, ease: "sine.inOut", yoyo: true, repeat: Math.max(0, Math.floor(D / p) - 1) }, R() * 0.6);
+        });
+        document.querySelectorAll(".glint").forEach((el, i) => {
+          const p = 0.9 + R() * 1.2;
+          tl.fromTo(el, { opacity: 0, scale: 0.3, transformOrigin: "50% 50%" }, { opacity: 0.95, scale: 1, duration: p, ease: "sine.inOut", yoyo: true, repeat: Math.max(0, Math.floor(D / p) - 1) }, R() * 1.5);
+        });
+        tl.fromTo("#br-bauble", { rotation: -3.5, svgOrigin: "250 84" }, { rotation: 3.5, svgOrigin: "250 84", duration: 2.2, ease: "sine.inOut", yoyo: true, repeat: Math.max(0, Math.floor(D / 2.2) - 1) }, 0);
+        tl.fromTo("#goldFrame", { opacity: 0.85 }, { opacity: 1, duration: 2, ease: "sine.inOut", yoyo: true, repeat: 15 }, 0);
+
+        /* ============ 1 · the attic (0 – 5.9 s) ============ */
+        tl.fromTo("#s1Cam", { scale: 1.0 }, { scale: 1.05, duration: 5.2, ease: "power1.inOut" }, 0);
+        tl.to("#t1card", { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.6)" }, 0.15);
+        tl.fromTo("#t1a", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: soft }, 0.4);
+        tl.fromTo("#t1b", { opacity: 0, y: 18, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(2)" }, 1.0);
+        // too small: everything squeezes
+        tl.to("#at-giftsL", { x: 16, duration: 0.22, ease: "power2.out", yoyo: true, repeat: 1 }, 1.15);
+        tl.to("#at-giftsR", { x: -16, duration: 0.22, ease: "power2.out", yoyo: true, repeat: 1 }, 1.15);
+        tl.to("#a1-rig", { scaleX: 0.94, svgOrigin: "200 410", duration: 0.22, ease: "power2.out", yoyo: true, repeat: 1 }, 1.15);
+        tl.to("#a1-wingL", { rotation: 16, svgOrigin: "158 272", duration: 0.22, yoyo: true, repeat: 1 }, 1.15);
+        tl.to("#a1-wingR", { rotation: -16, svgOrigin: "242 272", duration: 0.22, yoyo: true, repeat: 1 }, 1.15);
+        // the top present tips over and tumbles onto the desk
+        tl.to("#at-gTop", { rotation: -14, svgOrigin: "676 815", duration: 0.35, ease: "power2.in" }, 1.45);
+        tl.to("#at-gTop", { x: -150, y: 450, rotation: -100, svgOrigin: "676 815", duration: 0.5, ease: "power2.in" }, 1.8);
+        tl.to("#at-gTop", { y: 420, duration: 0.12, ease: "power2.out" }, 2.3);
+        tl.to("#at-gTop", { y: 450, duration: 0.14, ease: "power2.in" }, 2.42);
+        tl.to("#at-giftsR", { rotation: -1.5, svgOrigin: "733 1204", duration: 0.1, yoyo: true, repeat: 3 }, 1.5);
+        // wish letters keep raining in
+        FL.forEach(([fx, fy, fr], i) => {
+          const t0 = 0.35 + i * 0.55;
+          tl.fromTo("#flet" + i, { x: fx - 60, y: -120, rotation: fr * 4, opacity: 1 }, { x: fx - 48, y: fy - 31, rotation: fr, duration: 1.5, ease: "power1.in" }, t0);
+        });
+        // the Christkind: sighs, blinks, a tear
+        tl.to("#a1-rig", { y: 7, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0.55);
+        tl.to("#a1-head", { rotation: -5, svgOrigin: "200 215", duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1 }, 1.9);
+        blink("a1", 0.8);
+        blink("a1", 2.55);
+        tl.fromTo("#a1-tear", { opacity: 0, scale: 0.3, svgOrigin: "236 183" }, { opacity: 1, scale: 1, svgOrigin: "236 183", duration: 0.25 }, 1.95);
+        tl.to("#a1-tear", { y: 26, duration: 0.7, ease: "power1.in" }, 2.2);
+        tl.to("#a1-tear", { opacity: 0, duration: 0.2 }, 2.75);
+        haloBob("a1", 0, 3);
+        // bzzz: the phone
+        tl.fromTo("#a1-phone", { opacity: 0, scale: 0.4, svgOrigin: "255 300" }, { opacity: 1, scale: 1, svgOrigin: "255 300", duration: 0.35, ease: "back.out(2.4)" }, 3.05);
+        tl.to("#a1-phone", { rotation: 7, svgOrigin: "255 300", duration: 0.045, yoyo: true, repeat: 7, ease: "none" }, 3.42);
+        [3.15, 3.38].forEach((t, k) => tl.fromTo(k ? "#ring2" : "#ring1", { opacity: 0.95, scale: 0.5 }, { opacity: 0, scale: 1.7, duration: 0.6, ease: soft }, t));
+        // a new idea: the face lights up
+        blink("a1", 3.42);
+        face("a1", 3.5, ["eyes", "mOpen"], 0.1);
+        tl.to("#a1-head", { rotation: 7, svgOrigin: "200 215", duration: 0.45, ease: "back.out(2)" }, 3.5);
+        tl.to("#a1-rig", { y: -12, duration: 0.3, ease: "power2.out", yoyo: true, repeat: 1 }, 3.5);
+        flap("a1", 3.55, 3, 12);
+        bubbleIn("#bub1", 3.75, 4.95);
+        face("a1", 4.4, ["eyesHappy", "mOpen"], 0.1);
+        // dive into the phone
+        tl.to("#s1Zoom", { scale: 3.6, duration: 0.95, ease: "power3.in" }, 5.0);
+        tl.to("#t1card", { opacity: 0, y: -30, duration: 0.35, ease: "power2.in" }, 5.0);
+        tl.to("#s1", { opacity: 0, duration: 0.35, ease: "power1.in" }, 5.6);
+
+        /* ============ 2 · describe it (5.4 – 9.9 s) ============ */
+        tl.to(["#pbgBlue", "#pSnow"], { opacity: 1, duration: 0.45 }, 5.5);
+        tl.set("#s2", { opacity: 1 }, 5.35);
+        tl.fromTo("#phone", { x: 81, y: 317, scale: 0.09, rotation: -10, opacity: 0 }, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1, duration: 0.95, ease: "power3.inOut" }, 5.35);
+        tl.fromTo(["#clock", "#island", "#sig"], { opacity: 0 }, { opacity: 1, duration: 0.3 }, 5.9);
+        tl.fromTo(["#burger", "#login"], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: soft }, 6.05);
+        tl.fromTo("#appLogo", { opacity: 0, y: 18, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: soft }, 6.12);
+        tl.fromTo("#sBig", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, ease: soft }, 6.22);
+        tl.fromTo(["#know1", "#know2"], { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: soft, stagger: 0.08 }, 6.36);
+        tl.to("#tcaret", { opacity: 0, duration: 0.02, yoyo: true, repeat: 3, repeatDelay: 0.22 }, 6.25);
+        let tt = 6.62;
+        Array.from(TXT).forEach((c, i) => {
+          tl.set("#ch" + i, { display: "inline" }, tt);
+          tt += 0.015 + (c === " " ? 0.015 : 0) + (c === "," ? 0.08 : 0) + ((i * 7) % 5) * 0.003;
+        });
+        const typeEnd = tt;
+        tl.fromTo("#count", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: soft }, typeEnd + 0.05);
+        tl.to("#tcaret", { opacity: 0, duration: 0.02, yoyo: true, repeat: 1, repeatDelay: 0.22 }, typeEnd + 0.1);
+        // the corner Christkind
+        tl.fromTo("#a2Box", { opacity: 0, x: 240, y: 80, rotation: 14 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.75, ease: "back.out(1.5)" }, 6.8);
+        flap("a2", 6.8, 3, 16);
+        haloBob("a2", 6.8, 8);
+        blink("a2", 8.2);
+        bubbleIn("#cb1", 7.2, 8.85);
+        // LOS
+        tl.to("#los", { scale: 0.86, duration: 0.1, ease: "power2.in" }, 9.45);
+        tl.to("#los", { scale: 1, duration: 0.3, ease: "back.out(3)" }, 9.55);
+        tl.fromTo("#ripple", { opacity: 0.8, scale: 0.5 }, { opacity: 0, scale: 2.6, duration: 0.55, ease: soft }, 9.5);
+        tl.to("#sBig", { opacity: 0, scaleY: 0.3, duration: 0.35, ease: "power3.in" }, 9.75);
+        tl.to(["#know1", "#know2", "#count"], { opacity: 0, y: -14, duration: 0.3, ease: "power2.in" }, 9.75);
+        tl.fromTo("#sSmall", { opacity: 0, scaleX: 0.9 }, { opacity: 1, scaleX: 1, duration: 0.4, ease: soft }, 9.98);
+
+        /* ============ 3 · the AI searches (9.8 – 11.5 s) ============ */
+        tl.fromTo("#scan", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 10.0);
+        DIG.split("").forEach((d, i) => tl.fromTo("#od" + i, { y: 0 }, { y: -(10 + +d) * 38, duration: 0.9 + i * 0.06, ease: "power3.out" }, 10.05));
+        tl.to("#pfill", { scaleX: 1, duration: 1.3, ease: "power1.inOut" }, 10.05);
+        tl.fromTo("#tilesTrack", { y: 0 }, { y: -1000, duration: 1.55, ease: "none" }, 10.0);
+        tl.fromTo("#scanLine", { y: 40 }, { y: 700, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 2 }, 10.0);
+        [[13, 10.5], [26, 10.8], [42, 11.05]].forEach(([n, t]) => {
+          tl.to("#hit" + n, { opacity: 1, duration: 0.12 }, t);
+          tl.fromTo("#mt" + n, { scale: 1 }, { scale: 1.12, duration: 0.15, yoyo: true, repeat: 1 }, t);
+        });
+        tl.to("#scan", { opacity: 0, duration: 0.2 }, 11.4);
+
+        /* ============ 4 · the results (11.5 – 19.5 s) ============ */
+        tl.set("#results", { opacity: 1 }, 11.45);
+        tl.fromTo(["#rHead", "#rSub"], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: soft, stagger: 0.07 }, 11.5);
+        ["#c1", "#c2", "#c3"].forEach((c, i) => {
+          tl.fromTo(c, { opacity: 0, y: 90, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "back.out(1.3)" }, 11.62 + i * 0.13);
+          tl.fromTo(c + "art", { scale: 1.12 }, { scale: 1, duration: 1.4, ease: soft }, 11.62 + i * 0.13);
+          tl.to(c + "badge", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.6)" }, 12.0 + i * 0.1);
+        });
+        tl.fromTo("#kiNote", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 12.2);
+        // "Ooh …"
+        face("a2", 12.1, ["eyes", "mOoh"]);
+        tl.to("#a2-eyes", { scale: 1.18, svgOrigin: "200 165", duration: 0.25, ease: "back.out(3)" }, 12.1);
+        tl.to("#a2-eyes", { scale: 1, svgOrigin: "200 165", duration: 0.25 }, 13.2);
+        bubbleIn("#cb2", 12.15, 13.35);
+        // scroll to the Altbau: "Schön, aber …"
+        tl.to("#list", { y: -751, duration: 0.75, ease: "power3.inOut" }, 13.5);
+        face("a2", 14.3, ["eyes", "mFlat"]);
+        tl.to("#a2-head", { rotation: -8, svgOrigin: "200 215", duration: 0.4, ease: "back.out(2)" }, 14.3);
+        bubbleIn("#cb3", 14.35, 15.45);
+        tl.to("#a2-head", { rotation: 0, svgOrigin: "200 215", duration: 0.3 }, 15.4);
+        // scroll to the penthouse: "Zu windig da oben …"
+        tl.to("#list", { y: -1432, duration: 0.75, ease: "power3.inOut" }, 15.5);
+        tl.to("#th3-wind", { opacity: 0.85, duration: 0.3 }, 15.95);
+        tl.fromTo(".th3-gust", { strokeDashoffset: 190 }, { strokeDashoffset: -820, duration: 0.8, ease: "power1.inOut", stagger: 0.16, repeat: 2 }, 15.95);
+        face("a2", 16.2, ["eyes", "brows", "mSad"]);
+        tl.to("#a2Box", { rotation: 3, duration: 0.05, yoyo: true, repeat: 15, ease: "none" }, 16.4);
+        tl.to("#a2-halo", { rotation: -14, svgOrigin: "200 40", duration: 0.3, ease: "power2.out", yoyo: true, repeat: 1 }, 16.45);
+        bubbleIn("#cb4", 16.25, 17.5);
+        // back up to the loft: "Doch die erste! DIE ist es!"
+        tl.to("#list", { y: 0, duration: 0.8, ease: "power3.inOut" }, 17.4);
+        face("a2", 18.05, ["eyesHappy", "mOpen"]);
+        tl.to("#a2Box", { y: -46, duration: 0.25, ease: "power2.out", yoyo: true, repeat: 1 }, 18.1);
+        flap("a2", 18.1, 3, 18);
+        bubbleIn("#cb5", 18.05, 19.75);
+        tl.fromTo("#c1hf", { opacity: 0, scale: 0, svgOrigin: "18 17" }, { opacity: 1, scale: 1, svgOrigin: "18 17", duration: 0.4, ease: "back.out(3.5)" }, 18.55);
+        tl.fromTo("#glowRing", { opacity: 0 }, { opacity: 1, duration: 0.35 }, 18.55);
+        for (let i = 0; i < 10; i++) {
+          const a = (i / 10) * Math.PI * 2;
+          const cx = 556 - 16 - 32 - 11, cy = 100 + 14 + 32 - 11;
+          tl.fromTo("#burst" + i, { x: cx, y: cy, opacity: 1, scale: 0.4 }, { x: cx + Math.cos(a) * 110, y: cy + Math.sin(a) * 110, opacity: 0, scale: 1.2, duration: 0.7, ease: "power2.out" }, 18.58);
+        }
+        tl.to("#a2Box", { opacity: 0, y: 40, duration: 0.3, ease: "power2.in" }, 19.65);
+        tl.to("#glowRing", { opacity: 0, duration: 0.2 }, 19.4);
+
+        /* ============ 5 · the dream home (19.45 – 24.9 s) ============ */
+        tl.set("#home", { opacity: 1 }, 19.45);
+        tl.fromTo(
+          "#home",
+          { x: 142, y: 319.2, scale: 0.6619, clipPath: "inset(400px 0px 573px 0px round 42px)" },
+          { x: 0, y: 0, scale: 1, clipPath: "inset(0px 0px 0px 0px round 0px)", duration: 0.95, ease: "power3.inOut" },
+          19.45
+        );
+        tl.to("#s2", { opacity: 0, duration: 0.4 }, 19.75);
+        tl.to("#corner", { opacity: 0, duration: 0.2 }, 19.8);
+        // the room comes alive
+        for (const [id, p] of [["#lf-f1", 0.42], ["#lf-f2", 0.33], ["#lf-f3", 0.27]]) {
+          tl.fromTo(id, { scaleY: 0.92, skewX: -3, svgOrigin: "180 1284" }, { scaleY: 1.08, skewX: 3, svgOrigin: "180 1284", duration: p, ease: "sine.inOut", yoyo: true, repeat: Math.max(0, Math.floor(6 / p)) }, 19.45);
+        }
+        tl.fromTo("#lf-fireGlowE", { opacity: 0.7 }, { opacity: 1, duration: 0.3, yoyo: true, repeat: 19, ease: "sine.inOut" }, 19.45);
+        document.querySelectorAll(".lf-cflame").forEach((el, i) => tl.fromTo(el, { scaleY: 0.85, svgOrigin: `${272 + i * 30} ${773 + i * 14}` }, { scaleY: 1.15, svgOrigin: `${272 + i * 30} ${773 + i * 14}`, duration: 0.25 + i * 0.07, yoyo: true, repeat: 21, ease: "sine.inOut" }, 19.45));
+        document.querySelectorAll(".lf-light").forEach((el, i) => {
+          const p = 0.35 + ((i * 37) % 10) / 20;
+          tl.fromTo(el, { opacity: 0.35 }, { opacity: 1, duration: p, yoyo: true, repeat: Math.max(0, Math.floor(5.6 / p)), ease: "sine.inOut" }, 19.45 + ((i * 13) % 7) / 20);
+        });
+        document.querySelectorAll(".lf-star").forEach((el, i) => {
+          const p = 0.6 + ((i * 29) % 10) / 12;
+          tl.fromTo(el, { opacity: 0.4 }, { opacity: 1, duration: p, yoyo: true, repeat: Math.max(0, Math.floor(5.6 / p)), ease: "sine.inOut" }, 19.45 + ((i * 11) % 9) / 15);
+        });
+        tl.fromTo("#lf-treeGlow", { opacity: 0.6, scale: 0.9, svgOrigin: "680 590" }, { opacity: 1, scale: 1.15, svgOrigin: "680 590", duration: 0.7, yoyo: true, repeat: 7, ease: "sine.inOut" }, 19.45);
+        // the Christkind flies in
+        tl.fromTo("#a3Box", { opacity: 1, y: 860, rotation: -10 }, { opacity: 1, y: 0, rotation: 0, duration: 0.95, ease: "power3.out" }, 20.25);
+        flap("a3", 20.25, 11, 16);
+        haloBob("a3", 20.25, 3);
+        tl.to("#a3Box", { y: -18, duration: 0.7, ease: "sine.inOut", yoyo: true, repeat: 3 }, 21.2);
+        tl.to("#a3Box", { rotation: 7, duration: 0.25, ease: "sine.inOut", yoyo: true, repeat: 3 }, 22.5);
+        // presents fit under the tree now
+        ["#lf-ug0", "#lf-ug1", "#lf-ug2", "#lf-ug3"].forEach((g, i) => {
+          tl.fromTo(g, { opacity: 0, scale: 0, svgOrigin: `${[594, 688, 781, 642][i]} 1300` }, { opacity: 1, scale: 1, svgOrigin: `${[594, 688, 781, 642][i]} 1300`, duration: 0.45, ease: "back.out(2.6)" }, 21.05 + i * 0.12);
+        });
+        const HS = [[560, 1160], [700, 1150], [810, 1190], [620, 1110], [300, 640], [560, 600], [250, 820], [600, 860]];
+        HS.forEach(([x, y], i) => {
+          tl.fromTo("#hs" + i, { x: x - 22, y: y - 22, opacity: 0, scale: 0.2, rotation: 0 }, { opacity: 1, scale: 1, rotation: 90, duration: 0.35, ease: "back.out(2)" }, (i < 4 ? 21.1 : 20.9) + i * 0.09);
+          tl.to("#hs" + i, { opacity: 0, scale: 0.3, duration: 0.35, ease: "power2.in" }, (i < 4 ? 21.6 : 21.5) + i * 0.09);
+        });
+        tl.fromTo("#cap", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.5)" }, 21.5);
+        tl.fromTo("#capA", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: soft }, 21.65);
+        tl.fromTo("#capB", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: soft }, 21.85);
+        tl.to("#cap", { opacity: 0, y: 30, duration: 0.35, ease: "power2.in" }, 23.7);
+        // through the window into the night
+        tl.to("#homeZoom", { scale: 2.6, duration: 0.95, ease: "power3.in" }, 24.0);
+        tl.to("#home", { opacity: 0, duration: 0.45, ease: "power1.in" }, 24.5);
+
+        /* ============ 6 · the end card (24.6 – 32 s) ============ */
+        tl.set("#s6", { opacity: 1 }, 24.6);
+        tl.fromTo("#eA span", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, ease: soft, stagger: 0.07 }, 24.85);
+        tl.fromTo("#eB span", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, ease: soft, stagger: 0.09 }, 25.2);
+        tl.fromTo("#eC", { opacity: 0, scale: 1.2, filter: "blur(12px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 26.0);
+        // a small Christkind with sparkles
+        tl.fromTo("#a4Box", { opacity: 0, x: -340, y: 220, rotation: -16 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 1.0, ease: "power3.out" }, 25.4);
+        flap("a4", 25.4, 18, 16);
+        haloBob("a4", 25.4, 4);
+        tl.to("#a4Box", { y: -14, duration: 0.8, ease: "sine.inOut", yoyo: true, repeat: 5 }, 26.4);
+        const ES = [[250, 1125], [600, 1145], [220, 1305], [640, 1295], [420, 1075], [180, 1205], [680, 1215]];
+        ES.forEach(([x, y], i) => {
+          const p = 0.6 + (i % 3) * 0.18;
+          tl.fromTo("#es" + i, { x: x - 22, y: y - 22, opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: p, ease: "sine.inOut", yoyo: true, repeat: Math.max(0, Math.floor((32 - 25.9)) / p) }, 25.9 + i * 0.13);
+        });
+        // the search bar returns and becomes the logo
+        tl.fromTo("#logoCam", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.6, ease: soft }, 26.75);
+        tl.to("#phText", { maxWidth: 640, duration: 0.65, ease: "power1.inOut" }, 27.0);
+        tl.to("#mic", { scale: 0.9, duration: 0.12, ease: "power2.in" }, 27.55);
+        tl.to("#mic", { scale: 1, duration: 0.35, ease: soft }, 27.67);
+        tl.fromTo("#pulse", { scale: 1, opacity: 0.8 }, { scale: 1.45, opacity: 0, duration: 0.6, ease: soft }, 27.6);
+        const M = 28.0;
+        tl.to("#ph", { opacity: 0, x: -30, duration: 0.3, ease: "power2.in" }, M);
+        tl.to("#micIcon", { scale: 0.5, opacity: 0, duration: 0.3, ease: "power2.in" }, M + 0.05);
+        tl.to("#mic", { width: 310, duration: 0.6, ease: "power3.inOut" }, M + 0.15);
+        tl.fromTo("#searchPill", { x: -760, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: "expo.out" }, M + 0.2);
+        tl.fromTo("#band", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "expo.out" }, M + 0.45);
+        tl.fromTo("#searchTxt span", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: soft, stagger: 0.04 }, M + 0.4);
+        tl.fromTo("#aiTxt span", { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: soft, stagger: 0.07 }, M + 0.5);
+        tl.fromTo("#placeTxt span", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: soft, stagger: 0.04 }, M + 0.6);
+        tl.fromTo("#gloss", { opacity: 0, scaleX: 0.3 }, { opacity: 1, scaleX: 1, duration: 0.7, ease: soft }, M + 0.75);
+        tl.to("#sweep", { x: 1800, duration: 0.9, ease: "power2.inOut" }, M + 0.85);
+        tl.fromTo("#tag", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: soft }, 29.05);
+        tl.fromTo("#urlRow", { opacity: 0, y: 18, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(2)" }, 29.3);
+        tl.to("#urlSheen", { x: 420, duration: 0.8, ease: "power2.inOut" }, 29.8);
+        tl.to("#urlSheen", { x: -160, duration: 0.01 }, 30.7);
+        tl.to("#urlSheen", { x: 420, duration: 0.8, ease: "power2.inOut" }, 30.9);
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>
