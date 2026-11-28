@@ -5,7 +5,8 @@ Geschichte, Texte und Advent-Rahmen bleiben gleich, alles ist neu gezeichnet und
 
 - Format: 9:16, 1080 × 1920, 30 fps, 32 s, mit Ton
 - Rahmen: Nacht-Hintergrund mit Bokeh und Schneefall in mehreren Ebenen, Schneeverwehungen,
-  Tannenzweig mit Lichterkette und goldener Kugel „2“ (pendelt), Goldrahmen, Logo „searchplace“ oben rechts
+  Tannenzweig mit Lichterkette und goldener Kugel „2“ (pendelt), Goldrahmen, SearchPlace-Logo oben rechts
+  (das echte Logo; blendet aus, sobald am Ende das große Logo entsteht)
 - Alle Illustrationen als Vektorgrafik (assets/art.js): Christkind mit Ausdrücken (traurig, Träne,
   freudig, „Ooh“, skeptisch), Flügelschlag, Heiligenschein; Dachkammer; Traumwohnung; Kartenbilder
 

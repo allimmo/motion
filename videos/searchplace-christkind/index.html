@@ -1071,22 +1071,14 @@
       #brand {
         position: absolute;
         right: 96px;
-        top: 92px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-size: 46px;
-        font-weight: 600;
-        letter-spacing: -0.02em;
+        top: 98px;
+        width: 300px;
+        height: 76px;
       }
-      #brand svg {
+      #brand img {
         display: block;
-      }
-      #brand .w {
-        color: #ffffff;
-      }
-      #brand .c {
-        color: #5fd3e6;
+        width: 300px;
+        height: 76px;
       }
     </style>
   </head>
@@ -1238,12 +1230,7 @@
 
       <div id="goldFrame"></div>
       <div id="branch" data-layout-ignore></div>
-      <div id="brand" data-layout-allow-safe-zone>
-        <svg width="52" height="50" viewBox="0 0 52 50" fill="none">
-          <path d="M5 24 L26 6 L47 24 M11 19 V44 H41 V19" stroke="#5fd3e6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        <span><span class="w">search</span><span class="c">place</span></span>
-      </div>
+      <div id="brand" data-layout-allow-safe-zone><img src="assets/logo.png" alt="SearchPlace AI" /></div>
       <!-- original score + sound design, synthesised for this film (assets/music/compose_christkind_score.py) -->
       <audio id="score" src="assets/music/christkind-score.wav" data-start="0" data-duration="32" data-track-index="9" data-volume="1"></audio>
     </div>
@@ -1677,6 +1664,7 @@
         });
         // the search bar returns and becomes the logo
         tl.fromTo("#logoCam", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.6, ease: soft }, 26.75);
+        tl.to("#brand", { opacity: 0, y: -10, duration: 0.45, ease: "power2.in" }, 27.6);
         tl.to("#phText", { maxWidth: 640, duration: 0.65, ease: "power1.inOut" }, 27.0);
         tl.to("#mic", { scale: 0.9, duration: 0.12, ease: "power2.in" }, 27.55);
         tl.to("#mic", { scale: 1, duration: 0.35, ease: soft }, 27.67);
